@@ -1,0 +1,27 @@
+{
+  "before": {
+    "stories": 98,
+    "unique_full_texts": 98,
+    "repeated_sentence_patterns": 42,
+    "max_sentence_reuse": 24,
+    "word_range": [
+      74,
+      91
+    ]
+  },
+  "after": {
+    "stories": 98,
+    "unique_full_texts": 98,
+    "repeated_sentence_patterns": 0,
+    "max_sentence_reuse": 1,
+    "word_range": [
+      44,
+      112
+    ]
+  },
+  "corrected_era_labels": 80,
+  "preserved_relational_data": true,
+  "regeneration_matches": true,
+  "validation_assertions": 36116,
+  "note": "Synthetic fixture stories, editorially rewritten; voice variety is a qualitative review, not a measure of real people."
+}

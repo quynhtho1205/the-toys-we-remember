@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Independent assertions for the JSON on disk; fails with nonzero exit status."""
-import json, sys
+import json, sys, re
 from collections import Counter, defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -116,6 +116,16 @@ def validate(d):
     check(delivery_counts=={'A':23,'B':23},'A/B delivery counts')
     for group,clicks in [('A',2),('B',4)]:check(sum(e['event_name']=='followup_click' and e['ab_group']==group for e in events)==clicks,'A/B click counts')
     check(len(stories)==98 and len({s['story_text'] for s in stories})==98,'Story uniqueness')
+    # Unique whole stories alone do not catch recycled paragraphs.
+    sentences=Counter(' '.join(t.lower().split()) for story in stories
+        for t in re.split(r'(?<=[.!?])\s+',story['story_text']) if len(t.split())>=8)
+    check(not any(n>1 for n in sentences.values()),'Repeated story sentences')
+    openings=[re.split(r'(?<=[.!?])\s+',story['story_text'])[0].strip().lower() for story in stories]
+    check(len(set(openings))==len(openings),'Repeated story openings')
+    text_lengths={story['story_id']:len(story['story_text']) for story in stories}
+    for event in events:
+        if event.get('story_id') in text_lengths and 'story_length' in event:
+            check(event['story_length']==text_lengths[event['story_id']],'Story length event mismatch')
     check(Counter(s['card_status'] for s in stories)=={'success':93,'failed':5},'Final card outcomes')
     check(len([v for v in selected['memory_card_retry'] if v in selected['memory_card_create_success']])==4,'Recovered cards')
     ugc=[s for s in stories if s['submitted_to_community']]
@@ -124,6 +134,9 @@ def validate(d):
     for s in stories:
         check(s['visitor_id'] in bycustomer and s['session_id'] in bysession,'Invalid story owner/session')
         check(40<=len(s['story_text'].split())<=120,'Story word count')
+        year=int(s['period_year'])
+        expected_era='80s' if year<1990 else '90s' if year<2000 else '00s' if year<2010 else '10s'
+        check(s['era_category']==expected_era,'Story year/era mismatch')
         check(not s['featured'] or (s['ugc_usage_consent'] and s['community_status']=='approved'),'Featuring without permission/approval')
         check(not s['submitted_to_community'] or (s['ugc_usage_consent'] and s['card_status']=='success'),'UGC without permission/card')
     products={p['product_id']:p for p in d['products']};vouchers={v['code']:v for v in d['vouchers']}

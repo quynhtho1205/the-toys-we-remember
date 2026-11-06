@@ -19,6 +19,21 @@ def personalize(data):
     gallery=sorted((s for s in data['stories'] if s['community_status']=='approved' and s['ugc_usage_consent'] and s['submitted_to_community']),key=lambda s:(s['featured'],s['created_at']),reverse=True)
     assert len(set(mapping.values()))==400
     assert len({s['photo_url'] for s in gallery[:9]})==9
+    # Editorial fixture copy is canonical. Keep legacy generator random draws intact
+    # so story IDs, owners, themes and all campaign relationships remain reproducible.
+    copy=json.loads((ROOT/'scripts/campaign_story_copy.json').read_text())
+    assert set(copy)=={story['story_id'] for story in data['stories']}
+    for story in data['stories']:
+        entry=copy[story['story_id']]
+        assert entry['theme_id']==story['theme_id'], 'Story/theme mapping changed'
+        story['story_text']=entry['story_text']
+        year=int(story['period_year'])
+        story['era_category']='80s' if year<1990 else '90s' if year<2000 else '00s' if year<2010 else '10s'
+    lengths={story['story_id']:len(story['story_text']) for story in data['stories']}
+    for event in data['events']:
+        if event.get('story_id') in lengths and 'story_length' in event:
+            event['story_length']=lengths[event['story_id']]
+    data['metadata']['story_copy_version']='editorial-v2'
     return data
 
 if __name__=='__main__':

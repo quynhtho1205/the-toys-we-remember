@@ -6,7 +6,8 @@
     "file": "story006.webp",
     "generation": "Built-in image_gen",
     "style": "Vietnamese nostalgic childhood gouache illustration, landscape 3:2, story-specific scene, no text, logos or watermark.",
-    "scene_prompt": "Vietnamese childhood 1990: two children playing with handmade cardboard-box dollhouse, simple cloth dolls, small handmade paper furniture on tiled floor, old moving carton nearby, family home."
+    "scene_prompt": "Vietnamese childhood 1990: two children playing with handmade cardboard-box dollhouse, simple cloth dolls, small handmade paper furniture on tiled floor, old moving carton nearby, family home.",
+    "current_story_text": "Dọn nhà mới lòi ra cái thùng từng làm nhà búp bê của hai chị em. Cửa sổ do tôi cắt lệch, bàn ăn là nắp hộp, còn rèm bằng giấy gói quà. Hồi ấy chị cứ bắt khách phải gõ cửa mới được vào. Giờ nhìn cái cửa bé xíu vẫn nhớ giọng chị ra dáng chủ nhà."
   },
   {
     "story_id": "STORY015",
@@ -15,7 +16,8 @@
     "file": "story015.webp",
     "generation": "Built-in image_gen",
     "style": "Vietnamese nostalgic childhood gouache illustration, landscape 3:2, story-specific scene, no text, logos or watermark.",
-    "scene_prompt": "Vietnamese childhood 1994: father and child opening an old cardboard box rediscovering folded vintage property-trading board game and colorful paper money, setting out tokens together beside box in family home."
+    "scene_prompt": "Vietnamese childhood 1994: father and child opening an old cardboard box rediscovering folded vintage property-trading board game and colorful paper money, setting out tokens together beside box in family home.",
+    "current_story_text": "Tôi với bố mở thùng giấy cũ và tìm thấy bàn cờ tỷ phú gấp tư, đường gấp gần rách. Bố trải tiền màu ra, cho tôi chọn quân rồi giải thích từng ô. Tôi cứ mua chỗ có màu mình thích. Bố bảo vậy cũng được, miễn còn tiền đi tiếp; nghe như lời nhắc dành cho sau này."
   },
   {
     "story_id": "STORY019",
@@ -24,7 +26,8 @@
     "file": "story019.webp",
     "generation": "Built-in image_gen",
     "style": "Vietnamese nostalgic childhood gouache illustration, landscape 3:2, story-specific scene, no text, logos or watermark.",
-    "scene_prompt": "Vietnamese childhood 1996: older brother and younger sister building a colorful plastic brick house together, sturdy roof and little garden, scattered bricks on floor, sunny weekend."
+    "scene_prompt": "Vietnamese childhood 1996: older brother and younger sister building a colorful plastic brick house together, sturdy roof and little garden, scattered bricks on floor, sunny weekend.",
+    "current_story_text": "Anh trai phụ trách mái nhà, tôi chọn gạch làm vườn. Hai anh em ngồi dưới nền cả buổi cuối tuần, cứ tranh nhau miếng màu xanh cuối cùng. Cuối cùng anh dùng mái đỏ để nhường tôi cái cây. Nhà lắp xong hơi nghiêng, riêng khu vườn thì tôi chăm chút đến từng ô nhỏ."
   },
   {
     "story_id": "STORY028",
@@ -33,7 +36,8 @@
     "file": "story028.webp",
     "generation": "Built-in image_gen",
     "style": "Vietnamese nostalgic childhood gouache illustration, landscape 3:2, story-specific scene, no text, logos or watermark.",
-    "scene_prompt": "Vietnamese childhood 2003 birthday: homemade birthday cake next to a small gift of colorful building bricks, child and parent improvising a charming brick house with missing pieces, warm family table."
+    "scene_prompt": "Vietnamese childhood 2003 birthday: homemade birthday cake next to a small gift of colorful building bricks, child and parent improvising a charming brick house with missing pieces, warm family table.",
+    "current_story_text": "Sinh nhật năm đó có bánh mẹ làm và một hộp gạch nhỏ đặt bên cạnh. Tôi định lắp nhà giống hình nhưng thiếu miếng mái, mẹ ngồi cùng nghĩ cách đổi thành sân thượng. Tôi đặt một cái ghế ở trên để ngắm trời. Giờ nhớ lại, phần làm khác hướng dẫn lại là phần tôi thích nhất."
   },
   {
     "story_id": "STORY033",
@@ -42,7 +46,8 @@
     "file": "story033.webp",
     "generation": "Built-in image_gen",
     "style": "Vietnamese nostalgic childhood gouache illustration, landscape 3:2, story-specific scene, no text, logos or watermark.",
-    "scene_prompt": "Vietnamese childhood 2007: rainy summer afternoon family gathered on living room floor playing classic property-trading board game, father explaining move and letting child choose token, rain visible through window."
+    "scene_prompt": "Vietnamese childhood 2007: rainy summer afternoon family gathered on living room floor playing classic property-trading board game, father explaining move and letting child choose token, rain visible through window.",
+    "current_story_text": "Mưa suốt buổi chiều, bố trải bàn cờ tỷ phú giữa phòng khách. Tôi được chọn quân trước nhưng vẫn thua vì mua quá nhiều đất. Bố không cho vay thêm, chỉ giải thích vì sao cần để dành tiền. Ngoài cửa trời cứ mưa, trong nhà tôi ngồi thương lượng xin bán lại miếng đất với giá cao hơn."
   },
   {
     "story_id": "STORY047",
@@ -51,7 +56,8 @@
     "file": "story047.webp",
     "generation": "Built-in image_gen",
     "style": "Vietnamese nostalgic childhood gouache illustration, landscape 3:2, story-specific scene, no text, logos or watermark.",
-    "scene_prompt": "Vietnamese childhood 2007: child proudly transforming colorful plastic building-block toy car into a ship, partially assembled ship with wheels from original car visible nearby, family playing together on floor."
+    "scene_prompt": "Vietnamese childhood 2007: child proudly transforming colorful plastic building-block toy car into a ship, partially assembled ship with wheels from original car visible nearby, family playing together on floor.",
+    "current_story_text": "Tháo bánh xe, nối thêm mũi nhọn: xong, thành tàu biển! Tôi bê ra khoe cả nhà. Mẹ hỏi có nổi không, tôi thử trong chậu rồi vội vớt lên. Tàu chìm nghỉm. Đành lau khô, cho chạy trên sàn; vẫn nhận là tàu nhé."
   },
   {
     "story_id": "STORY063",
@@ -60,7 +66,8 @@
     "file": "story063.webp",
     "generation": "Built-in image_gen",
     "style": "Vietnamese nostalgic childhood gouache illustration, landscape 3:2, story-specific scene, no text, logos or watermark.",
-    "scene_prompt": "Vietnamese countryside childhood 1993: two friends assembling handmade paper kite using thin bamboo sticks, glue and long colorful paper tail in courtyard, safe craft materials, warm afternoon."
+    "scene_prompt": "Vietnamese countryside childhood 1993: two friends assembling handmade paper kite using thin bamboo sticks, glue and long colorful paper tail in courtyard, safe craft materials, warm afternoon.",
+    "current_story_text": "Tôi với thằng bạn mất cả chiều để làm diều, tranh luận mãi cái đuôi nên dài đến đâu. Tre đã được người lớn chẻ sẵn, bọn tôi chỉ buộc và dán giấy. Mang ra sân thì diều nghiêng một bên. Cắt bớt đuôi, chỉnh lại dây, thử vài lượt mới lên. Hai đứa cùng giữ cuộn dây nên chẳng ai nhận công riêng được."
   },
   {
     "story_id": "STORY075",
@@ -69,7 +76,8 @@
     "file": "story075.webp",
     "generation": "Built-in image_gen",
     "style": "Vietnamese nostalgic childhood gouache illustration, landscape 3:2, story-specific scene, no text, logos or watermark.",
-    "scene_prompt": "Vietnamese childhood 1992: an older sister lovingly handing a slightly faded cloth doll to younger sibling who carefully places it into a clean cotton drawstring bag, family home."
+    "scene_prompt": "Vietnamese childhood 1992: an older sister lovingly handing a slightly faded cloth doll to younger sibling who carefully places it into a clean cotton drawstring bag, family home.",
+    "current_story_text": "Chị đưa tôi con búp bê vải khi chị bắt đầu đi học xa. Áo nó bạc màu, một bên má có chấm mực không tẩy được. Tôi bỏ vào túi vải sạch, mỗi lần lấy ra đều vuốt lại váy. Chị về hỏi còn giữ không, tôi đem cả túi ra khoe chứ chẳng nói câu nào."
   },
   {
     "story_id": "STORY085",
@@ -78,6 +86,7 @@
     "file": "story085.webp",
     "generation": "Built-in image_gen",
     "style": "Vietnamese nostalgic childhood gouache illustration, landscape 3:2, story-specific scene, no text, logos or watermark.",
-    "scene_prompt": "Vietnamese childhood 2001: cherished worn teddy bear sitting beside a pillow on a child's wooden bed, school bag and notebooks nearby, child gently telling teddy about school."
+    "scene_prompt": "Vietnamese childhood 2001: cherished worn teddy bear sitting beside a pillow on a child's wooden bed, school bag and notebooks nearby, child gently telling teddy about school.",
+    "current_story_text": "Con gấu ngồi cạnh gối là người nghe tôi kể chuyện ở lớp. Hôm được điểm tốt kể, hôm cãi nhau với bạn cũng kể. Nó chẳng trả lời nên tôi tự nghĩ ra câu đáp hộ. Có buổi kể xong tự thấy mình sai rồi hôm sau xin lỗi bạn. Gấu cũ rồi, chỗ lông dưới cằm bị vuốt nhẵn cả.\n\nKhông phải câu chuyện nào cũng quan trọng đâu, nhiều hôm chỉ kể bữa trưa có món gì. Đến khi lớn hơn, tôi bắt đầu viết nhật ký thay vì nói với gấu. Vậy mà mỗi lần dọn giường vẫn để nó ngồi ngay ngắn, không nỡ úp mặt xuống."
   }
 ]
