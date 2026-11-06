@@ -33,6 +33,20 @@ def personalize(data):
     for event in data['events']:
         if event.get('story_id') in lengths and 'story_length' in event:
             event['story_length']=lengths[event['story_id']]
+    # Fifteen fictional Zalo requests, distinct from legacy/manual CRM records.
+    from datetime import datetime, timedelta, timezone
+    requests=json.loads((ROOT/'scripts/zalo_consultation_copy.json').read_text())
+    assert len(requests)==15 and len({r['question'] for r in requests})==15
+    crm=data['crm']
+    crm['consultations']=[c for c in crm['consultations'] if not c['id'].startswith('ZALO_DEMO_')]
+    for i,(family,entry) in enumerate(zip(crm['families'],requests)):
+        child=next(c for c in crm['children'] if c['familyId']==family['id'])
+        created=datetime(2026,12,26,9,0,tzinfo=timezone(timedelta(hours=7)))+timedelta(minutes=i*37)
+        row=dict(entry,id=f'ZALO_DEMO_{i+1:02}',familyId=family['id'],childId=child['id'],createdAt=created.isoformat(),consultationConsentAt=(created-timedelta(seconds=15)).isoformat(),contactLabel=f'Zalo demo •••{8101+i}',origin='mock-zalo-v1')
+        row.setdefault('owner','')
+        if row['status']!='pending':row['acceptedAt']=(created+timedelta(minutes=8+i*3)).isoformat()
+        crm['consultations'].append(row)
+    data['metadata']['zalo_consultation_version']='v1'
     data['metadata']['story_copy_version']='editorial-v2'
     return data
 
