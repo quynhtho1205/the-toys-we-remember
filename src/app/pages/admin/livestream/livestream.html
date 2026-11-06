@@ -175,7 +175,7 @@
 
     @if (draft(); as d) {
       <div class="draft">
-        <h3>{{d.format === 'video' ? 'Kịch bản video' : 'Bài post'}} · {{d.group}}</h3>
+        <div class="action-row"><h3>{{d.format === 'video' ? 'Kịch bản video' : 'Bài post'}} · {{d.group}}</h3><button (click)="scheduleDraft(scheduler,'comments')">Lên lịch đăng bài →</button></div>
         <label>Tiêu đề<input [(ngModel)]="d.title"></label>
         <label>Câu mở đầu<textarea [(ngModel)]="d.hook" rows="2"></textarea></label>
         <label>{{d.format === 'video' ? 'Kịch bản theo phân cảnh' : 'Nội dung bài post'}}<textarea [(ngModel)]="d.outline" rows="12"></textarea></label>
@@ -196,7 +196,7 @@
   </section>
 
   <section class="box">
-  <h2>Ý tưởng đã lưu</h2>
+  <div class="action-row"><h2>Ý tưởng đã lưu</h2><button class="secondary" (click)="setSubtab('schedule')">Xem lịch đăng bài →</button></div>
   <details [open]="activeSubtab() === 'comments'">
     <summary>Từ bình luận · {{savedForMode().length}}</summary>
     @for (d of savedForMode(); track d.id) {
