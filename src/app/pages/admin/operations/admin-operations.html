@@ -33,13 +33,53 @@
  }
  @case ('automation') {
   <div class="info"><b>Chế độ mô phỏng:</b> Không gửi Zalo/email ra ngoài. Các lần mô phỏng lưu riêng, không làm tăng follow-up CTR hoặc doanh thu trên Tổng quan.</div>
-  <div class="columns"><section class="box"><h2>Nội dung follow-up</h2><p class="hint">A: tin chung · B: theo chủ đề ký ức. Ưu tiên Zalo nếu khách đăng ký Zalo, còn lại dùng email.</p><label>Nhóm A<textarea [(ngModel)]="settingsDraft.templateA" rows="4" maxlength="1500"></textarea></label><label>Nhóm B<textarea [(ngModel)]="settingsDraft.templateB" rows="4" maxlength="1500"></textarea></label><p class="hint">Dùng &#123;theme&#125; để chèn tên chủ đề.</p><button (click)="saveTemplates()">Lưu mẫu tin</button></section>
-  <section class="box"><span class="sticker">WORKFLOW RULES</span><h2>Điều kiện kích hoạt</h2><ul class="rules"><li>Đã đồng ý nhận tin và có kênh liên hệ hợp lệ.</li><li>Mỗi khách một kênh cho mỗi lần kích hoạt.</li><li>Tối đa {{store.settings().dailyLimit}} tin/ngày, {{store.settings().weeklyLimit}} tin/7 ngày.</li><li>Đã bấm follow-up: chặn tin nhắc lại.</li><li>Hủy consent: dừng ngay trên mọi kênh.</li></ul><h3>SQL chờ tư vấn: {{handoffs().length}}</h3>@for(c of handoffs();track c.id){<p>{{short(c.id)}} · {{theme(c.theme)}} <button class="secondary" (click)="openCustomer(c)">Ghi chú</button></p>}@empty{<p class="hint">Chưa có SQL chưa mua quá 24 giờ.</p>}</section></div>
-  <section class="box"><h2>Kiểm tra luồng theo khách</h2><div class="scroll"><table><thead><tr><th>Khách</th><th>Kênh</th><th>Consent</th><th>Nhóm</th><th></th></tr></thead><tbody>@for(c of eligibleCustomers().slice(0,30);track c.id){<tr><td>{{short(c.id)}}<small>{{c.stage}} · {{theme(c.theme)}}</small></td><td>{{c.contactType}}</td><td>{{c.consent?'Đã đồng ý':'Đã hủy / Chưa đồng ý'}}</td><td>{{c.group}}</td><td><button class="secondary" (click)="simulate(c)">Chạy mô phỏng</button></td></tr>}@empty{<tr><td colspan="5" class="empty">Chưa có Lead để kiểm tra workflow.</td></tr>}</tbody></table></div><p class="hint">Hiển thị tối đa 30 khách gần nhất trong bộ lọc.</p></section>
+  <div class="columns automation-layout">
+    <section class="box">
+      <span class="sticker">01 · SOẠN NỘI DUNG</span>
+      <h2 class="section-title">Mẫu tin chăm sóc</h2>
+      <p class="hint">Chuẩn bị hai mẫu để so sánh hiệu quả. Khi chạy thử, hệ thống dùng mẫu theo nhóm của khách.</p>
+      <label>Nhóm A · Tin nhắn chung<textarea [(ngModel)]="settingsDraft.templateA" rows="4" maxlength="1500"></textarea></label>
+      <label>Nhóm B · Theo sở thích của khách<textarea [(ngModel)]="settingsDraft.templateB" rows="4" maxlength="1500"></textarea></label>
+      <p class="hint">Chèn <code>&#123;theme&#125;</code> vào mẫu để tự điền chủ đề, ví dụ “Lắp ghép”.</p>
+      <button (click)="saveTemplates()">Lưu mẫu tin</button>
+    </section>
+    <section class="box">
+      <span class="sticker">02 · KIỂM TRA ĐIỀU KIỆN</span>
+      <h2 class="section-title">Khi nào khách nhận tin?</h2>
+      <p class="hint">Mỗi lần chạy thử, hệ thống kiểm tra các điều kiện dưới đây. Không đủ điều kiện thì chặn tin và báo lý do.</p>
+      <ol class="workflow-steps">
+        <li><span class="step-number">1</span><div><strong>Khách cho phép liên hệ</strong><p>Đã đồng ý nhận tin và đăng ký kênh Zalo hoặc email hợp lệ.</p></div></li>
+        <li><span class="step-number">2</span><div><strong>Chưa vượt số tin cho phép</strong><p>Mỗi khách tối đa {{store.settings().dailyLimit}} tin/ngày và {{store.settings().weeklyLimit}} tin trong 7 ngày. Mỗi lần chỉ dùng một kênh liên hệ.</p></div></li>
+        <li><span class="step-number">3</span><div><strong>Dừng nhắc khi khách đã phản hồi</strong><p>Khách đã bấm vào tin chăm sóc sẽ không nhận tin nhắc lại. Nếu hủy đồng ý nhận tin, dừng trên mọi kênh.</p></div></li>
+      </ol>
+      <p class="workflow-note"><strong>Đang chạy thử</strong><br>Chỉ tạo bản xem trước và kết quả kiểm tra; không gửi tin thật cho khách.</p>
+    </section>
+  </div>
+  <section class="box handoff-panel">
+    <div class="box-head"><div><span class="sticker">03 · TƯ VẤN TIẾP</span><h2 class="section-title">Khách cần được tư vấn</h2></div><span class="badge">{{handoffs().length}} khách</span></div>
+    <p class="hint">Khách đã có nhu cầu mua (SQL) nhưng chưa mua sau ít nhất 24 giờ. Chọn khách để ghi lại người phụ trách và bước chăm sóc tiếp theo.</p>
+    <ul class="handoff-list">
+      @for(c of handoffs();track c.id){
+        <li class="handoff-row" [class.is-selected]="selectedCustomer()===c.id">
+          <div class="handoff-customer"><strong>{{short(c.id)}}</strong><span>{{theme(c.theme)}}</span></div>
+          <button class="secondary" [attr.aria-label]="'Ghi chú tư vấn cho khách '+short(c.id)" [attr.aria-expanded]="selectedCustomer()===c.id" (click)="openCustomer(c)">Ghi chú <span aria-hidden="true">→</span></button>
+          @if(currentCustomer()?.id===c.id){
+            <div class="handoff-editor">
+              <div class="box-head"><h3>Ghi chú cho {{short(c.id)}}</h3><button class="secondary" (click)="selectedCustomer.set('')">Đóng</button></div>
+              <label>Người phụ trách<input [(ngModel)]="noteOwner" maxlength="80" placeholder="Tên thành viên tư vấn"></label>
+              <label>Nội dung tư vấn<textarea [(ngModel)]="noteText" maxlength="1000" rows="3" placeholder="Khách cần gì? Bước tiếp theo là gì?"></textarea></label>
+              <button (click)="saveNote()">Lưu ghi chú</button>
+            </div>
+          }
+        </li>
+      }@empty{<li class="empty">Chưa có khách cần tư vấn tiếp trong bộ lọc này.</li>}
+    </ul>
+  </section>
+  <section class="box"><h2>Chạy thử tin chăm sóc</h2><div class="scroll"><table><thead><tr><th>Khách</th><th>Kênh</th><th>Consent</th><th>Nhóm</th><th></th></tr></thead><tbody>@for(c of eligibleCustomers().slice(0,30);track c.id){<tr><td>{{short(c.id)}}<small>{{c.stage}} · {{theme(c.theme)}}</small></td><td>{{c.contactType}}</td><td>{{c.consent?'Đã đồng ý':'Đã hủy / Chưa đồng ý'}}</td><td>{{c.group}}</td><td><button class="secondary" (click)="simulate(c)">Chạy mô phỏng</button></td></tr>}@empty{<tr><td colspan="5" class="empty">Chưa có khách để chạy thử tin chăm sóc.</td></tr>}</tbody></table></div><p class="hint">Hiển thị tối đa 30 khách gần nhất trong bộ lọc.</p></section>
   @if(tracking.mode()==='mock'){<section class="box"><h2>Lịch sử follow-up</h2><div class="scroll"><table><thead><tr><th>Mã tin / Khách</th><th>Thời gian</th><th>Kênh / Nhóm</th><th>Trạng thái</th><th>Nội dung</th></tr></thead><tbody>@for(f of followupRows();track f.message_id){<tr><td>{{f.message_id}}<small>{{nickname(f.visitor_id)}}</small></td><td>{{f.triggered_at | date:'dd/MM HH:mm':'+0700'}}</td><td>{{f.channel||'—'}} · {{f.ab_group||'—'}}</td><td>{{f.status==='delivered'?'Đã đến':'Đã chặn'}}<small>{{f.clicked_at?'Đã click':f.opened_at?'Đã mở':f.block_reason||''}}</small></td><td>{{f.body||f.block_reason}}</td></tr>}@empty{<tr><td colspan="5" class="empty">Không có tin phù hợp với bộ lọc.</td></tr>}</tbody></table></div></section>}
   <section class="box"><h2>Lịch sử chạy thử gần nhất</h2><div class="scroll"><table><thead><tr><th>Thời gian</th><th>Khách / Kênh</th><th>Kết quả</th><th>Nội dung xem trước</th></tr></thead><tbody>@for(r of recentRuns();track r.id){<tr><td>{{r.timestamp | date:'dd/MM HH:mm':'+0700'}}</td><td>{{short(r.visitorId)}}<small>{{r.channel}} · {{r.group}}</small></td><td><span class="badge" [class.green]="r.status==='simulated'">{{label(r.status)}}</span><small>{{r.reason}}</small></td><td>{{r.body}}</td></tr>}@empty{<tr><td colspan="4" class="empty">Chưa chạy mô phỏng.</td></tr>}</tbody></table></div></section>
   <section class="box"><h2>Kết quả A/B từ event thực tế</h2><div class="scroll"><table><thead><tr><th>Nhóm</th><th>Lead</th><th>Tin đã đến</th><th>Lượt click</th><th>CTR</th></tr></thead><tbody>@for(r of abRows();track r.group){<tr><td>{{r.group}}</td><td>{{r.leads}}</td><td>{{r.delivered}}</td><td>{{r.clicked}}</td><td>{{r.rate}}</td></tr>}</tbody></table></div><p class="hint">CTR tính từ event delivered và click của nguồn dữ liệu đang chọn. Log chạy thử lưu riêng và không cộng vào chỉ số này.</p></section>
-  @if(currentCustomer();as c){<section class="box"><h2>Ghi chú bàn giao {{short(c.id)}}</h2><label>Người phụ trách<input [(ngModel)]="noteOwner" maxlength="80"></label><label>Ghi chú<textarea [(ngModel)]="noteText" maxlength="1000"></textarea></label><button (click)="saveNote()">Lưu ghi chú</button></section>}
+
  }
  @case ('orders') {
   <div class="info">Chỉ giao dịch purchase hoặc voucher_redeem đã ghi nhận mới xuất hiện; click mở website MyKingdom không phải đơn hàng.</div>
