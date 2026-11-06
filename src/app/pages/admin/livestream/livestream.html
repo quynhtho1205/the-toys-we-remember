@@ -201,7 +201,7 @@
       <article>
         <small>{{d.format === 'post' ? 'Bài post' : 'Video'}} · {{d.channel || 'all'}} · {{d.group}}</small>
         <h3>{{d.title}}</h3><p>{{d.hook}}</p>
-        <p class="saved-outline">{{d.outline}}</p><p>{{d.cta}}</p>
+        <p class="saved-outline">{{d.outline}}</p>@if(d.visualDirection){<details><summary>Gợi ý hình ảnh / cách quay video</summary><p class="saved-outline">{{d.visualDirection}}</p></details>}<p>{{d.cta}}</p>
       </article>
     } @empty { <p>Chưa lưu ý tưởng nào.</p> }
   </details>
@@ -211,7 +211,7 @@
       <article class="saved-card">
         <small>{{d.format === 'post' ? 'Bài post' : 'Video (' + (d.duration || 60) + 's)'}} · {{d.insightTitle}} · {{d.createdAt | date:'dd/MM/yyyy HH:mm':'+0700'}}</small>
         <h3>{{d.title}}</h3><p>{{d.hook}}</p>
-        <p class="saved-outline">{{d.outline}}</p><p>{{d.cta}}</p>
+        <p class="saved-outline">{{d.outline}}</p>@if(d.visualDirection){<details><summary>Gợi ý hình ảnh / cách quay video</summary><p class="saved-outline">{{d.visualDirection}}</p></details>}<p>{{d.cta}}</p>
       </article>
     } @empty { <p>Chưa có bản nháp ký ức nào.</p> }
   </details>
@@ -266,8 +266,8 @@
     @for(i of rankedInsights();track i.id;let first=$first){
      <article class="focused-insight" [class.leading-insight]="first">
       <div class="insight-heading"><div>@if(first){<span class="insight-label">ĐƯỢC NHẮC ĐẾN NHIỀU NHẤT</span>}<h3>{{insightHeading(i)}}</h3></div><span class="insight-count">{{i.storyCount}}/{{res.eligibleStoryCount}} câu chuyện</span></div>
-      <p>{{insightMeaning(i)}}</p>
-      <p class="content-direction"><strong>Gợi ý nội dung</strong><br>{{i.contentIdeas[0]?.title || i.title}}</p>
+      <p class="insight-explanation">{{insightMeaning(i)}}</p>
+      <div class="content-direction"><span class="direction-label">Ý TƯỞNG ĐỂ TRIỂN KHAI</span><strong>{{i.contentIdeas[0]?.title || i.title}}</strong></div>
       <div class="insight-actions"><button [disabled]="galleryStale()" (click)="beginGalleryContent(i.id);editorDialog.showModal()">Tạo nội dung →</button></div>
       <details><summary>Xem dẫn chứng ({{i.evidence.length}} câu chuyện)</summary>@for(ev of i.evidence;track ev.storyId){<blockquote><b>{{ev.nickname}} · {{ev.year}}</b><p>“{{ev.excerpt}}”</p><button class="quiet-button" (click)="openStoryById(ev.storyId)">Xem câu chuyện đầy đủ</button></blockquote>}</details>
      </article>
@@ -278,7 +278,7 @@
         <small>{{d.format === 'post' ? 'Bài post' : 'Video (' + (d.duration || 60) + 's)'}} · {{d.insightTitle}} · {{d.createdAt | date:'dd/MM/yyyy HH:mm':'+0700'}}</small>
         <h3>{{d.title}}</h3>
         <p><b>Hook:</b> {{d.hook}}</p>
-        <p class="saved-outline">{{d.outline}}</p>
+        <p class="saved-outline">{{d.outline}}</p>@if(d.visualDirection){<details><summary>Gợi ý hình ảnh / cách quay video</summary><p class="saved-outline">{{d.visualDirection}}</p></details>}
         <p><b>CTA:</b> {{d.cta}}</p>
       </article>
     } @if (!gallerySavedForMode().length) {
@@ -329,6 +329,7 @@
       <label>{{d.format === 'video' ? 'Kịch bản theo phân cảnh' : 'Nội dung bài viết'}}
         <textarea [(ngModel)]="d.outline" rows="12"></textarea></label>
       <label>Lời kêu gọi hành động<textarea [(ngModel)]="d.cta" rows="2"></textarea></label>
+      <label class="visual-brief">Gợi ý hình ảnh / cách quay video<textarea [(ngModel)]="d.visualDirection" rows="7" maxlength="6000"></textarea></label>
       <p class="hint">Đây là bản nháp, chưa xuất bản. Số liệu không đại diện toàn bộ khách hàng.</p>
       <div class="action-row">
         <button (click)="saveGalleryDraft();!galleryDraft() && editorDialog.close()">Lưu bản nháp</button>

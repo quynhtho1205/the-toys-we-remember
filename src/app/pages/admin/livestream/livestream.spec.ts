@@ -221,9 +221,15 @@ describe('Livestream & Gallery subtabs integration', () => {
     expect(page.galleryDraft()?.format).toBe('post');
     expect(page.galleryDraft()?.evidence[0].storyId).toBe(story.id);
 
+    expect(page.galleryDraft()?.visualDirection).toContain('4:5');
+    page.galleryDraft()!.visualDirection='Hướng dẫn hình ảnh đã chỉnh';
     // Save draft
     page.saveGalleryDraft();
     expect(page.gallerySavedForMode()).toHaveLength(1);
+    expect(page.gallerySavedForMode()[0].visualDirection).toBe('Hướng dẫn hình ảnh đã chỉnh');
+    page.proposeGallery(insightId,'video',30);
+    expect(page.galleryDraft()?.visualDirection).toContain('9:16 · 30 giây');
+    expect(page.galleryDraft()?.visualDirection).toContain('24–30s');
 
     // Story dialog preview
     page.openStoryDialog(story);

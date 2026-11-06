@@ -228,6 +228,7 @@ export class Livestream {
     hook: string;
     outline: string;
     cta: string;
+    visualDirection: string;
     evidence: StoryEvidence[];
   } | null>(null);
 
@@ -484,6 +485,20 @@ export class Livestream {
     }
   }
 
+  galleryVisualDirection(id:string,format:'post'|'video',duration:number){
+    const scenes:Record<string,string>={
+      family_play:'Cha mẹ và con ngồi trên thảm, cùng lắp một món đồ chơi; cận cảnh bàn tay cùng hoàn thành một chi tiết.',
+      siblings_friends:'Hai anh chị em hoặc bạn bè chuyền tay món đồ chơi cũ; chuyển sang cảnh cùng chơi và chia sẻ.',
+      creative_craft:'Bàn thủ công với giấy màu, bìa và mảnh ghép; ghi lại từng bước từ vật liệu đến món đồ tự làm.',
+      nostalgia_reconnect:'Một người lớn mở hộp đồ chơi cũ, nhìn lại món đồ rồi ngồi kể chuyện cho con.',
+      emotional_value:'Món đồ chơi sờn màu đặt cạnh khoảnh khắc gia đình cùng cười và chơi; tập trung vào biểu cảm hơn giá tiền.'
+    };
+    const scene=scenes[id]||'Một món đồ chơi gắn với ký ức và khoảnh khắc chơi cùng người thân.';
+    if(format==='post')return 'Ý tưởng hình ảnh: '+scene+'\nBố cục: ảnh dọc 4:5, một chủ thể chính; chừa khoảng trống phía trên cho câu mở đầu.\nMàu sắc: ánh sáng tự nhiên, tông kem ấm; điểm nhấn vàng đồng bộ campaign.\nChữ trên ảnh: rút câu mở đầu còn 6–10 từ; logo nhỏ ở góc, tránh che khuôn mặt.\nTư liệu: dùng ảnh được cấp quyền hoặc dàn dựng minh họa; không trình bày cảnh dàn dựng như ảnh thật của người kể.';
+    const first=Math.round(duration*.2),last=Math.round(duration*.8);
+    return 'Định dạng: video dọc 9:16 · '+duration+' giây.\n0–'+first+'s · Mở đầu: cận cảnh món đồ chơi, hiện câu mở đầu ngắn.\n'+first+'–'+last+'s · Câu chuyện: '+scene+' Xen kẽ cảnh toàn và cận, giữ mỗi cảnh 2–4 giây.\n'+last+'–'+duration+'s · Kết: khoảnh khắc cùng chơi, hiện lời kêu gọi hành động.\nÂm thanh: lời kể tự nhiên, nhạc nhẹ có quyền sử dụng; thêm phụ đề dễ đọc.\nTư liệu: dùng cảnh được cấp quyền hoặc quay minh họa; không gán cảnh dàn dựng cho người kể thật.';
+  }
+
   proposeGallery(insightId: string, format?: 'post' | 'video', duration?: number) {
     const res = this.galleryResult();
     if (!res || this.galleryStale()) return;
@@ -510,6 +525,7 @@ export class Livestream {
       hook: idea?.hook || insight.summary,
       outline: idea?.outline || insight.summary,
       cta: idea?.cta || 'Khám phá ký ức tuổi thơ tại MyKingdom!',
+      visualDirection: this.galleryVisualDirection(insight.id,fmt,dur),
       evidence: insight.evidence.slice(0, 3),
     });
 
@@ -547,7 +563,7 @@ export class Livestream {
     const d = this.galleryDraft();
     if (!d) return;
     try {
-      await navigator.clipboard.writeText([d.title, d.hook, d.outline, d.cta].join('\n\n'));
+      await navigator.clipboard.writeText([d.title, d.hook, d.outline, d.cta, 'Gợi ý hình ảnh / cách quay video\n'+d.visualDirection].join('\n\n'));
       this.message.set('Đã sao chép bản nháp nội dung.');
     } catch {
       this.message.set('Không sao chép được. Bạn có thể chọn và sao chép nội dung trong các ô.');
