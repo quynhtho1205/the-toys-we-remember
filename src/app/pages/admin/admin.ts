@@ -84,9 +84,16 @@ export class Admin {
    (this.device()==='all'||e.device===this.device()) &&
    (!this.from() || this.day(e.timestamp)>=this.from())));
  readonly stats = computed(()=>analyze(this.filtered(),this.history()));
+ readonly consentTotal=computed(()=>{
+    const r=this.stats().consentRows;
+    const shown=r.reduce((n,x)=>n+x.shown,0),granted=r.reduce((n,x)=>n+x.granted,0);
+    return {shown,granted,rate:ratio(granted,shown)};
+    });
  readonly matching = computed(()=>[...this.filtered()].reverse().filter(e=>
-   `${e.event_name} ${e.visitor_id} ${e.session_id} ${e.user_id||''}`.toLowerCase().includes(this.search().toLowerCase())));
+   `${e.event_name} ${this.eventLabel(e.event_name)} ${e.visitor_id} ${e.session_id} ${e.user_id||''}`.toLowerCase().includes(this.search().toLowerCase())));
  readonly rows = computed(()=>this.matching().slice(this.page()*15,this.page()*15+15));
+ readonly logOpen=signal(false);
+ readonly shownRows=computed(()=>this.logOpen()?this.rows():this.matching().slice(0,5));
  readonly lastUpdate = computed(()=>this.tracking.events().at(-1)?.timestamp);
  readonly finance=computed(()=>{
   const data=this.tracking.mode()==='mock'?this.tracking.dataset():null;
@@ -120,6 +127,20 @@ export class Admin {
  label(value:string) {
    return ({gach_lego:'Lắp ghép',bup_be:'Búp bê & thú bông',board_game:'Trò chơi bàn',canh_dieu:'Ngoài trời',lap_ghep:'Lắp ghép',tro_choi_ban:'Trò chơi bàn',ngoai_troi:'Ngoài trời',create:'Sau tạo card',share:'Khi chia sẻ',connect:'Trang cộng đồng'} as Record<string,string>)[value] || value;
  }
+ eventLabel(name:string){
+ return ({
+  campaign_link_click:'Bấm link campaign',
+  session_start:'Bắt đầu phiên truy cập',
+  landing_page_view:'Xem trang chủ',
+  memory_theme_select:'Chọn chủ đề ký ức',
+  story_form_start:'Bắt đầu kể chuyện',
+  story_submit:'Gửi câu chuyện',
+  memory_card_create:'Tạo Memory Card',
+  collection_view:'Xem bộ sưu tập',
+  purchase:'Mua hàng',
+  voucher_redeem:'Dùng voucher',
+ } as Record<string,string>)[name] || name;
+}
  scrollTo(id:string,event:Event) { event.preventDefault();document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
  reset() { this.source.set('all');this.device.set('all');this.from.set('');this.to.set('');this.search.set('');this.page.set(0); }
  exportCsv() {

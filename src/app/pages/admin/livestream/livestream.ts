@@ -211,6 +211,7 @@ export class Livestream {
 
   readonly galleryResult = signal<GalleryAnalysisResult | null>(null);
   readonly galleryLastAnalyzedCount = signal(0);
+  readonly galleryLastAnalyzedIds = signal<string>('');
   readonly galleryDraft = signal<{
     insightId: string;
     insightTitle: string;
@@ -258,7 +259,8 @@ export class Livestream {
 
   readonly galleryStale = computed(() => {
     if (!this.galleryResult()) return false;
-    return this.filteredGalleryStories().length !== this.galleryLastAnalyzedCount();
+    const ids = this.filteredGalleryStories().map((s) => s.id).sort().join('|');
+    return ids !== this.galleryLastAnalyzedIds();
   });
 
   constructor() {
@@ -455,14 +457,19 @@ export class Livestream {
       this.message.set('Không có câu chuyện nào đủ điều kiện trong phạm vi lọc.');
       return;
     }
-    const res = analyzeGalleryStories(stories, {
-      themeId: this.galleryTheme(),
-      eraCategory: this.galleryEra(),
-      from: this.galleryFrom(),
-      to: this.galleryTo(),
-    });
+    const res = analyzeGalleryStories(
+      stories,
+      {
+        themeId: this.galleryTheme(),
+        eraCategory: this.galleryEra(),
+        from: this.galleryFrom(),
+        to: this.galleryTo(),
+      },
+      this.mode() as 'mock' | 'live'
+    );
     this.galleryResult.set(res);
     this.galleryLastAnalyzedCount.set(stories.length);
+    this.galleryLastAnalyzedIds.set(stories.map((s) => s.id).sort().join('|'));
     this.galleryDraft.set(null);
     this.message.set(`Đã phân tích ${res.eligibleStoryCount} câu chuyện Gallery đã được duyệt.`);
     if (res.insights.length) {

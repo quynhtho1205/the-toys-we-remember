@@ -74,7 +74,7 @@ const CLUSTER_DEFS: ClusterDef[] = [
     summary:
       'Ký ức đậm nét về sự đồng hành của người lớn (bố mẹ, ông bà) trong những buổi chiều bình yên; người kể bày tỏ rõ mong muốn dành thời gian chơi cùng con hôm nay để tạo kỷ niệm gia đình.',
     category: 'emotion',
-    regex: /\b(choi cung con|bo|ba|me|ca nha|gia dinh|ong|nha ba|dong hanh)\b/i,
+    regex: /\b(choi cung con|cho con|bo me|ba me|cha me|bo toi|me toi|ba toi|ca nha|gia dinh|ong ba|ong noi|ong ngoai|ba noi|ba ngoai|dong hanh)\b/,
     generateIdeas: (evidence, total, themeBreakdown) => [
       {
         format: 'video',
@@ -118,7 +118,7 @@ const CLUSTER_DEFS: ClusterDef[] = [
     summary:
       'Đồ chơi là sợi dây kết nối bạn bè cùng xóm và anh chị em trong nhà; những món đồ chơi sờn màu được trao lại hoặc chuyền tay mang giá trị cảm xúc đặc biệt sâu đậm.',
     category: 'experience',
-    regex: /\b(anh|chi|trao lai|ban trong xom|ban goi|tui toi|chung toi|ban be|nhom ban|chuyen tay|san nha)\b/i,
+    regex: /\b(anh trai|chi gai|em trai|em gai|anh em|chi em|trao lai|ban be|ban than|ban trong xom|hang xom|nhom ban|cac ban|chuyen tay)\b/,
     generateIdeas: (evidence, total) => [
       {
         format: 'video',
@@ -140,7 +140,7 @@ const CLUSTER_DEFS: ClusterDef[] = [
         title: 'Tiếng bạn gọi nhau trước cổng nhà — Bạn còn nhớ buổi chiều hè năm ấy?',
         hook: '“Ê, ra chơi đồ chơi đi!” — Đã bao lâu rồi bạn không nghe thấy câu nói ấy?',
         outline:
-          'Trong ký ức của rất nhiều phụ huynh tham gia “The Toys We Remember”, những ngày vui nhất luôn bắt đầu bằng tiếng bạn gọi nhau trước cổng.\n\n' +
+          'Trong ký ức của ' + evidence.length + '/' + total + ' người kể tham gia “The Toys We Remember”, những ngày vui nhất luôn bắt đầu bằng tiếng bạn gọi nhau trước cổng.\n\n' +
           'Không có màn hình điện thoại, chỉ có vài viên gạch xếp, bộ cờ cá ngựa hay chiếc diều giấy tự dán mà cả xóm cười vang từ trưa tới tối mịt.\n\n' +
           'Hãy để con bạn hôm nay cũng có những người bạn tuổi thơ và những trò chơi kết nối như thế.\n\n' +
           '#TheToysWeRemember #BanBeTuoiTho #MyKingdom',
@@ -253,7 +253,7 @@ const CLUSTER_DEFS: ClusterDef[] = [
         hook: 'Điều gì còn lại sau khi một món đồ chơi đã cũ?',
         outline:
           '“Tôi không cần mọi thứ giống hệt tuổi thơ; chỉ mong niềm vui được chia sẻ vẫn còn nguyên vẹn.”\n\n' +
-          'Trong hàng trăm ký ức được gửi về chiến dịch “The Toys We Remember”, điều lặp lại nhiều nhất không phải là món đồ chơi đó trị giá bao nhiêu, mà là ai đã cùng ngồi lại, lắng nghe và cười cùng chúng ta.\n\n' +
+          'Trong ' + total + ' ký ức đã duyệt của chiến dịch, ' + evidence.length + ' câu chuyện nhắc đến tiếng cười, sự lắng nghe hoặc người ngồi cạnh…\n\n' +
           'Món quà tuyệt vời nhất cha mẹ có thể tặng con chính là sự hiện diện trọn vẹn trong tuổi thơ của con.\n\n' +
           '#TheToysWeRemember #GiaTriKyUc #MyKingdom',
         cta: 'Bạn đồng ý không? Thả tim nếu bạn cũng tin rằng tiếng cười của con là vô giá!',
@@ -275,7 +275,8 @@ function extractExcerpt(text: string, regex: RegExp): string {
 
 export function analyzeGalleryStories(
   stories: CampaignStory[],
-  filters: { themeId?: string; eraCategory?: string; from?: string; to?: string } = {}
+  filters: { themeId?: string; eraCategory?: string; from?: string; to?: string } = {},
+  source: 'mock' | 'live' = 'live'
 ): GalleryAnalysisResult {
   // 1. Filter stories by Gallery eligibility and user criteria
   const day = (timestamp: string) => (timestamp || '').slice(0, 10);
@@ -355,7 +356,7 @@ export function analyzeGalleryStories(
 
   return {
     runId: 'RUN_' + crypto.randomUUID().slice(0, 8),
-    source: stories.some(s => s.id.startsWith('demo-') || s.id.startsWith('S') || s.visitorId?.startsWith('V')) ? 'mock' : 'live',
+    source: source,
     corpusVersion: '1.0',
     generatedAt: new Date().toISOString(),
     analysisMode: 'rules',
