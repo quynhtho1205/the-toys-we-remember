@@ -54,7 +54,7 @@ describe('Grouped Admin workspace',()=>{
   const ops=fixture.componentInstance;ops.openCustomer(ops.customers()[0]);ops.noteOwner='Team Tech';ops.noteText='Tư vấn bộ lắp ghép';ops.saveNote();
   ops.openCustomer(ops.customers()[0]);expect(ops.noteText).toBe('Tư vấn bộ lắp ghép');expect(ops.noteOwner).toBe('Team Tech');
  });
- it('shows ten trial customers, expands by ten and collapses independently',()=>{
+ it('paginates trial customers in independent ten-row pages',()=>{
   const fixture=TestBed.createComponent(AdminOperations);fixture.componentRef.setInput('tab','automation');
   const ops=fixture.componentInstance;
   const customers=Array.from({length:23},(_,i)=>({id:'V'+i,stage:'Lead',theme:'',contactType:'email',consent:true,group:'A'}));
@@ -64,10 +64,10 @@ describe('Grouped Admin workspace',()=>{
   const section=[...fixture.nativeElement.querySelectorAll('section')].find((s:any)=>s.querySelector('h2')?.textContent==='Chạy thử tin chăm sóc') as HTMLElement;
   const click=(label:string)=>{(Array.from(section.querySelectorAll('button')).find(b=>b.textContent?.trim()===label)!).click();fixture.detectChanges();};
   expect(section.querySelectorAll('tbody tr')).toHaveLength(10);
-  click('Xem thêm 10');expect(section.querySelectorAll('tbody tr')).toHaveLength(20);
-  click('Xem thêm 3');expect(section.querySelectorAll('tbody tr')).toHaveLength(23);
-  expect(ops.followupLimit()).toBe(10);expect(ops.runLimit()).toBe(10);
-  click('Thu gọn');expect(section.querySelectorAll('tbody tr')).toHaveLength(10);
+  click('2');expect(section.querySelectorAll('tbody tr')).toHaveLength(10);expect(section.querySelector('tbody tr')?.textContent).toContain('V10');
+  click('3');expect(section.querySelectorAll('tbody tr')).toHaveLength(3);expect(section.querySelector('tbody tr')?.textContent).toContain('V20');
+  expect(ops.followupPage()).toBe(0);expect(ops.runPage()).toBe(0);
+  click('1');expect(section.querySelectorAll('tbody tr')).toHaveLength(10);
  });
 
 });

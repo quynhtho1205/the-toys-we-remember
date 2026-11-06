@@ -12,3 +12,5 @@
 @media(max-width:650px){.handoff-row{padding:14px 0;gap:12px}.handoff-customer{grid-template-columns:1fr;gap:3px}.handoff-customer span{font-size:12px}.handoff-editor{padding:14px}.handoff-panel .box-head{align-items:flex-start}.workflow-steps li{gap:10px}}
 
 .list-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px;font-size:11px}.simulation-dialog{width:min(620px,calc(100% - 32px))}.simulation-dialog>.box{margin:0 6px 6px 0}.simulation-status{padding:14px;background:#b4ffce;border:1px solid #111}.simulation-status.is-blocked{background:#fff4b9}.simulation-status p{margin:6px 0 0}.simulation-meta{display:flex;gap:20px;flex-wrap:wrap;margin:20px 0}.simulation-meta dt{color:#63584d;font-size:11px}.simulation-meta dd{margin:4px 0 0;font-weight:700}.simulation-body{white-space:pre-wrap;overflow-wrap:anywhere;background:#fff9e9;padding:16px;border:1px solid #ded6c7}
+
+.page-buttons{display:flex;gap:8px;flex-wrap:wrap}.page-buttons button{min-width:36px;min-height:36px}.page-buttons .current-page{background:#ffd600;box-shadow:none;transform:translate(2px,2px)}

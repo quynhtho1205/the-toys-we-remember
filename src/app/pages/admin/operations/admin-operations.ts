@@ -17,13 +17,14 @@ export class AdminOperations {
  readonly storyDialog=viewChild.required<ElementRef<HTMLDialogElement>>('storyDialog');
  readonly simulationDialog=viewChild.required<ElementRef<HTMLDialogElement>>('simulationDialog');
  readonly simulationResult=signal<LocalRun|null>(null);
- readonly customerLimit=signal(10);readonly followupLimit=signal(10);readonly runLimit=signal(10);
+ readonly trialPage=signal(0);readonly followupPage=signal(0);readonly runPage=signal(0);
  readonly min=Math.min;
+ pages(total:number){return Array.from({length:Math.ceil(total/10)},(_,i)=>i);}
  readonly selectedCustomer=signal('');readonly selectedStory=signal('');readonly notice=signal('');
  readonly customerPage=signal(0);readonly storyPage=signal(0);readonly orderPage=signal(0);readonly consentPage=signal(0);
  noteOwner='';noteText='';settingsDraft:CampaignSettings=structuredClone(this.store.settings());
  voucherCode='';voucherDiscount=15;voucherExpires=this.store.settings().end;voucherLimit=100;
- constructor(){effect(()=>{this.query();this.events();this.customerLimit.set(10);this.followupLimit.set(10);this.runLimit.set(10);});effect(()=>{
+ constructor(){effect(()=>{this.query();this.events();this.trialPage.set(0);this.followupPage.set(0);this.runPage.set(0);});effect(()=>{
   this.tab();this.tracking.mode();this.clearSearch();this.stageFilter.set('all');this.storyFilter.set('all');
   this.selectedCustomer.set('');this.selectedStory.set('');const dialog=this.storyDialog()?.nativeElement;if(dialog?.open)dialog.close();this.notice.set('');
   this.simulationResult.set(null);const popup=this.simulationDialog()?.nativeElement;if(popup?.open)popup.close();
@@ -105,7 +106,7 @@ export class AdminOperations {
  moderate(s:CampaignStory,status:CampaignStory['status']){this.feedback(this.store.moderate(s.id,status),'Đã cập nhật trạng thái bài trong bản demo.');}
  feature(s:CampaignStory){this.feedback(this.store.feature(s.id),'Đã cập nhật câu chuyện nổi bật.');}
  withdraw(c:AdminCustomer){this.feedback(this.tracking.withdrawConsent(c.id),'Đã hủy nhận tin và chặn mô phỏng follow-up cho khách này.');}
- simulate(c:AdminCustomer){const run=this.store.simulate(c.id,this.theme(c.theme));this.simulationResult.set(run);this.simulationDialog().nativeElement.showModal();}
+ simulate(c:AdminCustomer){const run=this.store.simulate(c.id,this.theme(c.theme));this.runPage.set(0);this.simulationResult.set(run);this.simulationDialog().nativeElement.showModal();}
  closeSimulation(){this.simulationDialog().nativeElement.close();}
  closeSimulationBackdrop(event:MouseEvent){if(event.target===event.currentTarget)this.closeSimulation();}
  saveTemplates(){const current=this.store.settings();this.feedback(this.store.saveSettings({...current,templateA:this.settingsDraft.templateA,templateB:this.settingsDraft.templateB}),'Đã lưu nội dung tin mô phỏng.');}
@@ -115,5 +116,5 @@ export class AdminOperations {
  toggleVoucher(v:VoucherDraft){this.feedback(this.store.saveVoucher({...v,active:!v.active}),'Đã cập nhật voucher nháp.');}
  redemptions(code:string){return this.orderRows().filter(e=>e['voucher_code']===code).length;}
  feedback(ok:boolean,message:string){this.notice.set(ok?message:this.store.error()||'Chưa lưu được thay đổi.');}
- clearSearch(){this.customerLimit.set(10);this.followupLimit.set(10);this.runLimit.set(10);this.query.set('');this.customerPage.set(0);this.storyPage.set(0);this.orderPage.set(0);this.consentPage.set(0);}
+ clearSearch(){this.trialPage.set(0);this.followupPage.set(0);this.runPage.set(0);this.query.set('');this.customerPage.set(0);this.storyPage.set(0);this.orderPage.set(0);this.consentPage.set(0);}
 }
