@@ -443,8 +443,10 @@ export class Livestream {
       this.saved.set(next);
       this.message.set('Đã lưu ý tưởng tại trình duyệt.');
       this.draft.set(null);
+      return item;
     } catch {
       this.message.set('Không lưu được: bộ nhớ trình duyệt không khả dụng.');
+      return undefined;
     }
   }
 
@@ -540,6 +542,13 @@ export class Livestream {
     }
   }
 
+  scheduleDraft(scheduler:ScheduledPosts,source:'comments'|'gallery',editor?:HTMLDialogElement){
+    const saved=source==='gallery'?this.saveGalleryDraft():this.save();
+    if(!saved)return;
+    editor?.close();
+    scheduler.open(saved,source);
+  }
+
   saveGalleryDraft() {
     const d = this.galleryDraft();
     if (!d) return;
@@ -555,8 +564,10 @@ export class Livestream {
       this.gallerySaved.set(next);
       this.message.set('Đã lưu bản nháp ký ức tại trình duyệt.');
       this.galleryDraft.set(null);
+      return item;
     } catch {
       this.message.set('Không lưu được: bộ nhớ trình duyệt không khả dụng.');
+      return undefined;
     }
   }
 

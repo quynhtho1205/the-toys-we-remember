@@ -186,7 +186,8 @@
         }
         <p class="hint">Kiểm tra sản phẩm, thông tin an toàn, giá và ưu đãi trước khi xuất bản. Tần suất trong mẫu bình luận không đại diện cho toàn bộ khách hàng.</p>
         <div class="action-row">
-          <button (click)="save()">Lưu bản nháp</button>
+          <button (click)="scheduleDraft(scheduler,'comments')">Lên lịch đăng bài</button>
+          <button class="secondary" (click)="save()">Lưu bản nháp</button>
           <button (click)="copyDraft()">Sao chép nội dung</button>
           <button (click)="draft.set(null)">Đóng</button>
         </div>
@@ -333,7 +334,8 @@
       <label class="visual-brief">Gợi ý hình ảnh / cách quay video<textarea [(ngModel)]="d.visualDirection" rows="7" maxlength="6000"></textarea></label>
       <p class="hint">Đây là bản nháp, chưa xuất bản. Số liệu không đại diện toàn bộ khách hàng.</p>
       <div class="action-row">
-        <button (click)="saveGalleryDraft();!galleryDraft() && editorDialog.close()">Lưu bản nháp</button>
+        <button (click)="scheduleDraft(scheduler,'gallery',editorDialog)">Lên lịch đăng bài</button>
+        <button class="secondary" (click)="saveGalleryDraft();!galleryDraft() && editorDialog.close()">Lưu bản nháp</button>
         <button (click)="copyGalleryDraft()">Sao chép nội dung</button>
         <button (click)="editorDialog.close()">Đóng</button>
       </div>
