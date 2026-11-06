@@ -13,8 +13,8 @@ import { analyze, ratio } from '../../services/dashboard-analytics';
 
 /** Six logical groups for sidebar visual grouping (no structural change to tabs array). */
 export const ADMIN_GROUPS = [
-  { label: 'PHÂN TÍCH & NỘI DUNG', tabs: ['livestream'] },
   { label: 'TỔNG QUAN', tabs: ['overview'] },
+  { label: 'PHÂN TÍCH & NỘI DUNG', tabs: ['livestream'] },
   { label: 'KHÁCH HÀNG & GIA ĐÌNH', tabs: ['customers', 'families', 'consultation'] },
   { label: 'NỘI DUNG & CỘNG ĐỒNG', tabs: ['stories', 'community'] },
   { label: 'ĐƠN HÀNG & VOUCHER', tabs: ['orders'] },
