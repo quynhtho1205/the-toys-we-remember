@@ -42,4 +42,16 @@ describe('Family CRM and lifecycle care',()=>{
   source.mode.set('live');expect(crm.data().consultations).toHaveLength(0);
  });
 
+ it('stores simulated chat per request, requires consent and staff, and preserves completed status',()=>{
+  const first=crm.data().consultations.find(c=>c.id==='ZALO_DEMO_01')!;
+  expect(crm.sendConsultMessage(first.id,'   ','Minh')).toBe(false);
+  expect(crm.sendConsultMessage(first.id,'Chào bạn','Unknown')).toBe(false);
+  expect(crm.sendConsultMessage('CONS000','Chào bạn','Minh')).toBe(false);
+  expect(crm.sendConsultMessage(first.id,'Chào bạn, mình hỗ trợ chọn bộ lắp ráp nhé.','Vy')).toBe(true);
+  const saved=crm.data().consultations.find(c=>c.id===first.id)!;expect(saved.messages).toHaveLength(1);expect(saved.messages![0].sender).toBe('Vy');expect(saved.status).toBe('contacting');expect(saved.acceptedAt).toBeTruthy();
+  expect(crm.data().consultations.find(c=>c.id==='ZALO_DEMO_02')!.messages).toBeUndefined();
+  expect(crm.sendConsultMessage('ZALO_DEMO_11','Cảm ơn gia đình.','Nga')).toBe(true);expect(crm.data().consultations.find(c=>c.id==='ZALO_DEMO_11')!.status).toBe('resolved');
+  source.mode.set('live');expect(crm.data().consultations).toHaveLength(0);
+ });
+
 });

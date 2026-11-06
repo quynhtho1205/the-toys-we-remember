@@ -2,14 +2,17 @@ import {Component,computed,effect,inject,input,signal} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
-import {FamilyCrm,Child,Draft,Consultation} from '../../../services/family-crm';
+import {FamilyCrm,Child,Draft,Consultation,CONSULT_STAFF} from '../../../services/family-crm';
 @Component({selector:'app-family-crm',imports:[FormsModule,CommonModule],templateUrl:'./family.html',styleUrl:'./family.css'})
 export class FamilyPanel {
  readonly view=input('families');readonly crm=inject(FamilyCrm);readonly query=signal('');readonly selection=signal('');readonly page=signal(0);readonly message=signal('');readonly childDraft=signal<Child|null>(null);readonly draft=signal<Draft|null>(null);
+ readonly staff=CONSULT_STAFF;readonly chatOpen=signal(false);chatText='';chatError='';
+ readonly chatMessages=computed(()=>this.crm.data().consultations.find(c=>c.id===this.consultEdit()?.id)?.messages||[]);
+ sendChat(){const c=this.consultEdit();if(!c)return;if(this.crm.sendConsultMessage(c.id,this.chatText,c.owner)){const saved=this.crm.data().consultations.find(x=>x.id===c.id)!;this.consultEdit.set({...c,status:saved.status,acceptedAt:saved.acceptedAt});this.chatText='';this.chatError='';requestAnimationFrame(()=>{const el=document.getElementById('zalo-messages');if(el)el.scrollTop=el.scrollHeight;});}else this.chatError=this.crm.error();}
  readonly consultFilter=signal('all');readonly consultEdit=signal<Consultation|null>(null);
  readonly queueRows=computed(()=>this.allConsultations().filter(c=>this.consultFilter()==='all'||c.status===this.consultFilter()).sort((a,b)=>b.createdAt.localeCompare(a.createdAt)));
  readonly queuePages=computed(()=>Array.from({length:Math.ceil(this.queueRows().length/10)},(_,i)=>i));
- showConsult(c:Consultation,dialog:HTMLDialogElement){this.consultEdit.set({...structuredClone(c),outcome:c.outcome||''});dialog.showModal();}
+ showConsult(c:Consultation,dialog:HTMLDialogElement){this.chatOpen.set(false);this.chatText='';this.chatError='';this.consultEdit.set({...structuredClone(c),owner:this.staff.includes(c.owner)?c.owner:({Thảo:'Thuỳ',An:'Nga'} as Record<string,string>)[c.owner]||'',outcome:c.outcome||''});dialog.showModal();}
  saveConsultEdit(dialog:HTMLDialogElement){const edit=this.consultEdit();if(!edit)return;const ok=this.crm.update(d=>{const c=d.consultations.find(c=>c.id===edit.id);if(!c)return;c.owner=edit.owner.trim();c.note=edit.note.trim();c.status=edit.status;c.outcome=edit.outcome;if(edit.status!=='pending'&&!c.acceptedAt)c.acceptedAt=new Date(this.crm.source.nowTimestamp()).toISOString();});this.done(ok,'Đã lưu cập nhật tư vấn.');if(ok){dialog.close();this.page.set(0);}}
  consultConsent=false;familyVisitor='';familyName='';question='';consultChild='';consultOwner='';consultNote='';
  constructor(){const route=inject(ActivatedRoute);effect(()=>{this.crm.source.mode();this.consultEdit.set(null);this.page.set(0);this.selection.set(route.snapshot.queryParamMap.get('family')?'F'+route.snapshot.queryParamMap.get('family'):'');this.childDraft.set(null);this.draft.set(null);this.message.set('');});route.queryParamMap.subscribe(p=>{if(p.get('family'))this.selection.set('F'+p.get('family'));});}
