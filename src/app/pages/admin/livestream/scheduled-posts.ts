@@ -15,7 +15,7 @@ export class ScheduledPosts {
  readonly dialog=viewChild.required<ElementRef<HTMLDialogElement>>('scheduleDialog');
  readonly posts=signal<ScheduledPost[]>([]);readonly selected=signal<ScheduledPost|null>(null);
  readonly feedback=signal('');readonly error=signal('');readonly confirmed=signal(false);readonly page=signal(0);
- readonly rows=computed(()=>this.posts().filter(p=>p.mode===this.mode()).sort((a,b)=>a.scheduledAt.localeCompare(b.scheduledAt)));
+ readonly rows=computed(()=>this.posts().slice().sort((a,b)=>a.scheduledAt.localeCompare(b.scheduledAt)));
  readonly pageNumbers=computed(()=>Array.from({length:Math.ceil(this.rows().length/10)},(_,i)=>i));
  channel='Facebook';mediaNote='';dateTime='';approved=false;
  constructor(){
@@ -30,7 +30,7 @@ export class ScheduledPosts {
  }
  open(d:any,source:'comments'|'gallery'){
   this.reconcile();this.error.set('');this.confirmed.set(false);this.approved=false;
-  const existing=this.posts().find(p=>p.draftId===d.id&&p.source===source&&p.mode===this.mode()&&p.status==='scheduled');
+  const existing=this.posts().find(p=>p.draftId===d.id&&p.source===source&&p.status==='scheduled');
   const post:ScheduledPost=existing||{id:crypto.randomUUID(),draftId:d.id,source,mode:this.mode(),title:d.title||'',hook:d.hook||'',outline:d.outline||'',cta:d.cta||'',visualDirection:d.visualDirection||'',format:d.format==='post'?'post':'video',channel:'Facebook',mediaNote:'',scheduledAt:'',createdAt:new Date().toISOString(),status:'scheduled'};
   this.selected.set(post);this.channel=post.channel;this.mediaNote=post.mediaNote;this.dateTime=post.scheduledAt?this.localTime(post.scheduledAt):this.localTime(new Date(Date.now()+3600000).toISOString());
   this.dialog().nativeElement.showModal();

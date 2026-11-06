@@ -140,7 +140,7 @@ export class Livestream {
   bulk = '';
   inputSource = 'tiktok';
   readonly session = signal('family');
-  readonly extra = signal<Record<string, Comment[]>>({});
+  readonly extra = signal<Record<string, Comment[]>>(this.readComments());
   readonly result = signal<Comment[] | null>(null);
   readonly draft = signal<{
     group: string;
@@ -162,7 +162,8 @@ export class Livestream {
     ...(this.mode() === 'mock'
       ? samples.slice(this.session() === 'family' ? 0 : 90, this.session() === 'family' ? 90 : 150)
       : []),
-    ...(this.extra()[this.key()] || []),
+    ...(this.extra()['mock:'+this.session()] || []),
+    ...(this.extra()['live:'+this.session()] || []),
   ].filter((c) => this.channel() === 'all' || c.source === this.channel()));
 
   readonly rows = computed(() =>
@@ -200,7 +201,7 @@ export class Livestream {
   );
 
   readonly saved = signal<any[]>(this.read());
-  readonly savedForMode = computed(() => this.saved().filter((d) => d.mode === this.mode()));
+  readonly savedForMode = computed(() => this.saved());
 
   // --- Subtab 2: Campaign Gallery Story Insights ---
   insightHeading(i:GalleryStoryInsight){return ({family_play:'Chơi cùng con để gắn kết gia đình',siblings_friends:'Đồ chơi kết nối anh em, bạn bè',creative_craft:'Tự làm đồ chơi, tự do sáng tạo',nostalgia_reconnect:'Tìm lại tuổi thơ để kể cho con',emotional_value:'Kỷ niệm đáng nhớ hơn giá tiền'} as Record<string,string>)[i.id]||i.title;}
@@ -240,7 +241,7 @@ export class Livestream {
   readonly gallerySelectedStory = signal<CampaignStory | null>(null);
   readonly gallerySaved = signal<any[]>(this.readGalleryDrafts());
   readonly gallerySavedForMode = computed(() =>
-    this.gallerySaved().filter((d) => d.mode === this.mode())
+    this.gallerySaved()
   );
 
   // Eligible stories: approved + submitted + ugcConsent
@@ -344,6 +345,8 @@ export class Livestream {
     this.search.set('');
   }
 
+  readComments():Record<string,Comment[]>{try{return JSON.parse(localStorage.getItem('ttwr.livestream.comments')||'{}');}catch{return {};}}
+  saveComments(next:Record<string,Comment[]>){try{localStorage.setItem('ttwr.livestream.comments',JSON.stringify(next));this.extra.set(next);return true;}catch{this.message.set('Không lưu được bình luận. Vui lòng thử lại.');return false;}}
   add() {
     if (!this.text.trim()) return;
     const c = {
@@ -353,7 +356,7 @@ export class Livestream {
       text: this.text.trim(),
       time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
     };
-    this.extra.update((v) => ({ ...v, [this.key()]: [...(v[this.key()] || []), c] }));
+    if(!this.saveComments({...this.extra(),[this.key()]:[...(this.extra()[this.key()]||[]),c]}))return;
     this.text = '';
     this.page.set(Math.floor((this.comments().length - 1) / 10));
     this.message.set('Đã thêm bình luận. Bấm phân tích để cập nhật kết quả.');
@@ -379,7 +382,7 @@ export class Livestream {
       time: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
       source: this.inputSource,
     }));
-    this.extra.update((v) => ({ ...v, [this.key()]: [...(v[this.key()] || []), ...imported] }));
+    if(!this.saveComments({...this.extra(),[this.key()]:[...(this.extra()[this.key()]||[]),...imported]}))return;
     this.bulk = '';
     this.message.set('Đã nhập ' + imported.length + ' bình luận. Hãy chạy phân tích để cập nhật.');
   }

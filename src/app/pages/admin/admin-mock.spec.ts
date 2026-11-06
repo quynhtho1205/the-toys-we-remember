@@ -36,7 +36,7 @@ describe('Mock JSON visible across all eight Admin sections',()=>{
   const harness=await RouterTestingHarness.create('/admin?tab=stories');
   await vi.waitFor(()=>expect(TestBed.inject(AdminDataSource).dataset()).not.toBeNull());harness.detectChanges();
   const root=harness.routeNativeElement!;
-  const dialog=root.querySelector('dialog') as HTMLDialogElement;
+  const dialog=root.querySelector('dialog[aria-labelledby="story-dialog-title"]') as HTMLDialogElement;
   const show=vi.fn(()=>dialog.setAttribute('open',''));
   Object.defineProperties(dialog,{showModal:{value:show},close:{value:()=>dialog.removeAttribute('open')}});
   const button=[...root.querySelectorAll('button')].find(b=>b.textContent?.includes('Xem câu chuyện & thẻ'))!;
@@ -48,14 +48,14 @@ describe('Mock JSON visible across all eight Admin sections',()=>{
   (dialog.querySelector('button') as HTMLButtonElement).click();harness.detectChanges();
   expect(dialog.open).toBe(false);expect(dialog.querySelector('.detail')).toBeNull();
  });
- it('filters the mock cohort by acquisition channel, device and dates and switches back to live',async()=>{
+ it('filters the mock cohort by acquisition channel, device and dates and retains a single combined dataset',async()=>{
   const harness=await RouterTestingHarness.create('/admin');const source=TestBed.inject(AdminDataSource);
   await vi.waitFor(()=>expect(source.dataset()).not.toBeNull());const admin=harness.routeDebugElement!.componentInstance as Admin;
   admin.source.set('facebook');expect(admin.stats().visitors).toBe(180);
   admin.device.set('mobile');expect(admin.stats().visitors).toBe(144);
   admin.reset();admin.device.set('desktop');expect(admin.stats().visitors).toBe(80);
   admin.reset();admin.from.set('2026-12-28');expect(admin.stats().visitors).toBe(0);
-  admin.selectData('live');expect(admin.stats().visitors).toBe(0);expect(admin.from()).toBe('');
+  admin.selectData('live');expect(admin.stats().visitors).toBe(400);expect(admin.from()).toBe('');
   admin.selectData('mock');expect(admin.stats().visitors).toBe(400);
   expect(admin.finance()?.total).toBe(3200000);expect(admin.finance()?.roas).toBeCloseTo(2.623958);
  });

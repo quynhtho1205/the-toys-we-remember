@@ -22,8 +22,8 @@ describe('Demo publishing schedule',()=>{
   const c=setup();expect(c.posts()[0].status).toBe('simulated');expect(c.posts()[0].processedAt).toBe('2026-11-06T05:00:00.000Z');
   c.reconcile(Date.parse('2026-11-07T00:00:00Z'));expect(c.posts()[1].status).toBe('cancelled');
  });
- it('automatically processes due items while the page is open and keeps modes separate',()=>{
-  const c=setup();c.posts.set([{...post(),scheduledAt:'2026-11-06T05:00:10Z'},{...post(),id:'p2',mode:'live'}]);expect(c.rows()).toHaveLength(1);
+ it('automatically processes due items while the page is open and includes schedules from both previous sources',()=>{
+  const c=setup();c.posts.set([{...post(),scheduledAt:'2026-11-06T05:00:10Z'},{...post(),id:'p2',mode:'live'}]);expect(c.rows()).toHaveLength(2);
   vi.advanceTimersByTime(15000);expect(c.posts()[0].status).toBe('simulated');expect(c.posts()[1].status).toBe('scheduled');
  });
  it('cancels an upcoming schedule without deleting it',()=>{const c=setup();c.posts.set([post()]);c.cancel(post());expect(c.posts()[0].status).toBe('cancelled');expect(c.posts()).toHaveLength(1);});

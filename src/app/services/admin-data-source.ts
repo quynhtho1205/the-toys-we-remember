@@ -36,12 +36,13 @@ const emptyChanges=():Changes=>({stories:{},vouchers:{},notes:{},runs:{},events:
 @Injectable({providedIn:'root'})
 export class AdminDataSource {
  private readonly live=inject(MarTechService);
+ readonly unified=signal(false);
  readonly mode=signal<'mock'|'live'>('live');readonly dataset=signal<MockDataset|null>(null);
  readonly loading=signal(false);readonly error=signal('');readonly writeError=signal('');
  private readonly changes=signal<Changes>(this.readChanges());
  private clockLoadedAt=Date.now();private activated=false;
- readonly events=computed(()=>this.mode()==='live'?this.live.events():[...(this.dataset()?.events||[]),...Object.values(this.changes().events)].sort((a,b)=>a.timestamp.localeCompare(b.timestamp)));
- readonly customers=computed(()=>this.mode()==='mock'?this.dataset()?.customers||[]:[]);
+ readonly events=computed(()=>this.unified()?[...new Map([...(this.dataset()?.events||[]),...this.live.events(),...Object.values(this.changes().events)].map(e=>[e.event_id,e])).values()].sort((a,b)=>a.timestamp.localeCompare(b.timestamp)):this.mode()==='live'?this.live.events():[...(this.dataset()?.events||[]),...Object.values(this.changes().events)].sort((a,b)=>a.timestamp.localeCompare(b.timestamp)));
+ readonly customers=computed(()=>{const base=this.mode()==='mock'?this.dataset()?.customers||[]:[];if(!this.unified())return base;const rows=new Map(base.map(c=>[c.visitor_id,c]));for(const e of this.events())if(!rows.has(e.visitor_id))rows.set(e.visitor_id,{visitor_id:e.visitor_id,user_id:e.user_id||null,display_nickname:String(e['nickname']||'Khách mới'),source:e.utm_source,device:e.device,assigned_to:null,sales_note:'',first_visit:e.timestamp,funnel_stage:'Khách mới'});return [...rows.values()];});
  readonly storyRecords=computed(()=>{
   const base:CampaignStory[]=(this.dataset()?.stories||[]).map(s=>({id:s.story_id,cardId:s.card_id||'',visitorId:s.visitor_id,sessionId:s.session_id,nickname:s.nickname,periodYear:s.period_year,eraCategory:s.era_category,storyText:s.story_text,theme_id:s.theme_id,photoUrl:s.photo_url,createdAt:s.created_at,ugcConsent:s.ugc_usage_consent,submitted:s.submitted_to_community,status:s.community_status,featured:s.featured,cardStatus:s.card_status}));
   return this.merge(base,this.changes().stories,s=>s.id);
@@ -55,12 +56,12 @@ export class AdminDataSource {
   return {name:c.name,start:c.start,end:c.end,dailyLimit:c.daily_limit,weeklyLimit:c.weekly_limit,abEnabled:c.ab_enabled,templateA:c.template_a,templateB:c.template_b,themes:c.themes.map(t=>({...t,products:t.products.join(', ')}))};
  });
  readonly storageError=computed(()=>this.mode()==='live'?this.live.storageError():!!this.writeError());
- constructor(){window.addEventListener('storage',e=>{if(e.key===KEY)this.changes.set(this.readChanges());if(e.key==='ttwr.admin.source'&&this.activated){this.mode.set(e.newValue==='live'?'live':'mock');if(this.mode()==='mock'&&!this.dataset())void this.load();}});}
+ constructor(){window.addEventListener('storage',e=>{if(e.key===KEY)this.changes.set(this.readChanges());if(e.key==='ttwr.admin.source'&&this.activated&&!this.unified()){this.mode.set(e.newValue==='live'?'live':'mock');if(this.mode()==='mock'&&!this.dataset())void this.load();}});}
  private readChanges():Changes{try{return {...emptyChanges(),...JSON.parse(localStorage.getItem(KEY)||'{}')};}catch{return emptyChanges();}}
  private merge<T>(base:T[],patch:Record<string,T>,id:(row:T)=>string):T[]{const map=new Map(base.map(row=>[id(row),row]));for(const row of Object.values(patch))map.set(id(row),row);return [...map.values()];}
- activate(){if(this.activated)return;this.activated=true;this.select(localStorage.getItem('ttwr.admin.source')==='live'?'live':'mock');}
+ activate(){if(this.activated)return;this.activated=true;this.unified.set(true);this.select('mock');}
  select(mode:'mock'|'live'){
-  this.mode.set(mode);try{localStorage.setItem('ttwr.admin.source',mode);}catch{}
+  if(this.unified())mode='mock';this.mode.set(mode);try{localStorage.setItem('ttwr.admin.source',mode);}catch{}
   if(mode==='mock'&&!this.dataset()&&!this.loading())void this.load();
  }
  async load(){
@@ -98,7 +99,7 @@ export class AdminDataSource {
  }
  nowTimestamp(){return this.mode()==='mock'&&this.dataset()?Date.parse(this.dataset()!.metadata.reporting_as_of)+Date.now()-this.clockLoadedAt:Date.now();}
  withdrawConsent(visitorId:string):boolean{
-  if(this.mode()==='live')return this.live.withdrawConsent(visitorId);
+  if(this.mode()==='live'||(this.unified()&&!this.dataset()?.customers.some(c=>c.visitor_id===visitorId)))return this.live.withdrawConsent(visitorId);
   const subject=[...this.events()].reverse().find(e=>e.visitor_id===visitorId&&e.event_name==='marketing_consent_granted');if(!subject)return false;
   const event:TrackedEvent={...subject,event_id:'ADMIN_'+crypto.randomUUID(),event_name:'marketing_consent_withdrawn',timestamp:new Date(this.nowTimestamp()).toISOString(),actor:'admin',channel:'all'};
   const next=this.readChanges();next.events[event.event_id]=event;return this.persist(next);

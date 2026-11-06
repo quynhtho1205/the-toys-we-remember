@@ -1,7 +1,7 @@
 @if(active()){
  <section class="schedule-panel"><h2>Lịch đăng bài</h2><p class="notice">Chỉ mô phỏng trên trình duyệt này, không đăng lên mạng xã hội. Khi đến giờ, lịch tự chuyển sang “Đã mô phỏng đăng”. Nếu đóng website, lịch quá hạn được xử lý khi mở lại.</p>
  @if(feedback()){<p role="status">{{feedback()}}</p>}@if(error()){<p class="error" role="alert">{{error()}}</p>}
- <p class="muted">{{rows().length}} lịch · {{mode()==='mock'?'Dữ liệu mô phỏng':'Dữ liệu thao tác trực tiếp'}} · Giờ Việt Nam (UTC+7)</p>
+ <p class="muted">{{rows().length}} lịch · Giờ Việt Nam (UTC+7)</p>
  @for(p of rows().slice(page()*10,page()*10+10);track p.id){<article><div class="row"><div><span class="badge" [class.done]="p.status==='simulated'">{{label(p.status)}}</span><h3>{{p.title}}</h3><p>{{p.scheduledAt | date:'HH:mm · dd/MM/yyyy':'+0700'}} · {{p.channel}} · {{p.format==='video'?'Video':'Bài post'}}</p><small>{{p.source==='gallery'?'Từ ký ức Campaign':'Từ bình luận & phản hồi'}}</small></div>@if(p.status==='scheduled'){<div class="actions"><button (click)="edit(p)">Đổi lịch</button><button class="quiet" (click)="cancel(p)">Hủy lịch</button></div>}</div>
  <details><summary>Xem nội dung đã duyệt</summary><p>{{p.hook}}</p><p class="copy">{{p.outline}}</p><p>{{p.cta}}</p>@if(p.visualDirection){<h4>Gợi ý hình ảnh / video</h4><p class="copy">{{p.visualDirection}}</p>}<p>Tư liệu dự kiến: {{p.mediaNote||'Chưa ghi chú tư liệu'}}</p>@if(p.processedAt){<p class="muted">Ghi nhận mô phỏng lúc {{p.processedAt | date:'HH:mm:ss dd/MM/yyyy':'+0700'}}. Không có bài đăng thật.</p>}</details></article>
  }@empty{<div class="empty"><h3>Chưa có lịch đăng</h3><p>Lưu bản nháp từ bình luận hoặc insight ký ức, sau đó chọn “Duyệt & lên lịch”.</p></div>}

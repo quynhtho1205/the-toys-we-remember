@@ -64,4 +64,14 @@ describe('400 customer Admin data adapter',()=>{
   vi.mocked(fetch).mockResolvedValueOnce({ok:true,json:async()=>({...fixture,customers:fixture.customers.slice(0,10)})} as Response);
   source.select('mock');await vi.waitFor(()=>expect(source.error()).not.toBe(''));expect(source.dataset()).toBeNull();
  });
+ it('combines the 400 seed customers with new actions without duplication and preserves customer records',async()=>{
+  source.activate();await vi.waitFor(()=>expect(source.dataset()).not.toBeNull());
+  expect(source.customers()).toHaveLength(400);
+  live.trackEvent('session_start');expect(source.customers()).toHaveLength(401);expect(analyze(source.events()).visitors).toBe(401);
+  live.trackEvent('product_collection_view');expect(source.customers()).toHaveLength(401);
+  const story=store.captureStory({nickname:'Khách mới',periodYear:'2000',eraCategory:'00s',storyText:'Ký ức mới',photoUrl:null,theme_id:MemoryThemeId.GACH_LEGO},true)!;
+  expect(store.stories()).toHaveLength(99);store.moderate(story.id,'approved');expect(store.campaignStories().find(s=>s.id===story.id)?.status).toBe('approved');
+  await source.load();expect(source.customers()).toHaveLength(401);expect(store.stories()).toHaveLength(99);source.select('live');expect(source.mode()).toBe('mock');
+ });
+
 });

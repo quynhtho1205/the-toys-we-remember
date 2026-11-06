@@ -30,10 +30,10 @@ export class CampaignAdminStore {
  private liveNotes=signal<CustomerNote[]>(this.readRecords<CustomerNote>('ttwr.note.'));
  private liveSettings=signal<CampaignSettings>(this.readSettings());
  readonly campaignStories=this.liveStories.asReadonly();
- readonly stories=computed(()=>this.tracking.mode()==='mock'?this.tracking.storyRecords():this.liveStories());
- readonly vouchers=computed(()=>this.tracking.mode()==='mock'?this.tracking.voucherRecords():this.liveVouchers());
- readonly runs=computed(()=>this.tracking.mode()==='mock'?this.tracking.runRecords():this.liveRuns());
- readonly notes=computed(()=>this.tracking.mode()==='mock'?this.tracking.noteRecords():this.liveNotes());
+ readonly stories=computed(()=>this.tracking.unified()?[...new Map([...this.tracking.storyRecords(),...this.liveStories()].map(r=>[r.id,r])).values()]:this.tracking.mode()==='mock'?this.tracking.storyRecords():this.liveStories());
+ readonly vouchers=computed(()=>this.tracking.unified()?[...new Map([...this.tracking.voucherRecords(),...this.liveVouchers()].map(r=>[r.id,r])).values()]:this.tracking.mode()==='mock'?this.tracking.voucherRecords():this.liveVouchers());
+ readonly runs=computed(()=>this.tracking.unified()?[...new Map([...this.tracking.runRecords(),...this.liveRuns()].map(r=>[r.id,r])).values()]:this.tracking.mode()==='mock'?this.tracking.runRecords():this.liveRuns());
+ readonly notes=computed(()=>this.tracking.unified()?[...new Map([...this.tracking.noteRecords(),...this.liveNotes()].map(r=>[r.visitorId,r])).values()]:this.tracking.mode()==='mock'?this.tracking.noteRecords():this.liveNotes());
  readonly settings=computed(()=>this.tracking.mode()==='mock'?(this.tracking.settingsRecord()||defaults):this.liveSettings());
  constructor(){window.addEventListener('storage',()=>this.refresh());}
  private readRecords<T>(prefix:string):T[]{
@@ -49,7 +49,7 @@ export class CampaignAdminStore {
  }
  refresh(){this.liveStories.set(this.readRecords('ttwr.story.'));this.liveVouchers.set(this.readRecords('ttwr.voucher.'));this.liveRuns.set(this.readRecords('ttwr.run.'));this.liveNotes.set(this.readRecords('ttwr.note.'));this.liveSettings.set(this.readSettings());}
  private write(key:string,value:unknown,forceLive=false):boolean{
-  if(!forceLive&&this.tracking.mode()==='mock'){const ok=this.tracking.writeRecord(key,value);this.error.set(ok?'':this.tracking.writeError());return ok;}
+  if(!forceLive&&this.tracking.mode()==='mock'&&!(this.tracking.unified()&&localStorage.getItem(key))){const ok=this.tracking.writeRecord(key,value);this.error.set(ok?'':this.tracking.writeError());return ok;}
   try{localStorage.setItem(key,JSON.stringify(value));this.error.set('');this.refresh();return true;}
   catch{this.error.set('Không lưu được thay đổi. Bộ nhớ trình duyệt có thể đã đầy.');return false;}
  }

@@ -257,7 +257,7 @@
       </label>
       <button class="reset-btn" (click)="resetGallery()">Đặt lại</button>
     </div></details>
-   <div class="gallery-source-line"><span>{{filteredGalleryStories().length}} câu chuyện đủ điều kiện · {{mode()==='mock'?'Dữ liệu mô phỏng':'Dữ liệu trực tiếp'}}</span><button class="quiet-button" (click)="sourceDialog.showModal()">Xem câu chuyện nguồn</button></div>
+   <div class="gallery-source-line"><span>{{filteredGalleryStories().length}} câu chuyện đủ điều kiện</span><button class="quiet-button" (click)="sourceDialog.showModal()">Xem câu chuyện nguồn</button></div>
    <details class="analysis-info"><summary>Thông tin phân tích</summary><p>Phân tích văn bản theo quy tắc, chỉ dùng bài đã duyệt và có quyền UGC. Các nhóm có thể trùng câu chuyện; tỷ lệ không đại diện toàn bộ khách hàng. Bản nháp cần được kiểm tra trước khi đăng.</p>@if(galleryResult();as res){<p>Cập nhật {{res.generatedAt | date:'HH:mm dd/MM/yyyy':'+0700'}} · {{res.eligibleStoryCount}} câu chuyện.</p><div class="distribution-row">@for(t of res.themeDistribution;track t.themeId){<span>{{t.name}}: {{t.count}} bài</span>}</div>}</details>
    @if(galleryStale()){<p class="warning-text" role="status">Dữ liệu đã thay đổi. Phân tích lại trước khi tạo nội dung.</p>}
   </div>

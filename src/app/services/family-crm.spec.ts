@@ -54,4 +54,12 @@ describe('Family CRM and lifecycle care',()=>{
   source.mode.set('live');expect(crm.data().consultations).toHaveLength(0);
  });
 
+ it('combines existing family stores and routes edits back without losing either source',()=>{
+  source.unified.set(true);source.mode.set('mock');
+  localStorage.setItem('ttwr.crm.v1.live',JSON.stringify({families:[{id:'NEW',visitorId:'NEW',name:'New parent',owner:''}],children:[],consultations:[{id:'NEW_REQUEST',familyId:'NEW',childId:'',question:'New request',status:'pending',owner:'',createdAt:'2026-11-06T12:00:00Z',note:'',consultationConsentAt:'2026-11-06T12:00:00Z'}],history:[],orderLinks:{}}));window.dispatchEvent(new Event('ttwr:crm-changed'));
+  expect(crm.data().families).toHaveLength(66);expect(crm.data().consultations.some(c=>c.id==='NEW_REQUEST')).toBe(true);
+  crm.update(d=>{d.consultations.find(c=>c.id==='NEW_REQUEST')!.status='resolved';d.consultations.find(c=>c.id==='ZALO_DEMO_01')!.owner='Vy';});
+  expect(JSON.parse(localStorage.getItem('ttwr.crm.v1.live')!).consultations[0].status).toBe('resolved');expect(crm.data().families).toHaveLength(66);expect(crm.data().consultations.find(c=>c.id==='ZALO_DEMO_01')!.owner).toBe('Vy');
+ });
+
 });
