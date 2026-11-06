@@ -72020,822 +72020,904 @@
       {
         "id": "CHV0006-0",
         "familyId": "FV0006",
-        "nickname": "Bắp",
+        "nickname": "Bé Lu",
         "birthday": "2018-01-11",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0006-1",
         "familyId": "FV0006",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Bo",
         "birthday": "2018-01-11",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0013-0",
         "familyId": "FV0013",
-        "nickname": "Sóc",
+        "nickname": "Bé Bin",
         "birthday": "2019-04-06",
         "ageBand": "6–8 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0023-0",
         "familyId": "FV0023",
-        "nickname": "Gấu",
+        "nickname": "Bé Na",
         "birthday": "2020-05-07",
         "ageBand": "6–8 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0029-0",
         "familyId": "FV0029",
-        "nickname": "Mây",
+        "nickname": "Bé Su",
         "birthday": "2021-06-08",
         "ageBand": "3–5 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0046-0",
         "familyId": "FV0046",
-        "nickname": "Bắp",
+        "nickname": "Bé Bắp",
         "birthday": "2022-07-09",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0046-1",
         "familyId": "FV0046",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Sóc",
         "birthday": "2022-07-09",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0049-0",
         "familyId": "FV0049",
-        "nickname": "Sóc",
+        "nickname": "Bé Gấu",
         "birthday": "2023-01-11",
         "ageBand": "3–5 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0061-0",
         "familyId": "FV0061",
-        "nickname": "Gấu",
+        "nickname": "Bé Bông",
         "birthday": "2018-09-11",
         "ageBand": "6–8 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0062-0",
         "familyId": "FV0062",
-        "nickname": "Mây",
+        "nickname": "Bé Mít",
         "birthday": "2019-10-12",
         "ageBand": "6–8 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0070-0",
         "familyId": "FV0070",
-        "nickname": "Bắp",
+        "nickname": "Bé Xoài",
         "birthday": "2020-03-13",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0070-1",
         "familyId": "FV0070",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Dâu",
         "birthday": "2020-03-13",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0080-0",
         "familyId": "FV0080",
-        "nickname": "Sóc",
+        "nickname": "Bé Cam",
         "birthday": "2021-04-14",
         "ageBand": "3–5 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0088-0",
         "familyId": "FV0088",
-        "nickname": "Gấu",
+        "nickname": "Bé Táo",
         "birthday": "2022-01-11",
         "ageBand": "3–5 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0096-0",
         "familyId": "FV0096",
-        "nickname": "Mây",
+        "nickname": "Bé Nho",
         "birthday": "2023-06-16",
         "ageBand": "3–5 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0103-0",
         "familyId": "FV0103",
-        "nickname": "Bắp",
+        "nickname": "Bé Đậu",
         "birthday": "2018-07-17",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0103-1",
         "familyId": "FV0103",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Bơ",
         "birthday": "2018-07-17",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0117-0",
         "familyId": "FV0117",
-        "nickname": "Sóc",
+        "nickname": "Bé Kem",
         "birthday": "2019-08-18",
         "ageBand": "6–8 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0118-0",
         "familyId": "FV0118",
-        "nickname": "Gấu",
+        "nickname": "Bé Kẹo",
         "birthday": "2020-09-19",
         "ageBand": "6–8 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0122-0",
         "familyId": "FV0122",
-        "nickname": "Mây",
+        "nickname": "Bé Cốm",
         "birthday": "2021-01-11",
         "ageBand": "3–5 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0130-0",
         "familyId": "FV0130",
-        "nickname": "Bắp",
+        "nickname": "Bé Gạo",
         "birthday": "2022-03-21",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0130-1",
         "familyId": "FV0130",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Sữa",
         "birthday": "2022-03-21",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0145-0",
         "familyId": "FV0145",
-        "nickname": "Sóc",
+        "nickname": "Bé Mía",
         "birthday": "2023-04-22",
         "ageBand": "3–5 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0147-0",
         "familyId": "FV0147",
-        "nickname": "Gấu",
+        "nickname": "Bé Bún",
         "birthday": "2018-05-23",
         "ageBand": "6–8 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0159-0",
         "familyId": "FV0159",
-        "nickname": "Mây",
+        "nickname": "Bé Phở",
         "birthday": "2019-06-24",
         "ageBand": "6–8 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0167-0",
         "familyId": "FV0167",
-        "nickname": "Bắp",
+        "nickname": "Bé Tôm",
         "birthday": "2020-01-11",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0167-1",
         "familyId": "FV0167",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Cua",
         "birthday": "2020-01-11",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0170-0",
         "familyId": "FV0170",
-        "nickname": "Sóc",
+        "nickname": "Bé Cá",
         "birthday": "2021-08-06",
         "ageBand": "3–5 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0179-0",
         "familyId": "FV0179",
-        "nickname": "Gấu",
+        "nickname": "Bé Sò",
         "birthday": "2022-09-07",
         "ageBand": "3–5 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0180-0",
         "familyId": "FV0180",
-        "nickname": "Mây",
+        "nickname": "Bé Ốc",
         "birthday": "2023-10-08",
         "ageBand": "3–5 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0188-0",
         "familyId": "FV0188",
-        "nickname": "Bắp",
+        "nickname": "Bé Nghêu",
         "birthday": "2018-03-09",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0188-1",
         "familyId": "FV0188",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Hến",
         "birthday": "2018-03-09",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0196-0",
         "familyId": "FV0196",
-        "nickname": "Sóc",
+        "nickname": "Bé Tép",
         "birthday": "2019-01-11",
         "ageBand": "6–8 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0202-0",
         "familyId": "FV0202",
-        "nickname": "Gấu",
+        "nickname": "Bé Cún",
         "birthday": "2020-05-11",
         "ageBand": "6–8 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0205-0",
         "familyId": "FV0205",
-        "nickname": "Mây",
+        "nickname": "Bé Mèo",
         "birthday": "2021-06-12",
         "ageBand": "3–5 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0210-0",
         "familyId": "FV0210",
-        "nickname": "Bắp",
+        "nickname": "Bé Thỏ",
         "birthday": "2022-07-13",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0210-1",
         "familyId": "FV0210",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Nhím",
         "birthday": "2022-07-13",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0214-0",
         "familyId": "FV0214",
-        "nickname": "Sóc",
+        "nickname": "Bé Voi",
         "birthday": "2023-08-14",
         "ageBand": "3–5 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0215-0",
         "familyId": "FV0215",
-        "nickname": "Gấu",
+        "nickname": "Bé Hươu",
         "birthday": "2018-01-11",
         "ageBand": "6–8 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0223-0",
         "familyId": "FV0223",
-        "nickname": "Mây",
+        "nickname": "Bé Nai",
         "birthday": "2019-10-16",
         "ageBand": "6–8 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0224-0",
         "familyId": "FV0224",
-        "nickname": "Bắp",
+        "nickname": "Bé Rùa",
         "birthday": "2020-03-17",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0224-1",
         "familyId": "FV0224",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Sói",
         "birthday": "2020-03-17",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0226-0",
         "familyId": "FV0226",
-        "nickname": "Sóc",
+        "nickname": "Bé Hổ",
         "birthday": "2021-04-18",
         "ageBand": "3–5 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0228-0",
         "familyId": "FV0228",
-        "nickname": "Gấu",
+        "nickname": "Bé Sư Tử",
         "birthday": "2022-05-19",
         "ageBand": "3–5 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0233-0",
         "familyId": "FV0233",
-        "nickname": "Mây",
+        "nickname": "Bé Panda",
         "birthday": "2023-01-11",
         "ageBand": "3–5 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0237-0",
         "familyId": "FV0237",
-        "nickname": "Bắp",
+        "nickname": "Bé Koala",
         "birthday": "2018-07-21",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0237-1",
         "familyId": "FV0237",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Cánh Cụt",
         "birthday": "2018-07-21",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0239-0",
         "familyId": "FV0239",
-        "nickname": "Sóc",
+        "nickname": "Bé Heo",
         "birthday": "2019-08-22",
         "ageBand": "6–8 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0242-0",
         "familyId": "FV0242",
-        "nickname": "Gấu",
+        "nickname": "Bé Gà",
         "birthday": "2020-09-23",
         "ageBand": "6–8 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0250-0",
         "familyId": "FV0250",
-        "nickname": "Mây",
+        "nickname": "Bé Vịt",
         "birthday": "2021-10-24",
         "ageBand": "3–5 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0254-0",
         "familyId": "FV0254",
-        "nickname": "Bắp",
+        "nickname": "Bé Én",
         "birthday": "2022-01-11",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0254-1",
         "familyId": "FV0254",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Sáo",
         "birthday": "2022-01-11",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0255-0",
         "familyId": "FV0255",
-        "nickname": "Sóc",
+        "nickname": "Bé Mi",
         "birthday": "2023-04-06",
         "ageBand": "3–5 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0257-0",
         "familyId": "FV0257",
-        "nickname": "Gấu",
+        "nickname": "Bé Bống",
         "birthday": "2018-05-07",
         "ageBand": "6–8 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0259-0",
         "familyId": "FV0259",
-        "nickname": "Mây",
+        "nickname": "Bé Bim",
         "birthday": "2019-06-08",
         "ageBand": "6–8 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0262-0",
         "familyId": "FV0262",
-        "nickname": "Bắp",
+        "nickname": "Bé Bon",
         "birthday": "2020-07-09",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0262-1",
         "familyId": "FV0262",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Ben",
         "birthday": "2020-07-09",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0264-0",
         "familyId": "FV0264",
-        "nickname": "Sóc",
+        "nickname": "Bé Bi",
         "birthday": "2021-01-11",
         "ageBand": "3–5 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0270-0",
         "familyId": "FV0270",
-        "nickname": "Gấu",
+        "nickname": "Bé Bôm",
         "birthday": "2022-09-11",
         "ageBand": "3–5 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0272-0",
         "familyId": "FV0272",
-        "nickname": "Mây",
+        "nickname": "Bé Bờm",
         "birthday": "2023-10-12",
         "ageBand": "3–5 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0274-0",
         "familyId": "FV0274",
-        "nickname": "Bắp",
+        "nickname": "Bé Bụ",
         "birthday": "2018-03-13",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0274-1",
         "familyId": "FV0274",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Bủn",
         "birthday": "2018-03-13",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0276-0",
         "familyId": "FV0276",
-        "nickname": "Sóc",
+        "nickname": "Bé Chíp",
         "birthday": "2019-04-14",
         "ageBand": "6–8 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0288-0",
         "familyId": "FV0288",
-        "nickname": "Gấu",
+        "nickname": "Bé Chôm Chôm",
         "birthday": "2020-01-11",
         "ageBand": "6–8 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0303-0",
         "familyId": "FV0303",
-        "nickname": "Mây",
+        "nickname": "Bé Dừa",
         "birthday": "2021-06-16",
         "ageBand": "3–5 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0308-0",
         "familyId": "FV0308",
-        "nickname": "Bắp",
+        "nickname": "Bé Dưa Hấu",
         "birthday": "2022-07-17",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0308-1",
         "familyId": "FV0308",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Cherry",
         "birthday": "2022-07-17",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0310-0",
         "familyId": "FV0310",
-        "nickname": "Sóc",
+        "nickname": "Bé Kiwi",
         "birthday": "2023-08-18",
         "ageBand": "3–5 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0319-0",
         "familyId": "FV0319",
-        "nickname": "Gấu",
+        "nickname": "Bé Mochi",
         "birthday": "2018-09-19",
         "ageBand": "6–8 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0330-0",
         "familyId": "FV0330",
-        "nickname": "Mây",
+        "nickname": "Bé Sushi",
         "birthday": "2019-01-11",
         "ageBand": "6–8 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0335-0",
         "familyId": "FV0335",
-        "nickname": "Bắp",
+        "nickname": "Bé Miso",
         "birthday": "2020-03-21",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0335-1",
         "familyId": "FV0335",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Matcha",
         "birthday": "2020-03-21",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0352-0",
         "familyId": "FV0352",
-        "nickname": "Sóc",
+        "nickname": "Bé Milo",
         "birthday": "2021-04-22",
         "ageBand": "3–5 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0359-0",
         "familyId": "FV0359",
-        "nickname": "Gấu",
+        "nickname": "Bé Cacao",
         "birthday": "2022-05-23",
         "ageBand": "3–5 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0368-0",
         "familyId": "FV0368",
-        "nickname": "Mây",
+        "nickname": "Bé Bánh Bao",
         "birthday": "2023-06-24",
         "ageBand": "3–5 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0380-0",
         "familyId": "FV0380",
-        "nickname": "Bắp",
+        "nickname": "Bé Bánh Mì",
         "birthday": "2018-01-11",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0380-1",
         "familyId": "FV0380",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Pudding",
         "birthday": "2018-01-11",
         "ageBand": "6–8 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Bắp Nhỏ"
       },
       {
         "id": "CHV0390-0",
         "familyId": "FV0390",
-        "nickname": "Sóc",
+        "nickname": "Bé Nắng",
         "birthday": "2019-08-06",
         "ageBand": "6–8 tuổi",
         "theme": "bup_be",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Sóc"
       },
       {
         "id": "CHV0393-0",
         "familyId": "FV0393",
-        "nickname": "Gấu",
+        "nickname": "Bé Mây",
         "birthday": "2020-09-07",
         "ageBand": "6–8 tuổi",
         "theme": "board_game",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Gấu"
       },
       {
         "id": "CHV0398-0",
         "familyId": "FV0398",
-        "nickname": "Mây",
+        "nickname": "Bé Mưa",
         "birthday": "2021-10-08",
         "ageBand": "3–5 tuổi",
         "theme": "canh_dieu",
         "budget": 650000,
-        "birthdayOptIn": false
+        "birthdayOptIn": false,
+        "legacyNickname": "Mây"
       },
       {
         "id": "CHV0400-0",
         "familyId": "FV0400",
-        "nickname": "Bắp",
+        "nickname": "Bé Gió",
         "birthday": "2022-03-09",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp"
       },
       {
         "id": "CHV0400-1",
         "familyId": "FV0400",
-        "nickname": "Bắp Nhỏ",
+        "nickname": "Bé Trăng",
         "birthday": "2022-03-09",
         "ageBand": "3–5 tuổi",
         "theme": "gach_lego",
         "budget": 650000,
-        "birthdayOptIn": true
+        "birthdayOptIn": true,
+        "legacyNickname": "Bắp Nhỏ"
       }
     ],
     "consultations": [

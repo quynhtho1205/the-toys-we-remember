@@ -33,6 +33,12 @@ def personalize(data):
     for event in data['events']:
         if event.get('story_id') in lengths and 'story_length' in event:
             event['story_length']=lengths[event['story_id']]
+    nicknames=json.loads((ROOT/'scripts/child_nicknames.json').read_text())
+    children=data['crm']['children']
+    assert len(nicknames)>=len(children) and len(set(nicknames))==len(nicknames)
+    for child,name in zip(children,nicknames):
+        child.setdefault('legacyNickname',child['nickname'])
+        child['nickname']='Bé '+name
     # Fifteen fictional Zalo requests, distinct from legacy/manual CRM records.
     from datetime import datetime, timedelta, timezone
     requests=json.loads((ROOT/'scripts/zalo_consultation_copy.json').read_text())
