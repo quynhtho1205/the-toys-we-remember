@@ -1,3 +1,4 @@
+import { ScheduledPosts } from './scheduled-posts';
 import { Component, computed, input, signal, effect, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -119,14 +120,14 @@ const samples: Comment[] = Array.from({ length: 150 }, (_, i) => ({
 
 @Component({
   selector: 'app-livestream',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ScheduledPosts],
   templateUrl: './livestream.html',
   styleUrl: './livestream.css',
 })
 export class Livestream {
   readonly mode = input('mock');
   readonly subtab = input<'comments' | 'gallery'>('comments');
-  readonly activeSubtab = signal<'comments' | 'gallery'>('comments');
+  readonly activeSubtab = signal<'comments' | 'gallery' | 'schedule'>('comments');
 
   readonly store = inject(CampaignAdminStore);
   readonly tracking = inject(AdminDataSource);
@@ -282,7 +283,7 @@ export class Livestream {
     });
   }
 
-  setSubtab(tab: 'comments' | 'gallery') {
+  setSubtab(tab: 'comments' | 'gallery' | 'schedule') {
     this.activeSubtab.set(tab);
     if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
       window.scrollTo({ top: 0, behavior: 'smooth' });

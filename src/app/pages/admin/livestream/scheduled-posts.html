@@ -1,0 +1,25 @@
+@if(active()){
+ <section class="schedule-panel"><h2>Lịch đăng bài</h2><p class="notice">Chỉ mô phỏng trên trình duyệt này, không đăng lên mạng xã hội. Khi đến giờ, lịch tự chuyển sang “Đã mô phỏng đăng”. Nếu đóng website, lịch quá hạn được xử lý khi mở lại.</p>
+ @if(feedback()){<p role="status">{{feedback()}}</p>}@if(error()){<p class="error" role="alert">{{error()}}</p>}
+ <p class="muted">{{rows().length}} lịch · {{mode()==='mock'?'Dữ liệu mô phỏng':'Dữ liệu thao tác trực tiếp'}} · Giờ Việt Nam (UTC+7)</p>
+ @for(p of rows().slice(page()*10,page()*10+10);track p.id){<article><div class="row"><div><span class="badge" [class.done]="p.status==='simulated'">{{label(p.status)}}</span><h3>{{p.title}}</h3><p>{{p.scheduledAt | date:'HH:mm · dd/MM/yyyy':'+0700'}} · {{p.channel}} · {{p.format==='video'?'Video':'Bài post'}}</p><small>{{p.source==='gallery'?'Từ ký ức Campaign':'Từ bình luận & phản hồi'}}</small></div>@if(p.status==='scheduled'){<div class="actions"><button (click)="edit(p)">Đổi lịch</button><button class="quiet" (click)="cancel(p)">Hủy lịch</button></div>}</div>
+ <details><summary>Xem nội dung đã duyệt</summary><p>{{p.hook}}</p><p class="copy">{{p.outline}}</p><p>{{p.cta}}</p>@if(p.visualDirection){<h4>Gợi ý hình ảnh / video</h4><p class="copy">{{p.visualDirection}}</p>}<p>Tư liệu dự kiến: {{p.mediaNote||'Chưa ghi chú tư liệu'}}</p>@if(p.processedAt){<p class="muted">Ghi nhận mô phỏng lúc {{p.processedAt | date:'HH:mm:ss dd/MM/yyyy':'+0700'}}. Không có bài đăng thật.</p>}</details></article>
+ }@empty{<div class="empty"><h3>Chưa có lịch đăng</h3><p>Lưu bản nháp từ bình luận hoặc insight ký ức, sau đó chọn “Duyệt & lên lịch”.</p></div>}
+ @if(pageNumbers().length>1){<nav aria-label="Trang lịch đăng">@for(n of pageNumbers();track n){<button [attr.aria-current]="page()===n?'page':null" (click)="page.set(n)">{{n+1}}</button>}</nav>}
+ </section>
+}
+<dialog #scheduleDialog aria-labelledby="schedule-title" (click)="backdrop($event)">
+ <header><h2 id="schedule-title">{{confirmed()?'Đã lên lịch mô phỏng':'Duyệt & lên lịch'}}</h2><button autofocus (click)="close()">Đóng</button></header>
+ @if(selected();as p){
+ @if(confirmed()){
+ <div class="success"><strong>{{p.title}}</strong><p>{{p.scheduledAt | date:'HH:mm · dd/MM/yyyy':'+0700'}} · {{p.channel}}</p><p>Đã lưu trên trình duyệt này. Không đăng bài thật.</p></div><button class="primary" (click)="close();viewSchedule.emit()">Xem lịch đăng</button>
+ }@else{
+ <p class="notice">Lên lịch demo · Không cần kết nối tài khoản mạng xã hội.</p><h3>{{p.title}}</h3><details open><summary>Kiểm tra nội dung</summary><p>{{p.hook}}</p><p class="copy">{{p.outline}}</p><p>{{p.cta}}</p>@if(p.visualDirection){<h4>Gợi ý hình ảnh / video</h4><p class="copy">{{p.visualDirection}}</p>}</details>
+ <div class="fields"><label>Kênh đăng (mô phỏng)<select [(ngModel)]="channel"><option>Facebook</option><option>Instagram</option>@if(p.format==='video'){<option>TikTok</option><option>YouTube</option>}</select></label><label>Ngày và giờ đăng · Việt Nam<input type="datetime-local" [(ngModel)]="dateTime"></label></div>
+ <label>Ảnh / video dự kiến<textarea [(ngModel)]="mediaNote" rows="2" maxlength="2000" placeholder="Ví dụ: Ảnh gia đình chơi cùng con, khung dọc 4:5"></textarea></label><p class="muted">Ghi chú tư liệu cho demo; chưa tải lên hay tạo ảnh/video thật. Muốn sửa nội dung bài, quay lại bản nháp trước khi lên lịch.</p>
+ <label class="check"><input type="checkbox" [(ngModel)]="approved">Tôi đã kiểm tra nội dung và đồng ý lên lịch mô phỏng.</label>
+ @if(error()){<p class="error" role="alert">{{error()}}</p>}
+ <button class="primary" (click)="save()">Xác nhận lịch mô phỏng</button>
+ }
+ }
+</dialog>

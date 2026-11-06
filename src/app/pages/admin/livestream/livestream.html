@@ -17,6 +17,7 @@
       <span class="count-pill">{{eligibleGalleryStories().length}}</span>
     }
   </button>
+<button role="tab" [attr.aria-selected]="activeSubtab()==='schedule'" [class.active]="activeSubtab()==='schedule'" (click)="setSubtab('schedule')">Lịch đăng bài</button>
 </div>
 
 @if (message()) {
@@ -201,7 +202,7 @@
       <article>
         <small>{{d.format === 'post' ? 'Bài post' : 'Video'}} · {{d.channel || 'all'}} · {{d.group}}</small>
         <h3>{{d.title}}</h3><p>{{d.hook}}</p>
-        <p class="saved-outline">{{d.outline}}</p>@if(d.visualDirection){<details><summary>Gợi ý hình ảnh / cách quay video</summary><p class="saved-outline">{{d.visualDirection}}</p></details>}<p>{{d.cta}}</p>
+        <button class="secondary" (click)="scheduler.open(d,d.insightId?'gallery':'comments')">Duyệt & lên lịch</button><p class="saved-outline">{{d.outline}}</p>@if(d.visualDirection){<details><summary>Gợi ý hình ảnh / cách quay video</summary><p class="saved-outline">{{d.visualDirection}}</p></details>}<p>{{d.cta}}</p>
       </article>
     } @empty { <p>Chưa lưu ý tưởng nào.</p> }
   </details>
@@ -211,7 +212,7 @@
       <article class="saved-card">
         <small>{{d.format === 'post' ? 'Bài post' : 'Video (' + (d.duration || 60) + 's)'}} · {{d.insightTitle}} · {{d.createdAt | date:'dd/MM/yyyy HH:mm':'+0700'}}</small>
         <h3>{{d.title}}</h3><p>{{d.hook}}</p>
-        <p class="saved-outline">{{d.outline}}</p>@if(d.visualDirection){<details><summary>Gợi ý hình ảnh / cách quay video</summary><p class="saved-outline">{{d.visualDirection}}</p></details>}<p>{{d.cta}}</p>
+        <button class="secondary" (click)="scheduler.open(d,d.insightId?'gallery':'comments')">Duyệt & lên lịch</button><p class="saved-outline">{{d.outline}}</p>@if(d.visualDirection){<details><summary>Gợi ý hình ảnh / cách quay video</summary><p class="saved-outline">{{d.visualDirection}}</p></details>}<p>{{d.cta}}</p>
       </article>
     } @empty { <p>Chưa có bản nháp ký ức nào.</p> }
   </details>
@@ -278,7 +279,7 @@
         <small>{{d.format === 'post' ? 'Bài post' : 'Video (' + (d.duration || 60) + 's)'}} · {{d.insightTitle}} · {{d.createdAt | date:'dd/MM/yyyy HH:mm':'+0700'}}</small>
         <h3>{{d.title}}</h3>
         <p><b>Hook:</b> {{d.hook}}</p>
-        <p class="saved-outline">{{d.outline}}</p>@if(d.visualDirection){<details><summary>Gợi ý hình ảnh / cách quay video</summary><p class="saved-outline">{{d.visualDirection}}</p></details>}
+        <button class="secondary" (click)="scheduler.open(d,d.insightId?'gallery':'comments')">Duyệt & lên lịch</button><p class="saved-outline">{{d.outline}}</p>@if(d.visualDirection){<details><summary>Gợi ý hình ảnh / cách quay video</summary><p class="saved-outline">{{d.visualDirection}}</p></details>}
         <p><b>CTA:</b> {{d.cta}}</p>
       </article>
     } @if (!gallerySavedForMode().length) {
@@ -375,3 +376,5 @@
     </div>
   </div>
 }
+
+<app-scheduled-posts #scheduler [active]="activeSubtab()==='schedule'" [mode]="mode()" (viewSchedule)="setSubtab('schedule')" />
