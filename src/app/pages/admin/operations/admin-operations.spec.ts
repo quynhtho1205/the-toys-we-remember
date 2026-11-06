@@ -7,14 +7,14 @@ import { AdminOperations } from './admin-operations';
 import { MarTechService } from '../../../services/martech-service';
 import { CampaignAdminStore } from '../../../services/campaign-admin-store';
 import { MemoryThemeId } from '../../../models/martech-events.model';
-describe('Eight-section Admin workspace',()=>{
+describe('Grouped Admin workspace',()=>{
  beforeEach(()=>{localStorage.clear();sessionStorage.clear();localStorage.setItem('ttwr.admin.source','live');vi.spyOn(window,'scrollTo').mockImplementation(()=>{});TestBed.configureTestingModule({imports:[Admin,AdminOperations],providers:[provideRouter([{path:'admin',component:Admin}])]});});
  it('supports all eleven direct links and marks the selected section',async()=>{
   const harness=await RouterTestingHarness.create('/admin?tab=customers');
   for(const tab of ['overview','customers','families','consultation','stories','community','automation','livestream','orders','consent','settings']){
    const admin=await harness.navigateByUrl('/admin?tab='+tab,Admin);
    expect(admin.activeTab()).toBe(tab);
-   expect(harness.routeNativeElement!.querySelectorAll('nav[aria-label="Các mục quản trị"] a')).toHaveLength(11);
+   expect(harness.routeNativeElement!.querySelectorAll('nav[aria-label="Các mục quản trị"] a')).toHaveLength(6);
    expect(harness.routeNativeElement!.querySelector('nav a.active')?.getAttribute('aria-current')).toBe('page');
    expect(harness.routeNativeElement!.querySelector('h1')?.textContent).toContain(admin.currentTab().name);
   }
@@ -54,4 +54,20 @@ describe('Eight-section Admin workspace',()=>{
   const ops=fixture.componentInstance;ops.openCustomer(ops.customers()[0]);ops.noteOwner='Team Tech';ops.noteText='Tư vấn bộ lắp ghép';ops.saveNote();
   ops.openCustomer(ops.customers()[0]);expect(ops.noteText).toBe('Tư vấn bộ lắp ghép');expect(ops.noteOwner).toBe('Team Tech');
  });
+ it('shows ten trial customers, expands by ten and collapses independently',()=>{
+  const fixture=TestBed.createComponent(AdminOperations);fixture.componentRef.setInput('tab','automation');
+  const ops=fixture.componentInstance;
+  const customers=Array.from({length:23},(_,i)=>({id:'V'+i,stage:'Lead',theme:'',contactType:'email',consent:true,group:'A'}));
+  vi.spyOn(ops,'eligibleCustomers').mockReturnValue(customers as any);
+  fixture.changeDetectorRef.markForCheck();
+  fixture.detectChanges();
+  const section=[...fixture.nativeElement.querySelectorAll('section')].find((s:any)=>s.querySelector('h2')?.textContent==='Chạy thử tin chăm sóc') as HTMLElement;
+  const click=(label:string)=>{(Array.from(section.querySelectorAll('button')).find(b=>b.textContent?.trim()===label)!).click();fixture.detectChanges();};
+  expect(section.querySelectorAll('tbody tr')).toHaveLength(10);
+  click('Xem thêm 10');expect(section.querySelectorAll('tbody tr')).toHaveLength(20);
+  click('Xem thêm 3');expect(section.querySelectorAll('tbody tr')).toHaveLength(23);
+  expect(ops.followupLimit()).toBe(10);expect(ops.runLimit()).toBe(10);
+  click('Thu gọn');expect(section.querySelectorAll('tbody tr')).toHaveLength(10);
+ });
+
 });

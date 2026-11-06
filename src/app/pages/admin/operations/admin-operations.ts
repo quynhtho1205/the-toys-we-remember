@@ -2,7 +2,7 @@ import { AdminDataSource } from '../../../services/admin-data-source';
 import { Component, computed, effect, ElementRef, inject, input, signal, untracked, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CampaignAdminStore, CampaignSettings, CampaignStory, VoucherDraft } from '../../../services/campaign-admin-store';
+import { CampaignAdminStore, CampaignSettings, CampaignStory, LocalRun, VoucherDraft } from '../../../services/campaign-admin-store';
 import { MarTechService, TrackedEvent } from '../../../services/martech-service';
 import { analyze } from '../../../services/dashboard-analytics';
 export interface AdminCustomer {
@@ -15,13 +15,18 @@ export class AdminOperations {
  readonly store=inject(CampaignAdminStore);readonly tracking=inject(AdminDataSource);
  readonly query=signal('');readonly stageFilter=signal('all');readonly storyFilter=signal('all');
  readonly storyDialog=viewChild.required<ElementRef<HTMLDialogElement>>('storyDialog');
+ readonly simulationDialog=viewChild.required<ElementRef<HTMLDialogElement>>('simulationDialog');
+ readonly simulationResult=signal<LocalRun|null>(null);
+ readonly customerLimit=signal(10);readonly followupLimit=signal(10);readonly runLimit=signal(10);
+ readonly min=Math.min;
  readonly selectedCustomer=signal('');readonly selectedStory=signal('');readonly notice=signal('');
  readonly customerPage=signal(0);readonly storyPage=signal(0);readonly orderPage=signal(0);readonly consentPage=signal(0);
  noteOwner='';noteText='';settingsDraft:CampaignSettings=structuredClone(this.store.settings());
  voucherCode='';voucherDiscount=15;voucherExpires=this.store.settings().end;voucherLimit=100;
- constructor(){effect(()=>{
+ constructor(){effect(()=>{this.query();this.events();this.customerLimit.set(10);this.followupLimit.set(10);this.runLimit.set(10);});effect(()=>{
   this.tab();this.tracking.mode();this.clearSearch();this.stageFilter.set('all');this.storyFilter.set('all');
   this.selectedCustomer.set('');this.selectedStory.set('');const dialog=this.storyDialog()?.nativeElement;if(dialog?.open)dialog.close();this.notice.set('');
+  this.simulationResult.set(null);const popup=this.simulationDialog()?.nativeElement;if(popup?.open)popup.close();
   this.settingsDraft=structuredClone(untracked(()=>this.store.settings()));
  });}
  money(value:unknown){const n=Number(value);return value!==null&&value!==undefined&&value!==''&&Number.isFinite(n)&&n>=0?n.toLocaleString('vi-VN')+' ₫':'—';}
@@ -77,7 +82,7 @@ export class AdminOperations {
  });
  contactLabel(id:string){const c=this.tracking.customers().find(c=>c.visitor_id===id);return c?.contact_info?[c.contact_info.email,c.contact_info.phone].filter(Boolean).join(' · '):'Chưa có thông tin hiển thị';}
  nickname(id:string){return this.tracking.customers().find(c=>c.visitor_id===id)?.display_nickname||this.short(id);}
- readonly recentRuns=computed(()=>this.store.runs().filter(r=>this.customers().some(c=>c.id===r.visitorId)&&this.matches(`${r.visitorId} ${r.channel} ${r.reason} ${r.body}`)).sort((a,b)=>b.timestamp.localeCompare(a.timestamp)).slice(0,20));
+ readonly recentRuns=computed(()=>this.store.runs().filter(r=>this.customers().some(c=>c.id===r.visitorId)&&this.matches(`${r.visitorId} ${r.channel} ${r.reason} ${r.body}`)).sort((a,b)=>b.timestamp.localeCompare(a.timestamp)));
  readonly abRows=computed(()=>['A','B'].map(group=>{
   const people=this.customers().filter(c=>c.group===group&&c.stage!=='Khách ẩn danh');
   const ids=new Set(people.map(c=>c.id));
@@ -100,7 +105,9 @@ export class AdminOperations {
  moderate(s:CampaignStory,status:CampaignStory['status']){this.feedback(this.store.moderate(s.id,status),'Đã cập nhật trạng thái bài trong bản demo.');}
  feature(s:CampaignStory){this.feedback(this.store.feature(s.id),'Đã cập nhật câu chuyện nổi bật.');}
  withdraw(c:AdminCustomer){this.feedback(this.tracking.withdrawConsent(c.id),'Đã hủy nhận tin và chặn mô phỏng follow-up cho khách này.');}
- simulate(c:AdminCustomer){const run=this.store.simulate(c.id,this.theme(c.theme));this.notice.set(run.reason);}
+ simulate(c:AdminCustomer){const run=this.store.simulate(c.id,this.theme(c.theme));this.simulationResult.set(run);this.simulationDialog().nativeElement.showModal();}
+ closeSimulation(){this.simulationDialog().nativeElement.close();}
+ closeSimulationBackdrop(event:MouseEvent){if(event.target===event.currentTarget)this.closeSimulation();}
  saveTemplates(){const current=this.store.settings();this.feedback(this.store.saveSettings({...current,templateA:this.settingsDraft.templateA,templateB:this.settingsDraft.templateB}),'Đã lưu nội dung tin mô phỏng.');}
  saveSettings(){this.feedback(this.store.saveSettings(structuredClone(this.settingsDraft)),'Đã lưu cấu hình Admin demo.');}
  reloadSettings(){this.settingsDraft=structuredClone(this.store.settings());this.notice.set('Đã tải lại cấu hình đã lưu.');}
@@ -108,5 +115,5 @@ export class AdminOperations {
  toggleVoucher(v:VoucherDraft){this.feedback(this.store.saveVoucher({...v,active:!v.active}),'Đã cập nhật voucher nháp.');}
  redemptions(code:string){return this.orderRows().filter(e=>e['voucher_code']===code).length;}
  feedback(ok:boolean,message:string){this.notice.set(ok?message:this.store.error()||'Chưa lưu được thay đổi.');}
- clearSearch(){this.query.set('');this.customerPage.set(0);this.storyPage.set(0);this.orderPage.set(0);this.consentPage.set(0);}
+ clearSearch(){this.customerLimit.set(10);this.followupLimit.set(10);this.runLimit.set(10);this.query.set('');this.customerPage.set(0);this.storyPage.set(0);this.orderPage.set(0);this.consentPage.set(0);}
 }
