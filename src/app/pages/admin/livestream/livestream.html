@@ -20,7 +20,7 @@
 </div>
 
 @if (message()) {
-  <p class="status-msg" role="status">{{message()}}</p>
+  <p class="status-msg" [class.gallery-status]="activeSubtab()==='gallery'" role="status">{{message()}}</p>
 }
 
 <!-- ==================== SUBTAB 1: BÌNH LUẬN & PHẢN HỒI ==================== -->
@@ -220,16 +220,10 @@
 
 <!-- ==================== SUBTAB 2: INSIGHT KÝ ỨC CAMPAIGN ==================== -->
 @if (activeSubtab() === 'gallery') {
-  <div class="notice gallery-notice">
-  <span class="mode-badge">Phân tích quy tắc (Mô phỏng)</span>
-  Nguồn: <b>{{mode() === 'mock' ? 'Mô phỏng 400 khách' : 'Thao tác trực tiếp'}}</b>
-  · Chỉ bài đã duyệt và có quyền UGC · {{eligibleGalleryStories().length}} bài.
-  Chỉ phân tích văn bản; bản nháp cần team kiểm tra trước khi đăng.
-  </div>
-
-  <!-- Filter Bar -->
-  <section class="box">
-    <div class="filters">
+ <section class="gallery-workspace">
+  <header class="gallery-heading"><div><h2>Insight ký ức Campaign</h2><p>Tìm điều khách nhắc đến để lên ý tưởng nội dung.</p></div></header>
+  <div class="gallery-toolbar">
+<div class="filters">
       <label>
         Chủ đề ký ức
         <select [ngModel]="galleryTheme()" (ngModelChange)="galleryTheme.set($event); galleryPage.set(0)">
@@ -240,7 +234,8 @@
           <option value="canh_dieu">🪁 Cánh diều & gió lộng</option>
         </select>
       </label>
-      <label>
+<button (click)="analyzeGallery();galleryView.set('insights')" [disabled]="!filteredGalleryStories().length">{{galleryResult()?'Phân tích lại':'Phân tích ký ức'}}</button></div>
+   <details class="advanced-filters"><summary>Bộ lọc nâng cao</summary><div class="filters">      <label>
         Giai đoạn hoài niệm
         <select [ngModel]="galleryEra()" (ngModelChange)="galleryEra.set($event); galleryPage.set(0)">
           <option value="all">Tất cả giai đoạn</option>
@@ -259,27 +254,39 @@
         <input type="date" [min]="galleryFrom()" [ngModel]="galleryTo()" (ngModelChange)="galleryTo.set($event); galleryPage.set(0)">
       </label>
       <button class="reset-btn" (click)="resetGallery()">Đặt lại</button>
-    </div>
-
-    <div class="stats">
-      <div><strong>{{filteredGalleryStories().length}}</strong>Bài đủ điều kiện trong lọc</div>
-      <div><strong>{{galleryResult() ? galleryResult()!.insights.length : 0}}</strong>Nhóm insight</div>
-    </div>
-
-    <button (click)="analyzeGallery()" [disabled]="!filteredGalleryStories().length">
-      ✦ Phân tích ký ức Campaign ({{filteredGalleryStories().length}} bài)
-    </button>
-    @if (galleryStale()) {
-      <p role="status" class="warning-text">Bộ lọc hoặc tập câu chuyện đã thay đổi. Hãy bấm phân tích lại để cập nhật.</p>
+    </div></details>
+   <div class="gallery-source-line"><span>{{filteredGalleryStories().length}} câu chuyện đủ điều kiện · {{mode()==='mock'?'Dữ liệu mô phỏng':'Dữ liệu trực tiếp'}}</span><button class="quiet-button" (click)="sourceDialog.showModal()">Xem câu chuyện nguồn</button></div>
+   <details class="analysis-info"><summary>Thông tin phân tích</summary><p>Phân tích văn bản theo quy tắc, chỉ dùng bài đã duyệt và có quyền UGC. Các nhóm có thể trùng câu chuyện; tỷ lệ không đại diện toàn bộ khách hàng. Bản nháp cần được kiểm tra trước khi đăng.</p>@if(galleryResult();as res){<p>Cập nhật {{res.generatedAt | date:'HH:mm dd/MM/yyyy':'+0700'}} · {{res.eligibleStoryCount}} câu chuyện.</p><div class="distribution-row">@for(t of res.themeDistribution;track t.themeId){<span>{{t.name}}: {{t.count}} bài</span>}</div>}</details>
+   @if(galleryStale()){<p class="warning-text" role="status">Dữ liệu đã thay đổi. Phân tích lại trước khi tạo nội dung.</p>}
+  </div>
+  <div class="gallery-tabs" role="tablist" aria-label="Kết quả và bản nháp"><button role="tab" [attr.aria-selected]="galleryView()==='insights'" [class.active]="galleryView()==='insights'" (click)="galleryView.set('insights')">Insight nổi bật</button><button role="tab" [attr.aria-selected]="galleryView()==='saved'" [class.active]="galleryView()==='saved'" (click)="galleryView.set('saved')">Bản nháp ({{gallerySavedForMode().length}})</button></div>
+  @if(galleryView()==='insights'){
+   @if(galleryResult();as res){
+    <p class="result-caption">{{res.insights.length}} insight từ {{res.eligibleStoryCount}} câu chuyện · Sắp xếp theo số câu chuyện nhắc đến</p>
+    @for(i of rankedInsights();track i.id;let first=$first){
+     <article class="focused-insight" [class.leading-insight]="first">
+      <div class="insight-heading"><div>@if(first){<span class="insight-label">ĐƯỢC NHẮC ĐẾN NHIỀU NHẤT</span>}<h3>{{insightHeading(i)}}</h3></div><span class="insight-count">{{i.storyCount}}/{{res.eligibleStoryCount}} câu chuyện</span></div>
+      <p>{{insightMeaning(i)}}</p>
+      <p class="content-direction"><strong>Gợi ý nội dung</strong><br>{{i.contentIdeas[0]?.title || i.title}}</p>
+      <div class="insight-actions"><button [disabled]="galleryStale()" (click)="beginGalleryContent(i.id);editorDialog.showModal()">Tạo nội dung →</button></div>
+      <details><summary>Xem dẫn chứng ({{i.evidence.length}} câu chuyện)</summary>@for(ev of i.evidence;track ev.storyId){<blockquote><b>{{ev.nickname}} · {{ev.year}}</b><p>“{{ev.excerpt}}”</p><button class="quiet-button" (click)="openStoryById(ev.storyId)">Xem câu chuyện đầy đủ</button></blockquote>}</details>
+     </article>
+    }@empty{<p class="gallery-empty">Chưa tìm thấy nhóm ký ức rõ ràng. Thử mở rộng bộ lọc hoặc bổ sung câu chuyện.</p>}
+   }@else{<div class="gallery-empty"><h3>Khách đang kể điều gì?</h3><p>Chọn “Phân tích ký ức” để tìm các chủ đề nổi bật và gợi ý nội dung từ câu chuyện đã duyệt.</p></div>}
+  }@else{<div class="saved-drafts">    @for (d of gallerySavedForMode(); track d.id) {
+      <article class="saved-card">
+        <small>{{d.format === 'post' ? 'Bài post' : 'Video (' + (d.duration || 60) + 's)'}} · {{d.insightTitle}} · {{d.createdAt | date:'dd/MM/yyyy HH:mm':'+0700'}}</small>
+        <h3>{{d.title}}</h3>
+        <p><b>Hook:</b> {{d.hook}}</p>
+        <p class="saved-outline">{{d.outline}}</p>
+        <p><b>CTA:</b> {{d.cta}}</p>
+      </article>
+    } @if (!gallerySavedForMode().length) {
+      <p>Chưa có bản nháp ký ức nào được lưu ở chế độ này.</p>
     }
-  </section>
-
-  <!-- 2-Column Section -->
-  <div class="columns">
-    <!-- Left: Story Input Corpus -->
-    <section class="box">
-      <h2>01 · Câu chuyện Gallery đủ điều kiện</h2>
-      <label>
+  </div>}
+ </section>
+ <dialog #sourceDialog class="gallery-dialog" aria-labelledby="source-title" (click)="closeGalleryBackdrop($event,sourceDialog)"><div class="modal-head"><h2 id="source-title">Câu chuyện nguồn</h2><button autofocus class="secondary" (click)="sourceDialog.close()">Đóng</button></div><p class="hint">Tìm kiếm tại đây cũng thay đổi tập câu chuyện dùng để phân tích.</p>      <label>
         Tìm câu chuyện / người kể
         <input type="search" placeholder="Tìm theo tên, nội dung, năm..." [ngModel]="gallerySearch()" (ngModelChange)="gallerySearch.set($event); galleryPage.set(0)">
       </label>
@@ -297,7 +304,7 @@
               @if (s.featured) {
                 <span class="badge yellow">★ Nổi bật</span>
               }
-              <button class="small-btn" (click)="openStoryDialog(s)">Xem câu chuyện & thẻ</button>
+              <button class="small-btn" (click)="sourceDialog.close();openStoryDialog(s)">Xem câu chuyện & thẻ</button>
             </div>
           </article>
         } @empty {
@@ -310,69 +317,12 @@
         <button aria-label="Trang trước" [disabled]="galleryPage() === 0" (click)="galleryPage.set(galleryPage() - 1)">←</button>
         <button aria-label="Trang sau" [disabled]="(galleryPage() + 1) * 8 >= filteredGalleryStories().length" (click)="galleryPage.set(galleryPage() + 1)">→</button>
       </div>
-    </section>
-
-    <!-- Right: Insight Clusters & Evidence -->
-    <section class="box">
-      <h2>02 · Insight ký ức & Trải nghiệm nổi bật</h2>
-      @if (galleryResult(); as res) {
-        <div class="insight-meta-info">
-          <span>Phân tích từ <b>{{res.eligibleStoryCount}}</b> câu chuyện đã duyệt.</span>
-          <small>Thời gian chạy: {{res.generatedAt | date:'HH:mm:ss dd/MM/yyyy':'+0700'}}</small>
-        </div>
-
-        <!-- Theme Distribution Quick View -->
-        <div class="distribution-row">
-          @for (t of res.themeDistribution; track t.themeId) {
-            <span class="dist-pill" [title]="t.name">
-              {{themeEmoji(t.themeId)}} {{t.count}} ({{t.percent}}%)
-            </span>
-          }
-        </div>
-
-        @for (i of res.insights; track i.id) {
-          <article class="topic insight-card">
-            <h3>
-              <span>{{i.title}}</span>
-              <span class="topic-stat">{{i.storyCount}} bài · {{i.sharePercent}}%</span>
-            </h3>
-            <div class="bar"><i [style.width.%]="i.sharePercent"></i></div>
-            <p class="insight-summary">{{i.summary}}</p>
-
-            <details>
-              <summary>Trích dẫn dẫn chứng ({{i.evidence.length > 3 ? '3/' + i.evidence.length : i.evidence.length}} câu chuyện)</summary>
-              @for (ev of i.evidence.slice(0, 3); track ev.storyId) {
-                <blockquote class="evidence-quote">
-                  <b>{{themeEmoji(ev.themeId)}} {{ev.nickname}} ({{ev.year}}):</b>
-                  “{{ev.excerpt}}”
-                  <button class="evidence-view-link" (click)="openStoryById(ev.storyId)">
-                    [Mở thẻ]
-                  </button>
-                </blockquote>
-              }
-            </details>
-
-            <div class="insight-actions">
-              <button [disabled]="galleryStale()" (click)="proposeGallery(i.id, 'post')">
-                ✎ Soạn bài post
-              </button>
-              <button class="secondary" [disabled]="galleryStale()" (click)="proposeGallery(i.id, 'video', 60)">
-                ▶ Soạn video (60s)
-              </button>
-            </div>
-          </article>
-        }
-      } @else {
-        <p>Bấm <b>“Phân tích ký ức Campaign”</b> ở trên để tổng hợp chủ đề, cảm xúc và nhu cầu từ kho câu chuyện Gallery.</p>
-      }
-    </section>
-  </div>
-
-  <!-- Studio for Gallery Drafts -->
-  @if (galleryDraft(); as d) {
-  <section class="box studio" id="gallery-content-studio">
-    <h2>03 · Bản nháp từ ký ức Gallery</h2>
-    <div class="draft">
+    </dialog>
+ <dialog #editorDialog class="gallery-dialog gallery-editor" aria-labelledby="editor-title" (click)="closeGalleryBackdrop($event,editorDialog)"><div class="modal-head"><h2 id="editor-title">Tạo nội dung từ insight</h2><button autofocus class="secondary" (click)="editorDialog.close()">Đóng</button></div><p>{{selectedGalleryInsight()?.title}}</p>
+ <label>Định dạng<select [ngModel]="galleryFormat()" (ngModelChange)="galleryFormat.set($event)"><option value="post">Bài post</option><option value="video">Video ngắn</option></select></label>
+ @if(galleryFormat()==='video'){<label>Thời lượng<select [ngModel]="galleryDuration()" (ngModelChange)="galleryDuration.set($event)"><option [ngValue]="30">30 giây</option><option [ngValue]="60">60 giây</option><option [ngValue]="90">90 giây</option></select></label>}
+ <button [disabled]="galleryStale()" (click)="proposeGallery(galleryTopicId())">{{galleryDraft()?'Tạo lại bản nháp':'Tạo bản nháp'}}</button><p class="hint">Tạo lại sẽ thay nội dung đang chỉnh sửa bằng mẫu theo định dạng đã chọn.</p>
+ @if(galleryDraft();as d){    <div class="draft editor-fields">
       <h3>{{d.format === 'video' ? 'Kịch bản video (' + (d.duration || 60) + 's)' : 'Bài post'}} · {{d.insightTitle}}</h3>
       <label>Tiêu đề<input [(ngModel)]="d.title"></label>
       <label>Câu mở đầu<textarea [(ngModel)]="d.hook" rows="2"></textarea></label>
@@ -381,29 +331,14 @@
       <label>Lời kêu gọi hành động<textarea [(ngModel)]="d.cta" rows="2"></textarea></label>
       <p class="hint">Đây là bản nháp, chưa xuất bản. Số liệu không đại diện toàn bộ khách hàng.</p>
       <div class="action-row">
-        <button (click)="saveGalleryDraft()">Lưu bản nháp</button>
+        <button (click)="saveGalleryDraft();!galleryDraft() && editorDialog.close()">Lưu bản nháp</button>
         <button (click)="copyGalleryDraft()">Sao chép nội dung</button>
-        <button (click)="galleryDraft.set(null)">Đóng</button>
+        <button (click)="editorDialog.close()">Đóng</button>
       </div>
     </div>
-  </section>
 }
-
-  <!-- Saved Gallery Drafts -->
-  <section class="box">
-    <h2>Ý tưởng ký ức đã lưu</h2>
-    @for (d of gallerySavedForMode(); track d.id) {
-      <article class="saved-card">
-        <small>{{d.format === 'post' ? 'Bài post' : 'Video (' + (d.duration || 60) + 's)'}} · {{d.insightTitle}} · {{d.createdAt | date:'dd/MM/yyyy HH:mm':'+0700'}}</small>
-        <h3>{{d.title}}</h3>
-        <p><b>Hook:</b> {{d.hook}}</p>
-        <p class="saved-outline">{{d.outline}}</p>
-        <p><b>CTA:</b> {{d.cta}}</p>
-      </article>
-    } @if (!gallerySavedForMode().length) {
-      <p>Chưa có bản nháp ký ức nào được lưu ở chế độ này.</p>
-    }
-  </section>
+ <p role="status">{{message()}}</p>
+ </dialog>
 }
 
 <!-- Story Preview Modal -->

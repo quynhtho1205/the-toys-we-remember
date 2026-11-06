@@ -202,6 +202,13 @@ export class Livestream {
   readonly savedForMode = computed(() => this.saved().filter((d) => d.mode === this.mode()));
 
   // --- Subtab 2: Campaign Gallery Story Insights ---
+  insightHeading(i:GalleryStoryInsight){return ({family_play:'Chơi cùng con để gắn kết gia đình',siblings_friends:'Đồ chơi kết nối anh em, bạn bè',creative_craft:'Tự làm đồ chơi, tự do sáng tạo',nostalgia_reconnect:'Tìm lại tuổi thơ để kể cho con',emotional_value:'Kỷ niệm đáng nhớ hơn giá tiền'} as Record<string,string>)[i.id]||i.title;}
+  insightMeaning(i:GalleryStoryInsight){return ({family_play:'Những câu chuyện nhắc đến thời gian bên người thân và mong muốn cùng con tạo kỷ niệm mới.',siblings_friends:'Ký ức chơi chung và trao lại đồ chơi làm nổi bật giá trị của sự chia sẻ.',creative_craft:'Tự làm hoặc biến tấu đồ chơi gợi lại niềm vui sáng tạo và trí tưởng tượng.',nostalgia_reconnect:'Món đồ cũ trở thành điểm bắt đầu để kể lại tuổi thơ cho thế hệ sau.',emotional_value:'Điều được nhớ đến là cảm xúc và người cùng chơi, hơn là giá trị món đồ.'} as Record<string,string>)[i.id]||i.summary;}
+  readonly galleryView=signal<'insights'|'saved'>('insights');
+  readonly rankedInsights=computed(()=>[...(this.galleryResult()?.insights||[])].sort((a,b)=>b.storyCount-a.storyCount));
+  readonly selectedGalleryInsight=computed(()=>this.galleryResult()?.insights.find(i=>i.id===this.galleryTopicId()));
+  beginGalleryContent(id:string){this.galleryTopicId.set(id);this.galleryFormat.set('post');this.galleryDraft.set(null);this.message.set('');}
+  closeGalleryBackdrop(event:MouseEvent,dialog:HTMLDialogElement){if(event.target===dialog)dialog.close();}
   readonly galleryTheme = signal('all');
   readonly galleryEra = signal('all');
   readonly galleryFrom = signal('');
@@ -471,7 +478,7 @@ export class Livestream {
     this.galleryLastAnalyzedCount.set(stories.length);
     this.galleryLastAnalyzedIds.set(stories.map((s) => s.id).sort().join('|'));
     this.galleryDraft.set(null);
-    this.message.set(`Đã phân tích ${res.eligibleStoryCount} câu chuyện Gallery đã được duyệt.`);
+    this.message.set('');
     if (res.insights.length) {
       this.galleryTopicId.set(res.insights[0].id);
     }
@@ -479,7 +486,7 @@ export class Livestream {
 
   proposeGallery(insightId: string, format?: 'post' | 'video', duration?: number) {
     const res = this.galleryResult();
-    if (!res) return;
+    if (!res || this.galleryStale()) return;
     const insight = res.insights.find((i) => i.id === insightId);
     if (!insight) return;
 
@@ -506,13 +513,6 @@ export class Livestream {
       evidence: insight.evidence.slice(0, 3),
     });
 
-    if (typeof requestAnimationFrame === 'function') {
-      requestAnimationFrame(() => {
-        const el = document.getElementById('gallery-content-studio');
-        if (typeof el?.scrollIntoView === 'function')
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
   }
 
   readGalleryDrafts() {
