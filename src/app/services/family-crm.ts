@@ -3,7 +3,7 @@ import {AdminDataSource} from './admin-data-source';
 import {CampaignAdminStore} from './campaign-admin-store';
 export interface Family {id:string;visitorId:string;name:string;owner:string}
 export interface Child {id:string;familyId:string;nickname:string;birthday:string;ageBand:string;theme:string;budget:number;birthdayOptIn:boolean;interests?:string;favoriteColor?:string;favoriteToy?:string;personalizationConsentAt?:string}
-export interface Consultation {id:string;familyId:string;childId:string;question:string;status:string;owner:string;createdAt:string;note:string;budget?:number;preferredTime?:string;contactLabel?:string;product?:string;origin?:string;acceptedAt?:string;outcome?:string}
+export interface Consultation {id:string;familyId:string;childId:string;question:string;status:string;owner:string;createdAt:string;note:string;budget?:number;preferredTime?:string;contactLabel?:string;product?:string;origin?:string;acceptedAt?:string;outcome?:string;consultationConsentAt?:string}
 export interface CrmState {families:Family[];children:Child[];consultations:Consultation[];history:{id:string;familyId:string;childId:string;date:string;amount:number;description:string}[];orderLinks:Record<string,string>;tasks?:Record<string,{owner:string;status:string}>;drafts?:Draft[];runs?:{id:string;taskId:string;visitorId:string;time:string;status:string;reason:string}[];rules?:Record<string,boolean>}
 export interface Draft {id:string;familyId:string;childId:string;body:string;status:string;taskId:string}
 export interface CareTask {id:string;familyId:string;childId:string;visitorId:string;reason:string;kind:string;date:string}

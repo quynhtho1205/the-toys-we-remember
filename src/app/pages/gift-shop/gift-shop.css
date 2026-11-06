@@ -3,3 +3,5 @@
 .shop-shell h2{font-size:22px;font-weight:700;line-height:1.3}.checkout-panel h3{font-size:17px;font-weight:700;margin:18px 0}.checkout-panel{scroll-margin-top:75px}
 
 #consult-form label{display:block;margin:14px 0;font-weight:600}#consult-form input,#consult-form textarea,#consult-form select,.shop-products select{display:block;width:100%;padding:12px;border:2px solid #111;background:#fffdf0;box-sizing:border-box}button[aria-pressed="true"]{background:#ffe000}#consult-form{min-width:0}.shop-products>label{display:block;margin-bottom:20px}
+
+#consult-form .consult-check{display:flex;align-items:flex-start;gap:10px}#consult-form .consult-check input{width:18px;flex:0 0 18px;margin-top:4px}

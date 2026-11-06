@@ -10,10 +10,10 @@ import { RecipientForm } from '../../components/recipient-form/recipient-form';
 export class GiftShopPage implements OnInit {
  readonly shop=inject(GiftShop);private tracking=inject(MarTechService);
  recipient:Recipient=structuredClone(this.shop.recipient());
- branch='suggest';consultName='';consultQuestion='';consultBudget=0;consultPhone='';consultTime='';consultProduct='';requestId='';
+ consultationConsent=false;branch='suggest';consultName='';consultQuestion='';consultBudget=0;consultPhone='';consultTime='';consultProduct='';requestId='';
  choose(branch:string){this.apply();this.branch=branch;this.tracking.trackEvent('shop_branch_selected',{branch});}
  consult(product=''){this.consultBudget=this.shop.maxBudget()||this.consultBudget;this.consultProduct=product;this.choose('consult');requestAnimationFrame(()=>document.getElementById('consult-form')?.scrollIntoView({behavior:'smooth',block:'start'}));}
- submitConsult(){if(!this.shop.setRecipient(this.recipient))return;const id=this.shop.requestConsultation({name:this.consultName,question:this.consultQuestion,budget:this.consultBudget,phone:this.consultPhone,time:this.consultTime,product:this.consultProduct});if(id){this.requestId=id;this.consultPhone='';}}
+ submitConsult(){if(!this.shop.setRecipient(this.recipient))return;const id=this.shop.requestConsultation({name:this.consultName,question:this.consultQuestion,budget:this.consultBudget,phone:this.consultPhone,time:this.consultTime,product:this.consultProduct,consultationConsent:this.consultationConsent});if(id){this.requestId=id;this.consultPhone='';this.consultationConsent=false;}}
  loginName='';saveForNext=false;voucher='';checkoutOpen=false;receipt:ReturnType<GiftShop['checkout']>=null;message='';checkoutError='';
  ngOnInit(){const saved=this.shop.profiles().find(p=>p.id===this.recipient.id);if(saved)this.selectProfile(saved.id);window.scrollTo({top:0});this.tracking.trackEvent('product_collection_view',{shop_demo:true});}
  openCheckout(){this.checkoutError='';this.checkoutOpen=true;this.receipt=null;requestAnimationFrame(()=>document.getElementById('checkout')?.scrollIntoView({behavior:'smooth',block:'start'}));}

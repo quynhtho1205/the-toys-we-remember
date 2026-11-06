@@ -44,7 +44,8 @@ export class GiftShop {
  private readSession<T>(key:string,fallback:T):T{try{return JSON.parse(sessionStorage.getItem(key)||'null')||fallback;}catch{return fallback;}}
  private persistSession(key:string,value:unknown){try{sessionStorage.setItem(key,JSON.stringify(value));this.error.set('');return true;}catch{this.error.set('Không lưu được dữ liệu phiên. Vui lòng kiểm tra bộ nhớ trình duyệt.');return false;}}
  private persist(next:SavedState){try{localStorage.setItem('ttwr.gifts.v1',JSON.stringify(next));this.saved.set(next);this.error.set('');return true;}catch{this.error.set('Không lưu được hồ sơ. Bạn vẫn có thể mua hàng mà không lưu.');return false;}}
- requestConsultation(input:{name:string;question:string;budget:number;phone:string;time:string;product:string}) {
+ requestConsultation(input:{name:string;question:string;budget:number;phone:string;time:string;product:string;consultationConsent:boolean}) {
+  if(input.consultationConsent!==true){this.error.set('Vui lòng đồng ý để nhân viên liên hệ tư vấn qua Zalo.');return null;}
   if(!input.name.trim()||!input.question.trim()||!input.time.trim()||!/^(\+84|0)\d{9}$/.test(input.phone.trim())||!Number.isFinite(input.budget)||input.budget<0){this.error.set('Điền tên, nhu cầu, số Zalo hợp lệ, thời gian liên hệ và ngân sách không âm.');return null;}
   const key='ttwr.crm.v1.live',data=this.read<any>(key,{families:[],children:[],consultations:[],history:[],orderLinks:{}});
   const visitorId=localStorage.getItem('ttwr.visitor')||'',familyId=this.account()?'GIFT_'+this.account()!.id:'F'+visitorId;
@@ -52,7 +53,7 @@ export class GiftShop {
   const family={id:familyId,visitorId,name:input.name.trim(),owner:''};
   if(!data.families.some((f:any)=>f.id===familyId))data.families.push(family);
   if(!data.children.some((c:any)=>c.id===childId))data.children.push({id:childId,familyId,nickname:r.nickname||'Người nhận',birthday:'',ageBand:r.ageBand,theme:this.recommendations()[0]?.theme||'',budget:input.budget,birthdayOptIn:false,interests:r.interests});
-  data.consultations.unshift({id,familyId,childId,question:input.question.trim(),status:'pending',owner:'',createdAt:new Date().toISOString(),note:'',budget:input.budget,preferredTime:input.time.trim(),contactLabel:'Zalo •••'+input.phone.trim().slice(-4),product:input.product,origin:'gift-shop'});
+  data.consultations.unshift({id,familyId,childId,question:input.question.trim(),status:'pending',owner:'',createdAt:new Date().toISOString(),note:'',budget:input.budget,preferredTime:input.time.trim(),contactLabel:'Zalo •••'+input.phone.trim().slice(-4),product:input.product,origin:'gift-shop',consultationConsentAt:new Date().toISOString()});
   try{localStorage.setItem(key,JSON.stringify(data));window.dispatchEvent(new Event('ttwr:crm-changed'));}catch{this.error.set('Không lưu được yêu cầu. Vui lòng thử lại.');return null;}
   this.setRecipient({...r,id:childId});this.tracking.trackEvent('consult_request',{request_id:id,shop_demo:true,channel:'zalo',product_name:input.product});this.error.set('');return id;
  }
