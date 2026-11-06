@@ -21,7 +21,7 @@
 
 /* Eight-section Admin navigation remains usable on smaller screens. */
 .admin-shell .sidebar nav{min-height:0;overflow-y:auto;margin:0 -3px;padding:0 3px 7px}
-.admin-shell .sidebar nav a{font-size:10px;line-height:1.5;margin:5px 0;padding:10px 7px}
+.admin-shell .sidebar nav a{font-size:14px;line-height:1.5;margin:5px 0;padding:10px 7px}
 
 
 @media(max-width:850px){.admin-shell .sidebar nav{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:9px;margin-top:15px;padding-bottom:9px}.admin-shell .sidebar nav a{flex-shrink:0;white-space:nowrap;margin:0;padding:7px 9px}}
