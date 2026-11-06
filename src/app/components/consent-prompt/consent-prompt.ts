@@ -6,9 +6,9 @@ import { ConsentSource, MarTechService } from '../../services/martech-service';
  template: `@if (!tracking.consentGranted() && !dismissed) {
  <section class="consent-box"><h3>Tiếp nối ký ức cùng MyKingdom</h3>
  <p>Bạn vẫn nhận thẻ và khám phá đồ chơi khi bỏ qua bước này.</p>
- <label>Kênh nhận tin <select [(ngModel)]="contactType"><option value="email">Email</option><option value="zalo">Zalo</option></select></label>
+ <p>Nhận gợi ý và ưu đãi qua Zalo · Không bắt buộc.</p>
  <label>{{contactType === 'email' ? 'Email' : 'Số điện thoại Zalo'}} <input [(ngModel)]="contact" [type]="contactType === 'email' ? 'email' : 'tel'" autocomplete="off"></label>
- <label class="check"><input type="checkbox" [(ngModel)]="agreed"> Tôi đồng ý nhận gợi ý đồ chơi và ưu đãi từ MyKingdom qua kênh đã chọn. Có thể hủy bất kỳ lúc nào.</label>
+ <label class="check"><input type="checkbox" [(ngModel)]="agreed"> Tôi đồng ý nhận gợi ý đồ chơi và ưu đãi từ MyKingdom qua Zalo. Có thể hủy bất kỳ lúc nào.</label>
  <small>Demo chỉ kiểm tra định dạng liên hệ; không lưu số điện thoại hoặc email.</small>
  @if (error) { <p role="alert">{{error}}</p> }
  <div><button (click)="confirm()">Xác nhận</button><button class="skip" (click)="skip()">Bỏ qua</button></div>
@@ -21,7 +21,7 @@ export class ConsentPrompt implements AfterViewInit, OnDestroy {
  private host = inject(ElementRef);
  private observer?: IntersectionObserver;
  private impressionId = '';
- contactType = 'email'; contact = ''; agreed = false; dismissed = false; error = '';
+ contactType = 'zalo'; contact = ''; agreed = false; dismissed = false; error = '';
  ngAfterViewInit() {
    this.observer = new IntersectionObserver(entries => {
      if (entries.some(e=>e.isIntersecting && e.intersectionRatio >= .5) && !this.impressionId && !this.tracking.consentGranted()) {

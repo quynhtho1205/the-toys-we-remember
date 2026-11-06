@@ -11,7 +11,7 @@ export const routes: Routes = [
  {path:'choose-memory',component:Page2Select},
  {path:'create-memory',component:Page3Create},
  {path:'memory-card',loadComponent:()=>import('./pages/page4-memory/page4-memory').then(m=>m.Page4Memory)},
- {path:'recommended-toys',component:Page5Product},
+ {path:'recommended-toys',redirectTo:'gift-shop',pathMatch:'full'},
  {path:'gift-shop',loadComponent:()=>import('./pages/gift-shop/gift-shop').then(m=>m.GiftShopPage)},
  {path:'gallery',loadComponent:()=>import('./pages/community-gallery/community-gallery').then(m=>m.CommunityGalleryComponent)},
  // Keep old shared links working.
@@ -20,6 +20,6 @@ export const routes: Routes = [
  {path:'page2',redirectTo:'choose-memory',pathMatch:'full'},
  {path:'page3',redirectTo:'create-memory',pathMatch:'full'},
  {path:'page4',redirectTo:'memory-card',pathMatch:'full'},
- {path:'page5',redirectTo:'recommended-toys',pathMatch:'full'},
+ {path:'page5',redirectTo:'gift-shop',pathMatch:'full'},
  {path:'**',redirectTo:'home'},
 ];

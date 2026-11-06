@@ -32,7 +32,7 @@
   <div class="pager"><span>{{storyRows().length}} bài</span><button [disabled]="storyPage()===0" (click)="storyPage.set(storyPage()-1)">←</button><span>{{storyPage()+1}}</span><button [disabled]="(storyPage()+1)*12>=storyRows().length" (click)="storyPage.set(storyPage()+1)">→</button></div></section>
  }
  @case ('automation') {
-  <div class="info"><b>Chế độ mô phỏng:</b> Không gửi Zalo/email ra ngoài. Các lần mô phỏng lưu riêng, không làm tăng follow-up CTR hoặc doanh thu trên Tổng quan.</div>
+  <div class="info"><b>Chế độ mô phỏng:</b> Không gửi Zalo ra ngoài. Các lần mô phỏng lưu riêng, không làm tăng follow-up CTR hoặc doanh thu trên Tổng quan.</div>
   <div class="columns automation-layout">
     <section class="box">
       <span class="sticker">01 · SOẠN NỘI DUNG</span>
@@ -48,7 +48,7 @@
       <h2 class="section-title">Khi nào khách nhận tin?</h2>
       <p class="hint">Mỗi lần chạy thử, hệ thống kiểm tra các điều kiện dưới đây. Không đủ điều kiện thì chặn tin và báo lý do.</p>
       <ol class="workflow-steps">
-        <li><span class="step-number">1</span><div><strong>Khách cho phép liên hệ</strong><p>Đã đồng ý nhận tin và đăng ký kênh Zalo hoặc email hợp lệ.</p></div></li>
+        <li><span class="step-number">1</span><div><strong>Khách cho phép liên hệ</strong><p>Đã đồng ý nhận tin và đăng ký kênh Zalo hợp lệ.</p></div></li>
         <li><span class="step-number">2</span><div><strong>Chưa vượt số tin cho phép</strong><p>Mỗi khách tối đa {{store.settings().dailyLimit}} tin/ngày và {{store.settings().weeklyLimit}} tin trong 7 ngày. Mỗi lần chỉ dùng một kênh liên hệ.</p></div></li>
         <li><span class="step-number">3</span><div><strong>Dừng nhắc khi khách đã phản hồi</strong><p>Khách đã bấm vào tin chăm sóc sẽ không nhận tin nhắc lại. Nếu hủy đồng ý nhận tin, dừng trên mọi kênh.</p></div></li>
       </ol>
@@ -107,7 +107,7 @@
       <div class="simulation-status" [class.is-blocked]="r.status==='blocked'"><strong>{{r.status==='simulated'?'Đủ điều kiện · Đã tạo tin xem trước':'Chưa đủ điều kiện gửi tin'}}</strong><p>{{r.reason}}</p></div>
       <dl class="simulation-meta"><div><dt>Khách</dt><dd>{{short(r.visitorId)}}</dd></div><div><dt>Kênh / Nhóm</dt><dd>{{r.channel}} · {{r.group}}</dd></div><div><dt>Thời gian</dt><dd>{{r.timestamp | date:'dd/MM/yyyy HH:mm:ss':'+0700'}}</dd></div></dl>
       <h3>{{r.status==='blocked'?'Mẫu tin dự kiến · Chưa gửi':'Nội dung tin xem trước'}}</h3><p class="simulation-body">{{r.body}}</p>
-      <p class="hint">Không gửi Zalo/email thật. Kết quả được ghi vào “Lịch sử chạy thử gần nhất”, không cộng vào CTR hay doanh thu.</p>
+      <p class="hint">Không gửi Zalo thật. Kết quả được ghi vào “Lịch sử chạy thử gần nhất”, không cộng vào CTR hay doanh thu.</p>
     }
   </section>
  </dialog>

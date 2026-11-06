@@ -4,11 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { GiftShop, Recipient, newRecipient } from '../../services/gift-shop';
 import { MarTechService } from '../../services/martech-service';
+import { ConsentPrompt } from '../../components/consent-prompt/consent-prompt';
 import { RecipientForm } from '../../components/recipient-form/recipient-form';
-@Component({selector:'app-gift-shop',imports:[CommonModule,FormsModule,RouterLink,RecipientForm],templateUrl:'./gift-shop.html',styleUrl:'./gift-shop.css'})
+@Component({selector:'app-gift-shop',imports:[CommonModule,FormsModule,RouterLink,RecipientForm,ConsentPrompt],templateUrl:'./gift-shop.html',styleUrl:'./gift-shop.css'})
 export class GiftShopPage implements OnInit {
  readonly shop=inject(GiftShop);private tracking=inject(MarTechService);
  recipient:Recipient=structuredClone(this.shop.recipient());
+ branch='suggest';consultName='';consultQuestion='';consultBudget=0;consultPhone='';consultTime='';consultProduct='';requestId='';
+ choose(branch:string){this.apply();this.branch=branch;this.tracking.trackEvent('shop_branch_selected',{branch});}
+ consult(product=''){this.consultBudget=this.shop.maxBudget()||this.consultBudget;this.consultProduct=product;this.choose('consult');requestAnimationFrame(()=>document.getElementById('consult-form')?.scrollIntoView({behavior:'smooth',block:'start'}));}
+ submitConsult(){if(!this.shop.setRecipient(this.recipient))return;const id=this.shop.requestConsultation({name:this.consultName,question:this.consultQuestion,budget:this.consultBudget,phone:this.consultPhone,time:this.consultTime,product:this.consultProduct});if(id){this.requestId=id;this.consultPhone='';}}
  loginName='';saveForNext=false;voucher='';checkoutOpen=false;receipt:ReturnType<GiftShop['checkout']>=null;message='';checkoutError='';
  ngOnInit(){const saved=this.shop.profiles().find(p=>p.id===this.recipient.id);if(saved)this.selectProfile(saved.id);window.scrollTo({top:0});this.tracking.trackEvent('product_collection_view',{shop_demo:true});}
  openCheckout(){this.checkoutError='';this.checkoutOpen=true;this.receipt=null;requestAnimationFrame(()=>document.getElementById('checkout')?.scrollIntoView({behavior:'smooth',block:'start'}));}

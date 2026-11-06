@@ -40,7 +40,7 @@ export class Admin {
   {id:'overview',name:'Tổng quan',icon:'▦',description:'Theo dõi hành trình từ một ký ức đến một kết nối mới.'},
   {id:'customers',name:'Khách hàng & Lead',icon:'◉',description:'Hồ sơ khách hàng, trạng thái phễu và lịch sử tương tác.'},
   {id:'families',name:'Gia đình & Hồ sơ con',icon:'♡',description:'Liên kết phụ huynh, các bé và lịch sử chăm sóc.'},
-  {id:'consultation',name:'Tư vấn & Chatbot',icon:'☏',description:'Ghi nhận nhu cầu, gợi ý sản phẩm và tiếp nhận tư vấn.'},
+  {id:'consultation',name:'Tư vấn Zalo',icon:'☏',description:'Ghi nhận nhu cầu, gợi ý sản phẩm và tiếp nhận tư vấn.'},
   {id:'stories',name:'Câu chuyện & Memory Card',icon:'▧',description:'Lưu giữ câu chuyện và xem lại những thẻ ký ức đã tạo.'},
   {id:'community',name:'Cộng đồng & UGC',icon:'★',description:'Kiểm duyệt bài cộng đồng và lựa chọn câu chuyện nổi bật.'},
   {id:'automation',name:'Chăm sóc & Automation',icon:'↗',description:'Thiết kế nội dung, kiểm tra điều kiện và mô phỏng follow-up.'},

@@ -22,6 +22,7 @@ export class GiftShop {
  private readonly saved=signal<SavedState>(this.read('ttwr.gifts.v1',{accounts:[],profiles:{}}));
  readonly account=signal<Account|null>(this.readSession('ttwr.gifts.account',null));
  readonly recipient=signal<Recipient>(this.readSession('ttwr.gifts.recipient',newRecipient()));
+ readonly maxBudget=signal(0);
  readonly cart=signal<Record<string,number>>(this.readSession('ttwr.gifts.cart',{}));
  readonly error=signal('');
  private readonly crmRevision=signal(0);
@@ -29,20 +30,32 @@ export class GiftShop {
  readonly profiles=computed(()=>{this.crmRevision();const accountId=this.account()?.id||'';const crm=this.read<any>('ttwr.crm.v1.live',null);return (this.saved().profiles[accountId]||[]).filter(p=>!!p.consentAt).map(p=>{const child=crm?.children?.find((c:any)=>c.id===p.id&&c.familyId==='GIFT_'+accountId);return child?{...p,nickname:child.nickname,ageBand:['0–2','3–5','6–8','9–12','13+'].includes(child.ageBand.replace(' tuổi',''))?child.ageBand.replace(' tuổi',''):'',interests:child.interests??p.interests,color:child.favoriteColor??p.color,favoriteToy:child.favoriteToy??p.favoriteToy}:p;});});
  readonly recommendations=computed(()=>GIFT_PRODUCTS.map(p=>{
   const r=this.recipient(),reasons:string[]=[];let score=0;
-  const match=(s:string)=>!!s.trim()&&p.tags.some(t=>norm(s).includes(norm(t)));
+  const match=(s:string)=>!!s.trim()&&p.tags.some(t=>norm(s).replaceAll('lap rap','lap ghep').includes(norm(t)));
   if(r.ageBand&&p.ages.includes(r.ageBand)){score+=4;reasons.push('Phù hợp nhóm tuổi '+r.ageBand);}
   if(match(r.interests)){score+=5;reasons.push('Gần với sở thích đã chọn');}
   if(match(r.favoriteToy)){score+=5;reasons.push('Liên quan món đồ chơi yêu thích');}
   if(match(r.color)){score++;reasons.push('Có tông màu bạn quan tâm');}
   if(!r.interests&&!r.favoriteToy&&p.theme===sessionStorage.getItem('theme_id')){score+=2;reasons.push('Gợi nhớ chủ đề Memory Card');}
   return {...p,score,reasons:reasons.length?reasons:['Gợi ý khám phá; chưa đủ thông tin để cá nhân hóa']};
- }).filter(p=>!this.recipient().ageBand||p.ages.includes(this.recipient().ageBand)).sort((a,b)=>b.score-a.score));
+ }).filter(p=>!this.recipient().ageBand||p.ages.includes(this.recipient().ageBand)).filter(p=>!this.maxBudget()||p.price<=this.maxBudget()).sort((a,b)=>b.score-a.score));
  readonly cartRows=computed(()=>GIFT_PRODUCTS.filter(p=>this.cart()[p.id]>0).map(p=>({...p,quantity:this.cart()[p.id]})));
  readonly subtotal=computed(()=>this.cartRows().reduce((s,p)=>s+p.price*p.quantity,0));
  private read<T>(key:string,fallback:T):T{try{return JSON.parse(localStorage.getItem(key)||'null')||fallback;}catch{return fallback;}}
  private readSession<T>(key:string,fallback:T):T{try{return JSON.parse(sessionStorage.getItem(key)||'null')||fallback;}catch{return fallback;}}
  private persistSession(key:string,value:unknown){try{sessionStorage.setItem(key,JSON.stringify(value));this.error.set('');return true;}catch{this.error.set('Không lưu được dữ liệu phiên. Vui lòng kiểm tra bộ nhớ trình duyệt.');return false;}}
  private persist(next:SavedState){try{localStorage.setItem('ttwr.gifts.v1',JSON.stringify(next));this.saved.set(next);this.error.set('');return true;}catch{this.error.set('Không lưu được hồ sơ. Bạn vẫn có thể mua hàng mà không lưu.');return false;}}
+ requestConsultation(input:{name:string;question:string;budget:number;phone:string;time:string;product:string}) {
+  if(!input.name.trim()||!input.question.trim()||!input.time.trim()||!/^(\+84|0)\d{9}$/.test(input.phone.trim())||!Number.isFinite(input.budget)||input.budget<0){this.error.set('Điền tên, nhu cầu, số Zalo hợp lệ, thời gian liên hệ và ngân sách không âm.');return null;}
+  const key='ttwr.crm.v1.live',data=this.read<any>(key,{families:[],children:[],consultations:[],history:[],orderLinks:{}});
+  const visitorId=localStorage.getItem('ttwr.visitor')||'',familyId=this.account()?'GIFT_'+this.account()!.id:'F'+visitorId;
+  const r=this.recipient(),childId=r.id||crypto.randomUUID(),id=crypto.randomUUID();
+  const family={id:familyId,visitorId,name:input.name.trim(),owner:''};
+  if(!data.families.some((f:any)=>f.id===familyId))data.families.push(family);
+  if(!data.children.some((c:any)=>c.id===childId))data.children.push({id:childId,familyId,nickname:r.nickname||'Người nhận',birthday:'',ageBand:r.ageBand,theme:this.recommendations()[0]?.theme||'',budget:input.budget,birthdayOptIn:false,interests:r.interests});
+  data.consultations.unshift({id,familyId,childId,question:input.question.trim(),status:'pending',owner:'',createdAt:new Date().toISOString(),note:'',budget:input.budget,preferredTime:input.time.trim(),contactLabel:'Zalo •••'+input.phone.trim().slice(-4),product:input.product,origin:'gift-shop'});
+  try{localStorage.setItem(key,JSON.stringify(data));window.dispatchEvent(new Event('ttwr:crm-changed'));}catch{this.error.set('Không lưu được yêu cầu. Vui lòng thử lại.');return null;}
+  this.setRecipient({...r,id:childId});this.tracking.trackEvent('consult_request',{request_id:id,shop_demo:true,channel:'zalo',product_name:input.product});this.error.set('');return id;
+ }
  login(name:string){const clean=name.trim().slice(0,80);if(!clean){this.error.set('Nhập tên tài khoản demo để tiếp tục.');return false;}const next=structuredClone(this.read<SavedState>('ttwr.gifts.v1',{accounts:[],profiles:{}}));let account=next.accounts.find(a=>norm(a.name)===norm(clean));if(!account){account={id:crypto.randomUUID(),name:clean};next.accounts.push(account);}if(!this.persist(next)||!this.persistSession('ttwr.gifts.account',account))return false;this.account.set(account);this.recipient.set(newRecipient());return true;}
  logout(){sessionStorage.removeItem('ttwr.gifts.account');sessionStorage.removeItem('ttwr.gifts.recipient');sessionStorage.removeItem('ttwr.gifts.cart');this.account.set(null);this.recipient.set(newRecipient());this.cart.set({});}
  setRecipient(value:Recipient){const clean={...value,nickname:value.nickname.trim().slice(0,80),interests:value.interests.trim().slice(0,200),color:value.color.trim().slice(0,80),favoriteToy:value.favoriteToy.trim().slice(0,150)};if(!this.persistSession('ttwr.gifts.recipient',clean))return false;this.recipient.set(clean);return true;}

@@ -105,7 +105,7 @@ export class CampaignAdminStore {
   if(!reason&&sentTimes.filter(r=>vnDay(r.timestamp)===vnDay(now.toISOString())).length>=settings.dailyLimit)reason='Đạt giới hạn tin trong ngày';
   if(!reason&&sentTimes.filter(r=>now.getTime()-Date.parse(r.timestamp)<7*86400000).length>=settings.weeklyLimit)reason='Đạt giới hạn 7 ngày';
   const contactType=String(consent.contact?.['contact_type']||'');
-  if(!reason&&!['zalo','email'].includes(contactType))reason='Kênh liên hệ chưa hợp lệ';
+  if(!reason&&contactType!=='zalo')reason='Kênh liên hệ chưa hợp lệ';
   const group=settings.abEnabled?String(consent.choice?.['ab_group']||'A'):'A';
   const run:LocalRun={id:crypto.randomUUID(),visitorId,timestamp:now.toISOString(),channel:contactType||'—',group,status:reason?'blocked':'simulated',reason:reason||'Mô phỏng thành công; không gửi ra ngoài',body:(group==='B'?settings.templateB:settings.templateA).replaceAll('{theme}',theme||'đồ chơi tuổi thơ')};
   this.write('ttwr.run.'+run.id,run);return run;

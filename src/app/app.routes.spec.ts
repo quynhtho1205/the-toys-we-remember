@@ -8,7 +8,7 @@ describe('Readable campaign routes and old shared links',()=>{
  afterEach(()=>vi.unstubAllGlobals());
  it('redirects old links and preserves acquisition query parameters',async()=>{
   const harness=await RouterTestingHarness.create();const router=TestBed.inject(Router);
-  for(const [old,name] of [['page1','home'],['page1-intro','home'],['page2','choose-memory'],['page3','create-memory'],['page4','memory-card'],['page5','recommended-toys']]){
+  for(const [old,name] of [['page1','home'],['page1-intro','home'],['page2','choose-memory'],['page3','create-memory'],['page4','memory-card'],['page5','gift-shop']]){
    await harness.navigateByUrl('/'+old+'?utm_source=facebook');
    expect(router.url).toBe('/'+name+'?utm_source=facebook');expect(harness.routeNativeElement?.textContent?.trim().length).toBeGreaterThan(0);
   }

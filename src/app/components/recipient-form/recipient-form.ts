@@ -9,6 +9,6 @@ import { Recipient, newRecipient } from '../../services/gift-shop';
  <label>Sở thích<input [(ngModel)]="recipient.interests" maxlength="200" placeholder="Ví dụ: lắp ghép, kể chuyện, ngoài trời"></label>
  <label>Màu sắc yêu thích<input [(ngModel)]="recipient.color" maxlength="80" placeholder="Ví dụ: xanh, hồng"></label>
  <label>Đồ chơi yêu thích<input [(ngModel)]="recipient.favoriteToy" maxlength="150" placeholder="Ví dụ: gấu bông, xe, cờ"></label>
-</div><p class="gift-hint">Tất cả thông tin đều tùy chọn. Các thay đổi chỉ áp dụng cho lần này; chỉ lưu lâu dài khi bạn đồng ý tại thanh toán. Không dùng để gửi quảng cáo.</p>
+</div><p class="gift-hint">Tất cả thông tin đều tùy chọn. Thông tin dùng để gợi ý trong lần này; được lưu kèm yêu cầu nếu bạn gửi tư vấn, hoặc lưu cho lần mua sau khi bạn đồng ý tại thanh toán. Không tự đăng ký nhận quảng cáo.</p>
 `})
 export class RecipientForm {@Input() showKind=true;@Input() recipient:Recipient=newRecipient();}
