@@ -2,10 +2,11 @@ import { Routes } from '@angular/router';
 import { Page1IntroComponent } from './pages/page1-intro/page1-intro';
 import { Page2Select } from './pages/page2-select/page2-select';
 import { Page3Create } from './pages/page3-create/page3-create';
-import { Page5Product } from './pages/page5-product/page5-product';
+import { adminGuard } from './services/admin-auth';
 
 export const routes: Routes = [
- {path:'admin',loadComponent:()=>import('./pages/admin/admin').then(m=>m.Admin)},
+ {path:'admin',canActivate:[adminGuard],loadComponent:()=>import('./pages/admin/admin').then(m=>m.Admin)},
+ {path:'login',loadComponent:()=>import('./pages/admin-login/admin-login').then(m=>m.AdminLogin)},
  {path:'',redirectTo:'home',pathMatch:'full'},
  {path:'home',component:Page1IntroComponent},
  {path:'choose-memory',component:Page2Select},

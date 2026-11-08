@@ -2,14 +2,16 @@
 .view-switcher{position:fixed;top:0;left:0;right:0;height:52px;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;background:#111;color:#fffdf0;border-bottom:2px solid #111;font:700 12px/1.2 'Space Grotesk',Arial,sans-serif}
 .switcher-brand{font-size:10px;letter-spacing:1.5px}
 .view-links{display:flex;align-items:center;gap:8px}
-.view-links a{display:block;min-width:100px;text-align:center;padding:7px 14px;border:2px solid #fffdf0;color:#fffdf0;text-decoration:none;text-transform:uppercase;transition:background .15s,color .15s}
-.view-links a:hover{background:#fffdf0;color:#111}
+.view-links a,.view-links button{display:block;min-width:100px;text-align:center;padding:7px 14px;border:2px solid #fffdf0;color:#fffdf0;text-decoration:none;text-transform:uppercase;transition:background .15s,color .15s}
+.view-links a:hover,.view-links button:hover{background:#fffdf0;color:#111}
 .view-links a.selected{background:#ffd600;color:#111;border-color:#ffd600;box-shadow:2px 2px 0 #ff3b30}
-.view-links a:focus-visible{outline:2px solid #00e676;outline-offset:3px}
+.view-links a:focus-visible,.view-links button:focus-visible{outline:2px solid #00e676;outline-offset:3px}
 .experience-view{padding-top:52px}
-@media(max-width:540px){.view-switcher{padding:0 14px}.switcher-brand{font-size:8px;letter-spacing:.5px;max-width:130px}.view-links a{min-width:78px;padding:7px 9px;font-size:10px}}
+@media(max-width:540px){.view-switcher{padding:0 14px}.switcher-brand{font-size:8px;letter-spacing:.5px;max-width:130px}.view-links a,.view-links button{min-width:78px;padding:7px 9px;font-size:10px}}
 
 .switcher-brand{display:flex;align-items:center;gap:10px}.switcher-brand img{width:30px;height:30px;object-fit:contain;border:1px solid #fffdf0;flex-shrink:0}
 @media(max-width:540px){.switcher-brand{max-width:160px;gap:7px}.switcher-brand img{width:27px;height:27px}}
 
 .switcher-start{display:flex;align-items:center;min-width:0}
+
+.switcher-brand{color:inherit;text-decoration:none}.view-links button{background:transparent;font:inherit;cursor:pointer}

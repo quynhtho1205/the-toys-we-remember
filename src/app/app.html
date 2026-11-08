@@ -1,10 +1,12 @@
-<nav class="view-switcher" aria-label="Chuyển giao diện">
+<nav class="view-switcher" aria-label="Tài khoản quản trị">
   <div class="switcher-start">
-  <span class="switcher-brand"><img src="brand/mykingdom-icon-white.png" alt="MyKingdom" width="32" height="32"><span>THE TOYS WE REMEMBER</span></span>
+  <a class="switcher-brand" routerLink="/home" aria-label="Về trang chủ"><img src="brand/mykingdom-icon-white.png" alt="MyKingdom" width="32" height="32"><span>THE TOYS WE REMEMBER</span></a>
   </div>
   <div class="view-links">
-    <a [routerLink]="campaignPath()" [class.selected]="!isDemo()" [attr.aria-current]="!isDemo() ? 'page' : null">Campaign</a>
-    <a routerLink="/admin" [class.selected]="isDemo()" [attr.aria-current]="isDemo() ? 'page' : null">Admin</a>
+    @if(auth.signedIn()){
+      @if(!isDemo()){<a routerLink="/admin">Quản trị</a>}
+      <button type="button" (click)="logout()">Đăng xuất</button>
+    }@else{<a routerLink="/login" class="selected">Đăng nhập</a>}
   </div>
 </nav>
 <div class="experience-view"><router-outlet /></div>

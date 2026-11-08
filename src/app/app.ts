@@ -1,8 +1,12 @@
 import { Component, signal, inject, computed } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MarTechService } from './services/martech-service';
+import { AdminAuth } from './services/admin-auth';
 @Component({imports:[RouterOutlet, RouterLink],selector:'app-root',styleUrl:'./app.css',templateUrl:'./app.html'})
 export class App {
+ readonly auth=inject(AdminAuth);
+ private readonly router=inject(Router);
+ logout(){this.auth.logout();void this.router.navigateByUrl('/home');}
  protected readonly title = signal('toys_we_remember_micorsite');
  readonly isDemo = signal(false);
  readonly currentPath = signal('/home');
@@ -19,7 +23,7 @@ export class App {
     this.currentPath.set(path);
     const demo = path === '/admin';
     this.isDemo.set(demo);
-    if (!demo) {
+    if (!demo && path !== '/login') {
       this.campaignPath.set(event.urlAfterRedirects);
       sessionStorage.setItem('ttwr.campaign_path', event.urlAfterRedirects);
       this.tracking.enterCustomerPage(path);
