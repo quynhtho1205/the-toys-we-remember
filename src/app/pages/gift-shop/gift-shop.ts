@@ -11,6 +11,7 @@ export class GiftShopPage implements OnInit {
  readonly shop=inject(GiftShop);private tracking=inject(MarTechService);
  recipient:Recipient=structuredClone(this.shop.recipient());
  consultationConsent=false;branch='suggest';consultName='';consultQuestion='';consultBudget=0;consultPhone='';consultTime='';consultProduct='';requestId='';
+ chooseRacing(){this.recipient.interests='xe đua';this.choose('suggest');}
  choose(branch:string){this.apply();this.branch=branch;this.tracking.trackEvent('shop_branch_selected',{branch});}
  consult(product=''){this.consultBudget=this.shop.maxBudget()||this.consultBudget;this.consultProduct=product;this.choose('consult');requestAnimationFrame(()=>document.getElementById('consult-form')?.scrollIntoView({behavior:'smooth',block:'start'}));}
  submitConsult(){if(!this.shop.setRecipient(this.recipient))return;const id=this.shop.requestConsultation({name:this.consultName,question:this.consultQuestion,budget:this.consultBudget,phone:this.consultPhone,time:this.consultTime,product:this.consultProduct,consultationConsent:this.consultationConsent});if(id){this.requestId=id;this.consultPhone='';this.consultationConsent=false;}}

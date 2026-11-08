@@ -25,3 +25,10 @@ Nickname, nhóm tuổi, sở thích, màu yêu thích và món đồ chơi yêu 
 Sản phẩm, độ tuổi và giá là dữ liệu minh họa. Gợi ý xếp theo sở thích, món yêu thích, nhóm tuổi, màu và chủ đề thẻ; có lý do đi kèm. Nhóm 0–2 chưa có sản phẩm minh họa phù hợp. Checkout không yêu cầu thanh toán thật; MEMORY15 giảm 15%, MYKID-NOSTALGIA-30 giảm 30%, không cộng dồn.
 
 Đơn mang tiền tố DEMO_, kênh demo_checkout và shop_demo=true, không có cờ xác nhận campaign_attributed. Do đó không giả lập xác nhận doanh thu campaign. Đơn và hồ sơ con xuất hiện ở Admin khi chọn “Dữ liệu thao tác trực tiếp”; bộ mock 400 khách không bị sửa. Hồ sơ con được nối vào gia đình demo, giữ tên/tuổi/sở thích/màu/đồ chơi/đồng ý lưu; đơn mua cho hồ sơ đã lưu được gắn đúng bé. Mua không lưu vẫn tạo đơn, không tạo hồ sơ con. Không gửi email, Zalo hay thu tiền.
+
+
+## Demo hướng 1: sở thích xe đua
+
+Mở `/gift-shop`, chọn “Xem gợi ý phù hợp”. Chọn nhóm tuổi 6–8 (hoặc 9–12 / 13+), nhập “xe đua” vào sở thích rồi cập nhật gợi ý; nút nhanh “Xe đua” cũng áp dụng cùng logic. Để ngân sách “Tất cả mức giá” để xem đủ 9 sản phẩm; mức 300.000đ còn 4 sản phẩm. Có thể thêm vào giỏ và thanh toán mô phỏng như các món khác. Không cần đăng nhập để xem hoặc mua demo.
+
+Catalog ở `src/app/services/racing-products.ts`, 9 ảnh AI riêng ở `public/mock/images/products/race01.jpg` đến `race09.jpg`. Prompt và nguồn tạo ảnh built-in image_gen ở `scripts/racing-image-prompts.json`. Đây là sản phẩm, giá và độ tuổi minh họa, không phải danh mục chính thức. Người nhận không cung cấp sở thích vẫn được xem catalog chung; chọn xe đua sẽ lọc đúng bộ xe đua, sau đó áp dụng bộ lọc tuổi và ngân sách.

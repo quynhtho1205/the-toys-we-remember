@@ -1,8 +1,9 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { MarTechService } from './martech-service';
+import { RACING_PRODUCTS } from './racing-products';
 export interface Recipient {id:string;kind:'self'|'child'|'other';nickname:string;ageBand:string;interests:string;color:string;favoriteToy:string;consentAt?:string}
 export const newRecipient=():Recipient=>({id:'',kind:'child',nickname:'',ageBand:'',interests:'',color:'',favoriteToy:''});
-export interface GiftProduct {id:string;name:string;theme:string;ages:string[];tags:string[];price:number;emoji:string;description:string}
+export interface GiftProduct {id:string;name:string;theme:string;ages:string[];tags:string[];price:number;emoji:string;description:string;imageUrl?:string;collection?:'racing'}
 export const GIFT_PRODUCTS:GiftProduct[]=[
 {id:'GIFT01',name:'Hộp gạch sáng tạo',theme:'gach_lego',ages:['3–5','6–8','9–12','13+'],tags:['lắp ghép','xây nhà','sáng tạo','đỏ','vàng','lego'],price:399000,emoji:'🧱',description:'Lắp nhà, xe và những mô hình theo trí tưởng tượng.'},
 {id:'GIFT02',name:'Gấu bông kể chuyện',theme:'bup_be',ages:['3–5','6–8','9–12','13+'],tags:['gấu','thú bông','kể chuyện','nâu','hồng'],price:249000,emoji:'🧸',description:'Người bạn mềm mại cho những câu chuyện mỗi ngày.'},
@@ -13,6 +14,7 @@ export const GIFT_PRODUCTS:GiftProduct[]=[
 {id:'GIFT07',name:'Bộ ghép hình động vật',theme:'gach_lego',ages:['3–5','6–8'],tags:['động vật','ghép hình','sáng tạo','vàng','xanh'],price:219000,emoji:'🧩',description:'Khám phá hình khối và ghép những người bạn động vật.'},
 {id:'GIFT08',name:'Bộ trò chơi ký ức',theme:'board_game',ages:['3–5','6–8','9–12','13+'],tags:['trí nhớ','gia đình','cờ','tư duy','nhiều màu'],price:189000,emoji:'🃏',description:'Những lượt chơi ngắn để cả nhà cùng tham gia.'}
 ];
+GIFT_PRODUCTS.push(...RACING_PRODUCTS);
 const norm=(s:string)=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
 interface Account {id:string;name:string}
 interface SavedState {accounts:Account[];profiles:Record<string,Recipient[]>}
@@ -28,12 +30,14 @@ export class GiftShop {
  private readonly crmRevision=signal(0);
  constructor(){window.addEventListener('ttwr:crm-changed',()=>this.crmRevision.update(n=>n+1));window.addEventListener('storage',()=>{this.saved.set(this.read('ttwr.gifts.v1',{accounts:[],profiles:{}}));this.crmRevision.update(n=>n+1);});}
  readonly profiles=computed(()=>{this.crmRevision();const accountId=this.account()?.id||'';const crm=this.read<any>('ttwr.crm.v1.live',null);return (this.saved().profiles[accountId]||[]).filter(p=>!!p.consentAt).map(p=>{const child=crm?.children?.find((c:any)=>c.id===p.id&&c.familyId==='GIFT_'+accountId);return child?{...p,nickname:child.nickname,ageBand:['0–2','3–5','6–8','9–12','13+'].includes(child.ageBand.replace(' tuổi',''))?child.ageBand.replace(' tuổi',''):'',interests:child.interests??p.interests,color:child.favoriteColor??p.color,favoriteToy:child.favoriteToy??p.favoriteToy}:p;});});
- readonly recommendations=computed(()=>GIFT_PRODUCTS.map(p=>{
+ readonly racingInterest=computed(()=> /\b(xe dua|dua xe|racing|race car|f1|formula|drift|xe hoi|o to)\b/.test(norm(this.recipient().interests+' '+this.recipient().favoriteToy)));
+ readonly recommendations=computed(()=>GIFT_PRODUCTS.filter(p=>!this.racingInterest()||p.collection==='racing').map(p=>{
   const r=this.recipient(),reasons:string[]=[];let score=0;
   const match=(s:string)=>!!s.trim()&&p.tags.some(t=>norm(s).replaceAll('lap rap','lap ghep').includes(norm(t)));
   if(r.ageBand&&p.ages.includes(r.ageBand)){score+=4;reasons.push('Phù hợp nhóm tuổi '+r.ageBand);}
   if(match(r.interests)){score+=5;reasons.push('Gần với sở thích đã chọn');}
   if(match(r.favoriteToy)){score+=5;reasons.push('Liên quan món đồ chơi yêu thích');}
+  if(this.racingInterest()&&p.collection==='racing'){score+=6;reasons.push('Thuộc bộ sưu tập xe đua bạn quan tâm');}
   if(match(r.color)){score++;reasons.push('Có tông màu bạn quan tâm');}
   if(!r.interests&&!r.favoriteToy&&p.theme===sessionStorage.getItem('theme_id')){score+=2;reasons.push('Gợi nhớ chủ đề Memory Card');}
   return {...p,score,reasons:reasons.length?reasons:['Gợi ý khám phá; chưa đủ thông tin để cá nhân hóa']};

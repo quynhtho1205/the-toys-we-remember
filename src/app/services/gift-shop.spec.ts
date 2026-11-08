@@ -42,3 +42,29 @@ it('hands a customer request to live CRM without granting marketing consent or s
 it('rejects incomplete consultation requests without creating CRM data',()=>{const shop=TestBed.inject(GiftShop);expect(shop.requestConsultation({name:'',question:'',budget:-1,phone:'abc',time:'',product:'',consultationConsent:true})).toBeNull();expect(localStorage.getItem('ttwr.crm.v1.live')).toBeNull();});
 
 it('requires separate consultation consent before accepting a valid request',()=>{const shop=TestBed.inject(GiftShop);expect(shop.requestConsultation({name:'Demo',question:'Tìm quà',budget:500000,phone:'0900000000',time:'Sau 18h',product:'',consultationConsent:false})).toBeNull();expect(localStorage.getItem('ttwr.crm.v1.live')).toBeNull();});
+
+it('shows nine distinct racing products for the demo interest, respecting age and budget',()=>{
+ const shop=TestBed.inject(GiftShop);
+ shop.setRecipient({...newRecipient(),ageBand:'6–8',interests:'Em thích xe đua'});
+ const products=shop.recommendations();
+ expect(products).toHaveLength(9);
+ expect(new Set(products.map(p=>p.imageUrl)).size).toBe(9);
+ expect(products.every(p=>p.collection==='racing'&&p.imageUrl&&p.reasons.some(r=>r.includes('xe đua')))).toBe(true);
+ shop.maxBudget.set(300000);
+ expect(shop.recommendations()).toHaveLength(4);
+ expect(shop.recommendations().every(p=>p.price<=300000)).toBe(true);
+ shop.setRecipient({...newRecipient(),ageBand:'0–2',interests:'xe đua'});
+ expect(shop.recommendations()).toHaveLength(0);
+ shop.maxBudget.set(0);shop.setRecipient({...newRecipient(),favoriteToy:'XE ĐUA F1'});
+ expect(shop.recommendations()).toHaveLength(9);
+ shop.setRecipient({...newRecipient(),interests:'búp bê'});
+ expect(shop.recommendations()[0].id).toBe('GIFT03');
+});
+it('includes a racing item in demo checkout at the actual catalog price',()=>{
+ const shop=TestBed.inject(GiftShop);shop.add('RACE01');shop.add('RACE08');
+ expect(shop.subtotal()).toBe(728000);
+ const order=shop.checkout(false,'MEMORY15');
+ expect(order?.total).toBe(618800);
+ expect(shop.cartRows()).toHaveLength(0);
+ expect(shop.profiles()).toHaveLength(0);
+});

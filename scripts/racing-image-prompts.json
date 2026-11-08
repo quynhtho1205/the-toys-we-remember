@@ -1,0 +1,50 @@
+{
+  "generator": "built-in image_gen",
+  "images": [
+    {
+      "id": "RACE01",
+      "prompt": "Use case: product-mockup. Create one square ecommerce catalog photograph for a fictional toy-shop demo: a red die-cast toy sports racing car with white stripes, compact coupe. Single distinct product/set, fully visible with generous margins, three-quarter view, clean warm cream studio backdrop, soft shadow, polished realistic toy materials, cheerful premium toy photography. No real brand logos, no packaging, no text, no watermark, no people. Clearly a toy, not full-size automobile. Product centered, consistent visual scale suitable for website product cards.",
+      "asset": "/mock/images/products/race01.jpg"
+    },
+    {
+      "id": "RACE02",
+      "prompt": "Use case: product-mockup. Create one square ecommerce catalog photograph for a fictional toy-shop demo: a blue toy open-wheel Formula racing car, front and rear wings. Single distinct product/set, fully visible with generous margins, three-quarter view, clean warm cream studio backdrop, soft shadow, polished realistic toy materials, cheerful premium toy photography. No real brand logos, no packaging, no text, no watermark, no people. Clearly a toy, not full-size automobile. Product centered, consistent visual scale suitable for website product cards.",
+      "asset": "/mock/images/products/race02.jpg"
+    },
+    {
+      "id": "RACE03",
+      "prompt": "Use case: product-mockup. Create one square ecommerce catalog photograph for a fictional toy-shop demo: a yellow toy rally car with chunky tires and roof lamps. Single distinct product/set, fully visible with generous margins, three-quarter view, clean warm cream studio backdrop, soft shadow, polished realistic toy materials, cheerful premium toy photography. No real brand logos, no packaging, no text, no watermark, no people. Clearly a toy, not full-size automobile. Product centered, consistent visual scale suitable for website product cards.",
+      "asset": "/mock/images/products/race03.jpg"
+    },
+    {
+      "id": "RACE04",
+      "prompt": "Use case: product-mockup. Create one square ecommerce catalog photograph for a fictional toy-shop demo: a green remote-controlled toy off-road racing buggy, with matching small controller. Single distinct product/set, fully visible with generous margins, three-quarter view, clean warm cream studio backdrop, soft shadow, polished realistic toy materials, cheerful premium toy photography. No real brand logos, no packaging, no text, no watermark, no people. Clearly a toy, not full-size automobile. Product centered, consistent visual scale suitable for website product cards.",
+      "asset": "/mock/images/products/race04.jpg"
+    },
+    {
+      "id": "RACE05",
+      "prompt": "Use case: product-mockup. Create one square ecommerce catalog photograph for a fictional toy-shop demo: an orange toy sports race car assembled from interlocking building bricks. Single distinct product/set, fully visible with generous margins, three-quarter view, clean warm cream studio backdrop, soft shadow, polished realistic toy materials, cheerful premium toy photography. No real brand logos, no packaging, no text, no watermark, no people. Clearly a toy, not full-size automobile. Product centered, consistent visual scale suitable for website product cards.",
+      "asset": "/mock/images/products/race05.jpg"
+    },
+    {
+      "id": "RACE06",
+      "prompt": "Use case: product-mockup. Create one square ecommerce catalog photograph for a fictional toy-shop demo: a purple toy drift racing coupe with silver wheels. Single distinct product/set, fully visible with generous margins, three-quarter view, clean warm cream studio backdrop, soft shadow, polished realistic toy materials, cheerful premium toy photography. No real brand logos, no packaging, no text, no watermark, no people. Clearly a toy, not full-size automobile. Product centered, consistent visual scale suitable for website product cards.",
+      "asset": "/mock/images/products/race06.jpg"
+    },
+    {
+      "id": "RACE07",
+      "prompt": "Use case: product-mockup. Create one square ecommerce catalog photograph for a fictional toy-shop demo: a toy orange loop-the-loop racing track set and a small blue race car. Single distinct product/set, fully visible with generous margins, three-quarter view, clean warm cream studio backdrop, soft shadow, polished realistic toy materials, cheerful premium toy photography. No real brand logos, no packaging, no text, no watermark, no people. Clearly a toy, not full-size automobile. Product centered, consistent visual scale suitable for website product cards.",
+      "asset": "/mock/images/products/race07.jpg"
+    },
+    {
+      "id": "RACE08",
+      "prompt": "Use case: product-mockup. Create one square ecommerce catalog photograph for a fictional toy-shop demo: a toy two-lane racing track set with red and yellow miniature cars, start-finish gantry. Single distinct product/set, fully visible with generous margins, three-quarter view, clean warm cream studio backdrop, soft shadow, polished realistic toy materials, cheerful premium toy photography. No real brand logos, no packaging, no text, no watermark, no people. Clearly a toy, not full-size automobile. Product centered, consistent visual scale suitable for website product cards.",
+      "asset": "/mock/images/products/race08.jpg"
+    },
+    {
+      "id": "RACE09",
+      "prompt": "Use case: product-mockup. Create one square ecommerce catalog photograph for a fictional toy-shop demo: a toy race-car pit-stop garage set with a white race car, tire rack and small lift. Single distinct product/set, fully visible with generous margins, three-quarter view, clean warm cream studio backdrop, soft shadow, polished realistic toy materials, cheerful premium toy photography. No real brand logos, no packaging, no text, no watermark, no people. Clearly a toy, not full-size automobile. Product centered, consistent visual scale suitable for website product cards.",
+      "asset": "/mock/images/products/race09.jpg"
+    }
+  ]
+}
