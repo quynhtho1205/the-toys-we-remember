@@ -39,6 +39,20 @@ def personalize(data):
     for child,name in zip(children,nicknames):
         child.setdefault('legacyNickname',child['nickname'])
         child['nickname']='Bé '+name
+    # Fictional preferences for the Khánh Linh / Ngọc Hà demo families.
+    preferences={
+        'CHV0006-0': ('Xanh dương', 'Bộ lắp ghép lâu đài'),
+        'CHV0006-1': ('Đỏ', 'Bộ lắp ghép xe cứu hỏa'),
+        'CHV0013-0': ('Vàng', 'Thú bông gấu'),
+        'CHV0046-0': ('Xanh lá', 'Bộ xếp hình động vật'),
+        'CHV0046-1': ('Cam', 'Bộ xếp hình nhà cửa'),
+        'CHV0226-0': ('Tím', 'Búp bê và phụ kiện'),
+        'CHV0233-0': ('Xanh da trời', 'Diều cầu vồng'),
+        'CHV0393-0': ('Vàng', 'Bộ cờ tỷ phú'),
+    }
+    for child in children:
+        if child['id'] in preferences:
+            child['favoriteColor'],child['favoriteToy']=preferences[child['id']]
     # Fifteen fictional Zalo requests, distinct from legacy/manual CRM records.
     from datetime import datetime, timedelta, timezone
     requests=json.loads((ROOT/'scripts/zalo_consultation_copy.json').read_text())

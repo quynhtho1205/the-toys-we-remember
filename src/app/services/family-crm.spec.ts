@@ -7,6 +7,19 @@ import {analyze} from './dashboard-analytics';
 describe('Family CRM and lifecycle care',()=>{
  let crm:FamilyCrm;let source:AdminDataSource;
  beforeEach(()=>{localStorage.clear();sessionStorage.clear();TestBed.configureTestingModule({});source=TestBed.inject(AdminDataSource);source.mode.set('mock');source.dataset.set(structuredClone(fixture) as unknown as MockDataset);crm=TestBed.inject(FamilyCrm);});
+ it('fills missing seeded preferences in older mock profiles and preserves parent edits',()=>{
+  const old=structuredClone(crm.data());
+  const lu=old.children.find(c=>c.id==='CHV0006-0')!;
+  delete lu.favoriteColor;delete lu.favoriteToy;
+  const bin=old.children.find(c=>c.id==='CHV0013-0')!;
+  bin.favoriteColor='Hồng';bin.favoriteToy='Robot';
+  crm.save(old);
+  expect(crm.data().children.find(c=>c.id===lu.id)?.favoriteColor).toBe('Xanh dương');
+  expect(crm.data().children.find(c=>c.id===lu.id)?.favoriteToy).toBe('Bộ lắp ghép lâu đài');
+  expect(crm.data().children.find(c=>c.id===bin.id)?.favoriteColor).toBe('Hồng');
+  expect(crm.data().children.find(c=>c.id===bin.id)?.favoriteToy).toBe('Robot');
+  source.mode.set('live');expect(crm.data().children).toHaveLength(0);
+ });
  it('links all children, consultations and campaign orders to the correct families',()=>{
   expect(crm.data().families).toHaveLength(65);expect(crm.data().children).toHaveLength(82);expect(Object.keys(crm.data().orderLinks)).toHaveLength(14);
   for(const o of crm.orders()){const child=crm.data().children.find(c=>c.id===crm.data().orderLinks[o.id])!;expect(child.familyId).toBe('F'+o.visitorId);}
