@@ -1,18 +1,21 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { MarTechService } from './martech-service';
 import { RACING_PRODUCTS } from './racing-products';
+import { GIFT_CATEGORIES, GiftCollection, findGiftCollection } from './gift-categories';
 export interface Recipient {id:string;kind:'self'|'child'|'other';nickname:string;ageBand:string;interests:string;color:string;favoriteToy:string;consentAt?:string}
 export const newRecipient=():Recipient=>({id:'',kind:'child',nickname:'',ageBand:'',interests:'',color:'',favoriteToy:''});
-export interface GiftProduct {id:string;name:string;theme:string;ages:string[];tags:string[];price:number;emoji:string;description:string;imageUrl?:string;collection?:'racing'}
+export interface GiftProduct {id:string;name:string;theme:string;ages:string[];tags:string[];price:number;emoji:string;description:string;imageUrl?:string;collection?:GiftCollection}
 export const GIFT_PRODUCTS:GiftProduct[]=[
-{id:'GIFT01',name:'Hộp gạch sáng tạo',theme:'gach_lego',ages:['3–5','6–8','9–12','13+'],tags:['lắp ghép','xây nhà','sáng tạo','đỏ','vàng','lego'],price:399000,emoji:'🧱',description:'Lắp nhà, xe và những mô hình theo trí tưởng tượng.'},
-{id:'GIFT02',name:'Gấu bông kể chuyện',theme:'bup_be',ages:['3–5','6–8','9–12','13+'],tags:['gấu','thú bông','kể chuyện','nâu','hồng'],price:249000,emoji:'🧸',description:'Người bạn mềm mại cho những câu chuyện mỗi ngày.'},
-{id:'GIFT03',name:'Búp bê & ngôi nhà nhỏ',theme:'bup_be',ages:['3–5','6–8','9–12'],tags:['búp bê','nhập vai','hồng','tím','gia đình'],price:459000,emoji:'🪆',description:'Tự xây những câu chuyện về gia đình và bạn bè.'},
-{id:'GIFT04',name:'Bàn cờ gia đình',theme:'board_game',ages:['6–8','9–12','13+'],tags:['cờ','tư duy','gia đình','chiến thuật','xanh'],price:329000,emoji:'🎲',description:'Một buổi chơi cùng gia đình với luật chơi dễ làm quen.'},
+{id:'GIFT01',collection:'building',imageUrl:'/mock/images/products/gift01.jpg',name:'Hộp gạch sáng tạo',theme:'gach_lego',ages:['3–5','6–8','9–12','13+'],tags:['lắp ghép','xây nhà','sáng tạo','đỏ','vàng','lego'],price:399000,emoji:'🧱',description:'Lắp nhà, xe và những mô hình theo trí tưởng tượng.'},
+{id:'GIFT02',collection:'plush',imageUrl:'/mock/images/products/gift02.jpg',name:'Gấu bông kể chuyện',theme:'bup_be',ages:['3–5','6–8','9–12','13+'],tags:['gấu','thú bông','kể chuyện','nâu','hồng'],price:249000,emoji:'🧸',description:'Người bạn mềm mại cho những câu chuyện mỗi ngày.'},
+{id:'GIFT03',collection:'plush',imageUrl:'/mock/images/products/gift03.jpg',name:'Búp bê & ngôi nhà nhỏ',theme:'bup_be',ages:['3–5','6–8','9–12'],tags:['búp bê','nhập vai','hồng','tím','gia đình'],price:459000,emoji:'🪆',description:'Tự xây những câu chuyện về gia đình và bạn bè.'},
+{id:'GIFT04',collection:'family',imageUrl:'/mock/images/products/gift04.jpg',name:'Bàn cờ gia đình',theme:'board_game',ages:['6–8','9–12','13+'],tags:['cờ','tư duy','gia đình','chiến thuật','xanh'],price:329000,emoji:'🎲',description:'Một buổi chơi cùng gia đình với luật chơi dễ làm quen.'},
 {id:'GIFT05',name:'Bộ diều sắc màu',theme:'canh_dieu',ages:['6–8','9–12','13+'],tags:['diều','ngoài trời','gió','xanh','vàng'],price:159000,emoji:'🪁',description:'Cùng người lớn tận hưởng những buổi chiều ngoài trời.'},
-{id:'GIFT06',name:'Xe lắp ghép khám phá',theme:'gach_lego',ages:['6–8','9–12','13+'],tags:['xe','tàu','lắp ghép','xanh','đỏ','lego'],price:549000,emoji:'🏎️',description:'Lắp, tháo và biến đổi mô hình thành chuyến phiêu lưu mới.'},
-{id:'GIFT07',name:'Bộ ghép hình động vật',theme:'gach_lego',ages:['3–5','6–8'],tags:['động vật','ghép hình','sáng tạo','vàng','xanh'],price:219000,emoji:'🧩',description:'Khám phá hình khối và ghép những người bạn động vật.'},
-{id:'GIFT08',name:'Bộ trò chơi ký ức',theme:'board_game',ages:['3–5','6–8','9–12','13+'],tags:['trí nhớ','gia đình','cờ','tư duy','nhiều màu'],price:189000,emoji:'🃏',description:'Những lượt chơi ngắn để cả nhà cùng tham gia.'}
+{id:'GIFT06',collection:'building',imageUrl:'/mock/images/products/gift06.jpg',name:'Xe lắp ghép khám phá',theme:'gach_lego',ages:['6–8','9–12','13+'],tags:['xe','tàu','lắp ghép','xanh','đỏ','lego'],price:549000,emoji:'🏎️',description:'Lắp, tháo và biến đổi mô hình thành chuyến phiêu lưu mới.'},
+{id:'GIFT07',collection:'building',imageUrl:'/mock/images/products/gift07.jpg',name:'Bộ ghép hình động vật',theme:'gach_lego',ages:['3–5','6–8'],tags:['động vật','ghép hình','sáng tạo','vàng','xanh'],price:219000,emoji:'🧩',description:'Khám phá hình khối và ghép những người bạn động vật.'},
+{id:'GIFT08',collection:'family',imageUrl:'/mock/images/products/gift08.jpg',name:'Bộ trò chơi ký ức',theme:'board_game',ages:['3–5','6–8','9–12','13+'],tags:['trí nhớ','gia đình','cờ','tư duy','nhiều màu'],price:189000,emoji:'🃏',description:'Những lượt chơi ngắn để cả nhà cùng tham gia.'},
+{id:'GIFT09',collection:'plush',imageUrl:'/mock/images/products/gift09.jpg',name:'Thỏ bông Nơ Tím',theme:'bup_be',ages:['3–5','6–8','9–12','13+'],tags:['thú bông','thỏ','trắng','tím','kể chuyện'],price:289000,emoji:'🐰',description:'Người bạn thỏ mềm mại với nơ tím, cùng bé nhập vai những câu chuyện nhỏ.'},
+{id:'GIFT10',collection:'family',imageUrl:'/mock/images/products/gift10.jpg',name:'Tháp gỗ Cân Bằng',theme:'board_game',ages:['6–8','9–12','13+'],tags:['gia đình','tư duy','rút gỗ','xếp tháp','nâu'],price:269000,emoji:'🪵',description:'Luân phiên rút và xếp các thanh gỗ, thử sự khéo léo trong từng lượt chơi cùng gia đình.'}
 ];
 GIFT_PRODUCTS.push(...RACING_PRODUCTS);
 const norm=(s:string)=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
@@ -30,14 +33,15 @@ export class GiftShop {
  private readonly crmRevision=signal(0);
  constructor(){window.addEventListener('ttwr:crm-changed',()=>this.crmRevision.update(n=>n+1));window.addEventListener('storage',()=>{this.saved.set(this.read('ttwr.gifts.v1',{accounts:[],profiles:{}}));this.crmRevision.update(n=>n+1);});}
  readonly profiles=computed(()=>{this.crmRevision();const accountId=this.account()?.id||'';const crm=this.read<any>('ttwr.crm.v1.live',null);return (this.saved().profiles[accountId]||[]).filter(p=>!!p.consentAt).map(p=>{const child=crm?.children?.find((c:any)=>c.id===p.id&&c.familyId==='GIFT_'+accountId);return child?{...p,nickname:child.nickname,ageBand:['0–2','3–5','6–8','9–12','13+'].includes(child.ageBand.replace(' tuổi',''))?child.ageBand.replace(' tuổi',''):'',interests:child.interests??p.interests,color:child.favoriteColor??p.color,favoriteToy:child.favoriteToy??p.favoriteToy}:p;});});
- readonly racingInterest=computed(()=> /\b(xe dua|dua xe|racing|race car|f1|formula|drift|xe hoi|o to)\b/.test(norm(this.recipient().interests+' '+this.recipient().favoriteToy)));
- readonly recommendations=computed(()=>GIFT_PRODUCTS.filter(p=>!this.racingInterest()||p.collection==='racing').map(p=>{
+ readonly selectedCollection=computed(()=>{const r=this.recipient();const id=findGiftCollection(norm(r.interests))||findGiftCollection(norm(r.favoriteToy));return GIFT_CATEGORIES.find(c=>c.id===id);});
+ readonly racingInterest=computed(()=>this.selectedCollection()?.id==='racing');
+ readonly recommendations=computed(()=>GIFT_PRODUCTS.filter(p=>!this.selectedCollection()||p.collection===this.selectedCollection()!.id).map(p=>{
   const r=this.recipient(),reasons:string[]=[];let score=0;
   const match=(s:string)=>!!s.trim()&&p.tags.some(t=>norm(s).replaceAll('lap rap','lap ghep').includes(norm(t)));
   if(r.ageBand&&p.ages.includes(r.ageBand)){score+=4;reasons.push('Phù hợp nhóm tuổi '+r.ageBand);}
   if(match(r.interests)){score+=5;reasons.push('Gần với sở thích đã chọn');}
   if(match(r.favoriteToy)){score+=5;reasons.push('Liên quan món đồ chơi yêu thích');}
-  if(this.racingInterest()&&p.collection==='racing'){score+=6;reasons.push('Thuộc bộ sưu tập xe đua bạn quan tâm');}
+  if(this.selectedCollection()?.id===p.collection&&p.collection){score+=6;reasons.push('Thuộc bộ sưu tập '+this.selectedCollection()!.name.toLowerCase()+' bạn quan tâm');}
   if(match(r.color)){score++;reasons.push('Có tông màu bạn quan tâm');}
   if(!r.interests&&!r.favoriteToy&&p.theme===sessionStorage.getItem('theme_id')){score+=2;reasons.push('Gợi nhớ chủ đề Memory Card');}
   return {...p,score,reasons:reasons.length?reasons:['Gợi ý khám phá; chưa đủ thông tin để cá nhân hóa']};

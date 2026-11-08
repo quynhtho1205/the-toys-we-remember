@@ -32,3 +32,10 @@ Sản phẩm, độ tuổi và giá là dữ liệu minh họa. Gợi ý xếp t
 Mở `/gift-shop`, chọn “Xem gợi ý phù hợp”. Chọn nhóm tuổi 6–8 (hoặc 9–12 / 13+), nhập “xe đua” vào sở thích rồi cập nhật gợi ý; nút nhanh “Xe đua” cũng áp dụng cùng logic. Để ngân sách “Tất cả mức giá” để xem đủ 9 sản phẩm; mức 300.000đ còn 4 sản phẩm. Có thể thêm vào giỏ và thanh toán mô phỏng như các món khác. Không cần đăng nhập để xem hoặc mua demo.
 
 Catalog ở `src/app/services/racing-products.ts`, 9 ảnh AI riêng ở `public/mock/images/products/race01.jpg` đến `race09.jpg`. Prompt và nguồn tạo ảnh built-in image_gen ở `scripts/racing-image-prompts.json`. Đây là sản phẩm, giá và độ tuổi minh họa, không phải danh mục chính thức. Người nhận không cung cấp sở thích vẫn được xem catalog chung; chọn xe đua sẽ lọc đúng bộ xe đua, sau đó áp dụng bộ lọc tuổi và ngân sách.
+
+
+## Các danh mục demo khác
+
+Ngoài 9 món xe đua, có 3 danh mục chọn nhanh: Lắp ghép (GIFT01, GIFT06, GIFT07); Búp bê & thú bông (GIFT02, GIFT03, GIFT09); Trò chơi gia đình (GIFT04, GIFT08, GIFT10). Mỗi nhóm có 3 sản phẩm và 3 ảnh riêng. Chọn tuổi 6–8 và tất cả mức giá để xem đủ 3 món mỗi nhóm; tuổi/ngân sách khác có thể làm giảm số món. Danh mục nhận diện từ sở thích đang chọn trước, sau đó mới từ đồ chơi yêu thích, nên chọn một nhóm mới không bị giữ ở nhóm xe đua từ hồ sơ cũ.
+
+Ảnh AI được tạo bằng built-in image_gen, lưu ở `public/mock/images/products/gift01.jpg`…`gift10.jpg` (không có gift05, món diều cũ). Prompt lưu ở `scripts/category-image-prompts.json`; dữ liệu sản phẩm, giá và tuổi vẫn là minh họa.

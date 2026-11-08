@@ -1,0 +1,50 @@
+{
+  "generator": "built-in image_gen",
+  "images": [
+    {
+      "id": "GIFT01",
+      "prompt": "Use case: product-mockup. One square ecommerce catalog photograph for a fictional toy-shop demo: a colorful creative interlocking building block kit with a small house and loose large bricks. Product fully visible and centered with generous margins on a warm cream studio backdrop, soft natural shadow, polished realistic toy materials, three-quarter perspective, cheerful premium product photography matching a retro cream toy website. Clearly a physical toy. No brand logos, no packaging, no words, no watermark, no humans. Single product or coherent kit only.",
+      "asset": "/mock/images/products/gift01.jpg"
+    },
+    {
+      "id": "GIFT06",
+      "prompt": "Use case: product-mockup. One square ecommerce catalog photograph for a fictional toy-shop demo: a blue and red interlocking building brick exploration vehicle with oversized wheels and a few loose bricks. Product fully visible and centered with generous margins on a warm cream studio backdrop, soft natural shadow, polished realistic toy materials, three-quarter perspective, cheerful premium product photography matching a retro cream toy website. Clearly a physical toy. No brand logos, no packaging, no words, no watermark, no humans. Single product or coherent kit only.",
+      "asset": "/mock/images/products/gift06.jpg"
+    },
+    {
+      "id": "GIFT07",
+      "prompt": "Use case: product-mockup. One square ecommerce catalog photograph for a fictional toy-shop demo: a bright yellow and green chunky animal jigsaw puzzle toy set, elephant giraffe lion pieces. Product fully visible and centered with generous margins on a warm cream studio backdrop, soft natural shadow, polished realistic toy materials, three-quarter perspective, cheerful premium product photography matching a retro cream toy website. Clearly a physical toy. No brand logos, no packaging, no words, no watermark, no humans. Single product or coherent kit only.",
+      "asset": "/mock/images/products/gift07.jpg"
+    },
+    {
+      "id": "GIFT02",
+      "prompt": "Use case: product-mockup. One square ecommerce catalog photograph for a fictional toy-shop demo: a cute warm brown plush teddy bear wearing a small blue scarf, sitting upright. Product fully visible and centered with generous margins on a warm cream studio backdrop, soft natural shadow, polished realistic toy materials, three-quarter perspective, cheerful premium product photography matching a retro cream toy website. Clearly a physical toy. No brand logos, no packaging, no words, no watermark, no humans. Single product or coherent kit only.",
+      "asset": "/mock/images/products/gift02.jpg"
+    },
+    {
+      "id": "GIFT03",
+      "prompt": "Use case: product-mockup. One square ecommerce catalog photograph for a fictional toy-shop demo: a small furnished pastel pink dollhouse with a friendly toy doll standing beside it. Product fully visible and centered with generous margins on a warm cream studio backdrop, soft natural shadow, polished realistic toy materials, three-quarter perspective, cheerful premium product photography matching a retro cream toy website. Clearly a physical toy. No brand logos, no packaging, no words, no watermark, no humans. Single product or coherent kit only.",
+      "asset": "/mock/images/products/gift03.jpg"
+    },
+    {
+      "id": "GIFT09",
+      "prompt": "Use case: product-mockup. One square ecommerce catalog photograph for a fictional toy-shop demo: a soft white plush bunny with long ears and a lavender bow, sitting upright. Product fully visible and centered with generous margins on a warm cream studio backdrop, soft natural shadow, polished realistic toy materials, three-quarter perspective, cheerful premium product photography matching a retro cream toy website. Clearly a physical toy. No brand logos, no packaging, no words, no watermark, no humans. Single product or coherent kit only.",
+      "asset": "/mock/images/products/gift09.jpg"
+    },
+    {
+      "id": "GIFT04",
+      "prompt": "Use case: product-mockup. One square ecommerce catalog photograph for a fictional toy-shop demo: a wooden family board game set with a colorful ludo board, colorful pawns and dice. Product fully visible and centered with generous margins on a warm cream studio backdrop, soft natural shadow, polished realistic toy materials, three-quarter perspective, cheerful premium product photography matching a retro cream toy website. Clearly a physical toy. No brand logos, no packaging, no words, no watermark, no humans. Single product or coherent kit only.",
+      "asset": "/mock/images/products/gift04.jpg"
+    },
+    {
+      "id": "GIFT08",
+      "prompt": "Use case: product-mockup. One square ecommerce catalog photograph for a fictional toy-shop demo: a children memory matching card game laid out neatly, with colorful animal illustrations on cards, no lettering. Product fully visible and centered with generous margins on a warm cream studio backdrop, soft natural shadow, polished realistic toy materials, three-quarter perspective, cheerful premium product photography matching a retro cream toy website. Clearly a physical toy. No brand logos, no packaging, no words, no watermark, no humans. Single product or coherent kit only.",
+      "asset": "/mock/images/products/gift08.jpg"
+    },
+    {
+      "id": "GIFT10",
+      "prompt": "Use case: product-mockup. One square ecommerce catalog photograph for a fictional toy-shop demo: a wooden stacking balance tower game, natural wood rectangular blocks with a few removed blocks neatly beside it. Product fully visible and centered with generous margins on a warm cream studio backdrop, soft natural shadow, polished realistic toy materials, three-quarter perspective, cheerful premium product photography matching a retro cream toy website. Clearly a physical toy. No brand logos, no packaging, no words, no watermark, no humans. Single product or coherent kit only.",
+      "asset": "/mock/images/products/gift10.jpg"
+    }
+  ]
+}

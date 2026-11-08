@@ -68,3 +68,26 @@ it('includes a racing item in demo checkout at the actual catalog price',()=>{
  expect(shop.cartRows()).toHaveLength(0);
  expect(shop.profiles()).toHaveLength(0);
 });
+
+it('switches between three new illustrated collections without stale racing matches',()=>{
+ const shop=TestBed.inject(GiftShop);
+ for(const [interest,collection] of [['lắp ghép','building'],['búp bê, thú bông','plush'],['trò chơi gia đình','family']] as const){
+  shop.setRecipient({...newRecipient(),ageBand:'6–8',interests:interest,favoriteToy:'xe đua'});
+  const rows=shop.recommendations();
+  expect(shop.selectedCollection()?.id).toBe(collection);
+  expect(rows).toHaveLength(3);
+  expect(rows.every(p=>p.collection===collection&&p.imageUrl)).toBe(true);
+  expect(new Set(rows.map(p=>p.imageUrl)).size).toBe(3);
+ }
+ shop.maxBudget.set(280000);
+ expect(shop.recommendations().every(p=>p.price<=280000)).toBe(true);
+ shop.maxBudget.set(0);shop.setRecipient({...newRecipient(),ageBand:'3–5',interests:'boardgame'});
+ expect(shop.recommendations().map(p=>p.id)).toEqual(['GIFT08']);
+ shop.setRecipient({...newRecipient(),ageBand:'0–2',interests:'thú bông'});
+ expect(shop.recommendations()).toHaveLength(0);
+});
+it('checks out the new bunny and balance tower using their catalog prices',()=>{
+ const shop=TestBed.inject(GiftShop);shop.add('GIFT09');shop.add('GIFT10');
+ expect(shop.subtotal()).toBe(558000);
+ expect(shop.checkout(false,'')?.total).toBe(558000);
+});

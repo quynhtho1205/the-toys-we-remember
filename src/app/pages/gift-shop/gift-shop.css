@@ -11,3 +11,5 @@
 .account-details{margin:0 0 20px;border-bottom:1px solid #c7c0aa;padding:0 0 14px}.account-details summary,.care-details summary,.product-details summary{cursor:pointer;font-weight:600}.account-details summary{font-size:13px}.shop-account{padding:16px 0 0}.shop-branches{padding:0}.shop-branches .gift-actions{display:flex;gap:12px;flex-wrap:wrap}.demo-caption{font-size:11px;color:#6d6658}.product-details{margin-top:14px;border-top:1px solid #ddd;padding-top:10px;font-size:12px}.product-details summary{font-weight:400;color:#625b50}.care-details{margin:24px 0}.shop-hero{padding-bottom:16px}.interest-shortcuts{margin:12px 0}.shop-layout{margin:20px 0}
 
 .shop-branches button{padding:10px 16px;border:2px solid #111;box-shadow:3px 3px #111;background:#fff;font-weight:700;cursor:pointer}.shop-branches button[aria-pressed="true"]{background:#ffd600}.shop-branches .gift-actions{margin:12px 0}.shop-feedback{font-size:12px;color:#53604e;margin:8px 0}.shop-shell{padding-top:24px}.shop-hero h1{margin:8px 0 10px;font-size:clamp(28px,3vw,38px)}
+
+.interest-shortcuts button[aria-pressed="true"]{background:#ffd600}
