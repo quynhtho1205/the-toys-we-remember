@@ -72065,7 +72065,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Xanh ngọc",
+        "favoriteToy": "Bộ cờ cá ngựa"
       },
       {
         "id": "CHV0029-0",
@@ -72076,7 +72078,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Vàng chanh",
+        "favoriteToy": "Diều bạch tuộc"
       },
       {
         "id": "CHV0046-0",
@@ -72113,7 +72117,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Trắng",
+        "favoriteToy": "Thú bông gấu trúc"
       },
       {
         "id": "CHV0061-0",
@@ -72124,7 +72130,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Xanh navy",
+        "favoriteToy": "Bộ cờ đam"
       },
       {
         "id": "CHV0062-0",
@@ -72135,7 +72143,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Xanh bạc hà",
+        "favoriteToy": "Diều đại bàng"
       },
       {
         "id": "CHV0070-0",
@@ -72146,7 +72156,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Hồng đào",
+        "favoriteToy": "Bộ lắp ghép trạm cứu hỏa"
       },
       {
         "id": "CHV0070-1",
@@ -72157,7 +72169,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Hồng",
+        "favoriteToy": "Bộ lắp ghép tàu vũ trụ"
       },
       {
         "id": "CHV0080-0",
@@ -72168,7 +72182,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Đỏ đô",
+        "favoriteToy": "Thú bông chó"
       },
       {
         "id": "CHV0088-0",
@@ -72179,7 +72195,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Tím nhạt",
+        "favoriteToy": "Bộ ghép hình phương tiện"
       },
       {
         "id": "CHV0096-0",
@@ -72190,7 +72208,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Vàng chanh",
+        "favoriteToy": "Dây nhảy nhiều màu"
       },
       {
         "id": "CHV0103-0",
@@ -72201,7 +72221,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Hồng",
+        "favoriteToy": "Bộ lắp ghép robot"
       },
       {
         "id": "CHV0103-1",
@@ -72212,7 +72234,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Trắng",
+        "favoriteToy": "Bộ lắp ghép khủng long"
       },
       {
         "id": "CHV0117-0",
@@ -72223,7 +72247,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Xanh dương",
+        "favoriteToy": "Thú bông khủng long"
       },
       {
         "id": "CHV0118-0",
@@ -72234,7 +72260,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Đỏ đô",
+        "favoriteToy": "Bộ rút gỗ cân bằng"
       },
       {
         "id": "CHV0122-0",
@@ -72245,7 +72273,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Xanh da trời",
+        "favoriteToy": "Diều rồng"
       },
       {
         "id": "CHV0130-0",
@@ -72256,7 +72286,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Tím",
+        "favoriteToy": "Bộ xếp hình khối lớn vườn hoa"
       },
       {
         "id": "CHV0130-1",
@@ -72267,7 +72299,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Xanh lá",
+        "favoriteToy": "Bộ xếp hình khối lớn nông trại"
       },
       {
         "id": "CHV0145-0",
@@ -72278,7 +72312,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Tím nhạt",
+        "favoriteToy": "Thú bông mèo"
       },
       {
         "id": "CHV0147-0",
@@ -72289,7 +72325,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Xanh ngọc",
+        "favoriteToy": "Bộ cờ ludo"
       },
       {
         "id": "CHV0159-0",
@@ -72300,7 +72338,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Xanh navy",
+        "favoriteToy": "Bóng đá mini"
       },
       {
         "id": "CHV0167-0",
@@ -72311,7 +72351,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Đỏ",
+        "favoriteToy": "Bộ lắp ghép ngôi nhà trên cây"
       },
       {
         "id": "CHV0167-1",
@@ -72322,7 +72364,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Xanh bạc hà",
+        "favoriteToy": "Bộ lắp ghép tàu hỏa"
       },
       {
         "id": "CHV0170-0",
@@ -72333,7 +72377,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Hồng đào",
+        "favoriteToy": "Thú bông chim cánh cụt"
       },
       {
         "id": "CHV0179-0",
@@ -72344,7 +72390,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Cam",
+        "favoriteToy": "Bộ trò chơi tìm hình giống nhau"
       },
       {
         "id": "CHV0180-0",
@@ -72355,7 +72403,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Tím nhạt",
+        "favoriteToy": "Bộ ném vòng"
       },
       {
         "id": "CHV0188-0",
@@ -72366,7 +72416,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Xanh lá",
+        "favoriteToy": "Bộ lắp ghép tiệm bánh"
       },
       {
         "id": "CHV0188-1",
@@ -72377,7 +72429,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Đỏ",
+        "favoriteToy": "Bộ lắp ghép thành phố"
       },
       {
         "id": "CHV0196-0",
@@ -72388,7 +72442,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Hồng đào",
+        "favoriteToy": "Búp bê bác sĩ"
       },
       {
         "id": "CHV0202-0",
@@ -72399,7 +72455,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Xanh da trời",
+        "favoriteToy": "Bộ cờ rắn leo thang"
       },
       {
         "id": "CHV0205-0",
@@ -72410,7 +72468,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Tím",
+        "favoriteToy": "Diều bướm"
       },
       {
         "id": "CHV0210-0",
@@ -72421,7 +72481,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Đỏ đô",
+        "favoriteToy": "Bộ xếp hình khối lớn ngôi nhà"
       },
       {
         "id": "CHV0210-1",
@@ -72432,7 +72494,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Xanh bạc hà",
+        "favoriteToy": "Bộ xếp hình khối lớn tàu hỏa"
       },
       {
         "id": "CHV0214-0",
@@ -72443,7 +72507,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Cam",
+        "favoriteToy": "Búp bê đầu bếp"
       },
       {
         "id": "CHV0215-0",
@@ -72454,7 +72520,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Hồng",
+        "favoriteToy": "Bộ domino hình ảnh"
       },
       {
         "id": "CHV0223-0",
@@ -72465,7 +72533,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Xanh navy",
+        "favoriteToy": "Đĩa bay mềm"
       },
       {
         "id": "CHV0224-0",
@@ -72476,7 +72546,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Xanh dương",
+        "favoriteToy": "Bộ lắp ghép công viên"
       },
       {
         "id": "CHV0224-1",
@@ -72487,7 +72559,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Xanh ngọc",
+        "favoriteToy": "Bộ lắp ghép xe đua"
       },
       {
         "id": "CHV0226-0",
@@ -72511,7 +72585,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Trắng",
+        "favoriteToy": "Bộ ghép hình đại dương"
       },
       {
         "id": "CHV0233-0",
@@ -72535,7 +72611,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Vàng chanh",
+        "favoriteToy": "Bộ lắp ghép nông trại"
       },
       {
         "id": "CHV0237-1",
@@ -72546,7 +72624,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Vàng",
+        "favoriteToy": "Bộ lắp ghép xe công trình"
       },
       {
         "id": "CHV0239-0",
@@ -72557,7 +72637,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Hồng",
+        "favoriteToy": "Thú bông thỏ"
       },
       {
         "id": "CHV0242-0",
@@ -72568,7 +72650,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Hồng đào",
+        "favoriteToy": "Bộ xếp tháp gỗ"
       },
       {
         "id": "CHV0250-0",
@@ -72579,7 +72663,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Xanh da trời",
+        "favoriteToy": "Bộ cầu lông thiếu nhi"
       },
       {
         "id": "CHV0254-0",
@@ -72590,7 +72676,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Đỏ",
+        "favoriteToy": "Bộ xếp hình khối lớn sở thú"
       },
       {
         "id": "CHV0254-1",
@@ -72601,7 +72689,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Vàng chanh",
+        "favoriteToy": "Bộ xếp hình khối lớn cầu vồng"
       },
       {
         "id": "CHV0255-0",
@@ -72612,7 +72702,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Xanh ngọc",
+        "favoriteToy": "Bộ nhà búp bê"
       },
       {
         "id": "CHV0257-0",
@@ -72623,7 +72715,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Tím nhạt",
+        "favoriteToy": "Bộ thẻ ghép cặp"
       },
       {
         "id": "CHV0259-0",
@@ -72634,7 +72728,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Xanh bạc hà",
+        "favoriteToy": "Diều cá mập"
       },
       {
         "id": "CHV0262-0",
@@ -72645,7 +72741,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Tím",
+        "favoriteToy": "Bộ lắp ghép tàu vũ trụ"
       },
       {
         "id": "CHV0262-1",
@@ -72656,7 +72754,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Vàng",
+        "favoriteToy": "Bộ lắp ghép tiệm bánh"
       },
       {
         "id": "CHV0264-0",
@@ -72667,7 +72767,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Đỏ đô",
+        "favoriteToy": "Búp bê nàng tiên"
       },
       {
         "id": "CHV0270-0",
@@ -72678,7 +72780,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Xanh navy",
+        "favoriteToy": "Bộ ghép hình nông trại"
       },
       {
         "id": "CHV0272-0",
@@ -72689,7 +72793,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Trắng",
+        "favoriteToy": "Bộ bowling ngoài trời"
       },
       {
         "id": "CHV0274-0",
@@ -72700,7 +72806,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Xanh dương",
+        "favoriteToy": "Bộ lắp ghép thành phố"
       },
       {
         "id": "CHV0274-1",
@@ -72711,7 +72819,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Cam",
+        "favoriteToy": "Bộ lắp ghép tàu hỏa"
       },
       {
         "id": "CHV0276-0",
@@ -72722,7 +72832,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Xanh lá",
+        "favoriteToy": "Búp bê phi hành gia"
       },
       {
         "id": "CHV0288-0",
@@ -72733,7 +72845,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Cam",
+        "favoriteToy": "Bộ thẻ ghi nhớ động vật"
       },
       {
         "id": "CHV0303-0",
@@ -72744,7 +72858,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Hồng đào",
+        "favoriteToy": "Bộ bowling ngoài trời"
       },
       {
         "id": "CHV0308-0",
@@ -72755,7 +72871,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Hồng",
+        "favoriteToy": "Bộ xếp hình khối lớn xe buýt"
       },
       {
         "id": "CHV0308-1",
@@ -72766,7 +72884,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Xanh ngọc",
+        "favoriteToy": "Bộ xếp hình khối lớn xe cứu hỏa"
       },
       {
         "id": "CHV0310-0",
@@ -72777,7 +72897,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Vàng chanh",
+        "favoriteToy": "Bộ chăm sóc búp bê"
       },
       {
         "id": "CHV0319-0",
@@ -72788,7 +72910,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Tím nhạt",
+        "favoriteToy": "Bộ trò chơi tìm kho báu"
       },
       {
         "id": "CHV0330-0",
@@ -72799,7 +72923,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Xanh bạc hà",
+        "favoriteToy": "Diều bướm"
       },
       {
         "id": "CHV0335-0",
@@ -72810,7 +72936,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Đỏ",
+        "favoriteToy": "Bộ lắp ghép nông trại"
       },
       {
         "id": "CHV0335-1",
@@ -72821,7 +72949,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Xanh da trời",
+        "favoriteToy": "Bộ lắp ghép ngôi nhà trên cây"
       },
       {
         "id": "CHV0352-0",
@@ -72832,7 +72962,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Đỏ đô",
+        "favoriteToy": "Búp bê bác sĩ"
       },
       {
         "id": "CHV0359-0",
@@ -72843,7 +72975,9 @@
         "theme": "board_game",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Gấu"
+        "legacyNickname": "Gấu",
+        "favoriteColor": "Xanh dương",
+        "favoriteToy": "Bộ thẻ ghi nhớ màu sắc"
       },
       {
         "id": "CHV0368-0",
@@ -72854,7 +72988,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Trắng",
+        "favoriteToy": "Diều cầu vồng"
       },
       {
         "id": "CHV0380-0",
@@ -72865,7 +73001,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Xanh navy",
+        "favoriteToy": "Bộ lắp ghép trạm cứu hỏa"
       },
       {
         "id": "CHV0380-1",
@@ -72876,7 +73014,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Tím",
+        "favoriteToy": "Bộ lắp ghép công viên"
       },
       {
         "id": "CHV0390-0",
@@ -72887,7 +73027,9 @@
         "theme": "bup_be",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Sóc"
+        "legacyNickname": "Sóc",
+        "favoriteColor": "Vàng",
+        "favoriteToy": "Bộ nhà búp bê"
       },
       {
         "id": "CHV0393-0",
@@ -72911,7 +73053,9 @@
         "theme": "canh_dieu",
         "budget": 650000,
         "birthdayOptIn": false,
-        "legacyNickname": "Mây"
+        "legacyNickname": "Mây",
+        "favoriteColor": "Xanh lá",
+        "favoriteToy": "Bóng đá mini"
       },
       {
         "id": "CHV0400-0",
@@ -72922,7 +73066,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp"
+        "legacyNickname": "Bắp",
+        "favoriteColor": "Xanh da trời",
+        "favoriteToy": "Bộ xếp hình khối lớn sở thú"
       },
       {
         "id": "CHV0400-1",
@@ -72933,7 +73079,9 @@
         "theme": "gach_lego",
         "budget": 650000,
         "birthdayOptIn": true,
-        "legacyNickname": "Bắp Nhỏ"
+        "legacyNickname": "Bắp Nhỏ",
+        "favoriteColor": "Tím",
+        "favoriteToy": "Bộ xếp hình khối lớn xe buýt"
       }
     ],
     "consultations": [

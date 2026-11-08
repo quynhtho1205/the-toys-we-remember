@@ -53,6 +53,8 @@ def personalize(data):
     for child in children:
         if child['id'] in preferences:
             child['favoriteColor'],child['favoriteToy']=preferences[child['id']]
+    from child_preferences import fill_preferences
+    fill_preferences(children)
     # Fifteen fictional Zalo requests, distinct from legacy/manual CRM records.
     from datetime import datetime, timedelta, timezone
     requests=json.loads((ROOT/'scripts/zalo_consultation_copy.json').read_text())
