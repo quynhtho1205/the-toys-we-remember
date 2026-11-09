@@ -15,6 +15,8 @@ export class AdminOperations {
  readonly store=inject(CampaignAdminStore);readonly tracking=inject(AdminDataSource);
  readonly query=signal('');readonly stageFilter=signal('all');readonly storyFilter=signal('all');
  readonly storyDialog=viewChild.required<ElementRef<HTMLDialogElement>>('storyDialog');
+ readonly customerDialog=viewChild<ElementRef<HTMLDialogElement>>('customerDialog');
+ closeCustomerBackdrop(e:MouseEvent){if(e.target===e.currentTarget)(e.currentTarget as HTMLDialogElement).close();}
  readonly simulationDialog=viewChild.required<ElementRef<HTMLDialogElement>>('simulationDialog');
  readonly simulationResult=signal<LocalRun|null>(null);
  readonly trialPage=signal(0);readonly followupPage=signal(0);readonly runPage=signal(0);
@@ -26,7 +28,7 @@ export class AdminOperations {
  voucherCode='';voucherDiscount=15;voucherExpires=this.store.settings().end;voucherLimit=100;
  constructor(){effect(()=>{this.query();this.events();this.trialPage.set(0);this.followupPage.set(0);this.runPage.set(0);});effect(()=>{
   this.tab();this.tracking.mode();this.clearSearch();this.stageFilter.set('all');this.storyFilter.set('all');
-  this.selectedCustomer.set('');this.selectedStory.set('');const dialog=this.storyDialog()?.nativeElement;if(dialog?.open)dialog.close();this.notice.set('');
+  this.selectedCustomer.set('');this.selectedStory.set('');const dialog=this.storyDialog()?.nativeElement;if(dialog?.open)dialog.close();const cd=this.customerDialog()?.nativeElement;if(cd?.open)cd.close();this.notice.set('');
   this.simulationResult.set(null);const popup=this.simulationDialog()?.nativeElement;if(popup?.open)popup.close();
   this.settingsDraft=structuredClone(untracked(()=>this.store.settings()));
  });}
