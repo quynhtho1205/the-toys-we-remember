@@ -107,12 +107,23 @@
 
     <section class="box">
       <h2>02 · Chủ đề khách quan tâm</h2>
-      @if (result(); as r) {
+      @if (result()) {
+        @let r = viewResult();
+        <div class="channel-pills" role="group" aria-label="Xem kết quả theo kênh">
+          <span>Xem theo kênh:</span>
+          <button type="button" [class.active]="resultChannel() === 'all'" [attr.aria-pressed]="resultChannel() === 'all'" (click)="resultChannel.set('all')">Tất cả kênh</button>
+          @for (k of resultChannels(); track k) {
+            <button type="button" [class.active]="resultChannel() === k" [attr.aria-pressed]="resultChannel() === k" (click)="resultChannel.set(k)">{{channelLabel(k)}}</button>
+          }
+        </div>
         <p>{{classified()}} / {{r.length}} bình luận có nhu cầu nhận diện. Một bình luận có thể thuộc nhiều nhóm; tỷ trọng không cộng thành 100%.</p>
         @for (g of topics(); track g.id) {
           <article class="topic">
             <h3>{{g.name}} <span>{{g.comments.length}} · {{r.length ? (g.comments.length / r.length * 100).toFixed(1) : 0}}%</span></h3>
             <div class="bar"><i [style.width.%]="r.length ? (g.comments.length / r.length * 100) : 0"></i></div>
+            @if (resultChannel() === 'all' && g.comments.length) {
+              <p class="channel-split">@for (b of channelBreakdown(g.comments); track b.key) {<span>{{b.label}} {{b.n}}</span>}</p>
+            }
             <details>
               <summary>Xem bình luận dẫn chứng</summary>
               @for (c of g.comments; track c.id) {
@@ -226,6 +237,15 @@
   <header class="gallery-heading"><div><h2>Insight ký ức Campaign</h2><p>Tìm điều khách nhắc đến để lên ý tưởng nội dung.</p></div></header>
   <div class="gallery-toolbar">
 <div class="filters">
+      <label>
+        Kênh
+        <select [ngModel]="galleryChannel()" (ngModelChange)="galleryChannel.set($event); galleryPage.set(0)">
+          <option value="all">Tất cả kênh</option>
+          @for (k of galleryChannels(); track k) {
+            <option [value]="k">{{channelLabel(k)}}</option>
+          }
+        </select>
+      </label>
       <label>
         Chủ đề ký ức
         <select [ngModel]="galleryTheme()" (ngModelChange)="galleryTheme.set($event); galleryPage.set(0)">

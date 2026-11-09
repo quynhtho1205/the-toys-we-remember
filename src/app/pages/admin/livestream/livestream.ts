@@ -118,6 +118,10 @@ const samples: Comment[] = Array.from({ length: 150 }, (_, i) => ({
   time: `20:${String(Math.floor(i/3)).padStart(2, '0')}`,
 }));
 
+export function channelLabel(k: string) {
+  return ({ facebook: 'Facebook', tiktok: 'TikTok', youtube: 'YouTube', zalo: 'Zalo', instagram: 'Instagram', direct: 'Truy cập trực tiếp', manual: 'Nhập tay' } as Record<string, string>)[k] || k;
+}
+
 @Component({
   selector: 'app-livestream',
   imports: [FormsModule, CommonModule, ScheduledPosts],
@@ -172,11 +176,25 @@ export class Livestream {
     )
   );
 
+  // Kênh dùng để xem kết quả sau khi đã phân tích (không cần chạy lại)
+  readonly resultChannel = signal('all');
+  readonly resultChannels = computed(() =>
+    [...new Set((this.result() || []).map((c) => c.source).filter(Boolean) as string[])].sort()
+  );
+  readonly viewResult = computed(() =>
+    (this.result() || []).filter((c) => this.resultChannel() === 'all' || c.source === this.resultChannel())
+  );
+  channelBreakdown(list: Comment[]) {
+    const m = new Map<string, number>();
+    for (const c of list) m.set(c.source || 'manual', (m.get(c.source || 'manual') || 0) + 1);
+    return [...m.entries()].sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ key: k, label: channelLabel(k), n }));
+  }
+
   readonly topics = computed(() =>
     groups
       .map((g) => ({
         ...g,
-        comments: (this.result() || []).filter((c) => classify(c.text).includes(g.id)),
+        comments: this.viewResult().filter((c) => classify(c.text).includes(g.id)),
       }))
       .sort((a, b) => b.comments.length - a.comments.length)
   );
@@ -188,12 +206,12 @@ export class Livestream {
       { id: 'other', name: 'Trung tính / chưa phân loại' },
     ].map((g) => ({
       ...g,
-      comments: (this.result() || []).filter((c) => feedback(c.text) === g.id),
+      comments: this.viewResult().filter((c) => feedback(c.text) === g.id),
     }))
   );
 
   readonly classified = computed(
-    () => (this.result() || []).filter((c) => classify(c.text).length).length
+    () => this.viewResult().filter((c) => classify(c.text).length).length
   );
 
   readonly stale = computed(
@@ -212,6 +230,19 @@ export class Livestream {
   beginGalleryContent(id:string){this.galleryTopicId.set(id);this.galleryFormat.set('post');this.galleryDraft.set(null);this.message.set('');}
   closeGalleryBackdrop(event:MouseEvent,dialog:HTMLDialogElement){if(event.target===dialog)dialog.close();}
   readonly galleryTheme = signal('all');
+  readonly galleryChannel = signal('all');
+  // Kênh khách đến lần đầu (first-touch UTM) của người gửi câu chuyện
+  readonly storySources = computed(() => {
+    const m = new Map<string, string>();
+    for (const c of this.tracking.customers()) if (c.source) m.set(c.visitor_id, c.source);
+    for (const e of this.tracking.events()) if (!m.has(e.visitor_id) && e.utm_source) m.set(e.visitor_id, e.utm_source);
+    return m;
+  });
+  storySource(s: CampaignStory) { return this.storySources().get(s.visitorId) || 'direct'; }
+  readonly galleryChannels = computed(() =>
+    [...new Set(this.eligibleGalleryStories().map((s) => this.storySource(s)))].sort()
+  );
+  channelLabel = channelLabel;
   readonly galleryEra = signal('all');
   readonly galleryFrom = signal('');
   readonly galleryTo = signal('');
@@ -257,6 +288,7 @@ export class Livestream {
     return this.eligibleGalleryStories()
       .filter((s) => {
         if (this.galleryTheme() !== 'all' && s.theme_id !== this.galleryTheme()) return false;
+        if (this.galleryChannel() !== 'all' && this.storySource(s) !== this.galleryChannel()) return false;
         if (this.galleryEra() !== 'all' && s.eraCategory !== this.galleryEra()) return false;
         if (this.galleryFrom() && day(s.createdAt) < this.galleryFrom()) return false;
         if (this.galleryTo() && day(s.createdAt) > this.galleryTo()) return false;
@@ -339,6 +371,7 @@ export class Livestream {
 
   reset() {
     this.result.set(null);
+    this.resultChannel.set('all');
     this.draft.set(null);
     this.page.set(0);
     this.message.set('');
@@ -426,7 +459,7 @@ export class Livestream {
       hook: g.hook,
       outline,
       format: this.format,
-      channel: this.channel(),
+      channel: this.resultChannel() !== 'all' ? this.resultChannel() : this.channel(),
       cta: 'Bình luận câu hỏi hoặc ghé góc quà tặng để chọn món phù hợp với gia đình.',
       evidence: g.comments.slice(0, 3).map((c) => (c.source || 'Nhập tay') + ' · ' + c.name + ': ' + c.text),
     });
@@ -460,6 +493,7 @@ export class Livestream {
     this.galleryPage.set(0);
     this.gallerySearch.set('');
     this.galleryTheme.set('all');
+    this.galleryChannel.set('all');
     this.galleryEra.set('all');
     this.galleryFrom.set('');
     this.galleryTo.set('');

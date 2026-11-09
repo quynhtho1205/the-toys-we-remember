@@ -15,7 +15,11 @@ export class ScheduledPosts {
  readonly dialog=viewChild.required<ElementRef<HTMLDialogElement>>('scheduleDialog');
  readonly posts=signal<ScheduledPost[]>([]);readonly selected=signal<ScheduledPost|null>(null);
  readonly feedback=signal('');readonly error=signal('');readonly confirmed=signal(false);readonly page=signal(0);
- readonly rows=computed(()=>this.posts().slice().sort((a,b)=>a.scheduledAt.localeCompare(b.scheduledAt)));
+ readonly channelFilter=signal('all');
+ readonly channels=['Facebook','Instagram','TikTok','YouTube'];
+ readonly rows=computed(()=>this.posts().filter(p=>this.channelFilter()==='all'||p.channel===this.channelFilter()).sort((a,b)=>a.scheduledAt.localeCompare(b.scheduledAt)));
+ countFor(ch:string){return this.posts().filter(p=>ch==='all'||p.channel===ch).length;}
+ setChannel(ch:string){this.channelFilter.set(ch);this.page.set(0);}
  readonly pageNumbers=computed(()=>Array.from({length:Math.ceil(this.rows().length/10)},(_,i)=>i));
  channel='Facebook';mediaNote='';dateTime='';approved=false;
  constructor(){
