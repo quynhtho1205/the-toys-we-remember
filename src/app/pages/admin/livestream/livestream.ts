@@ -137,9 +137,9 @@ const pool: Record<string, string[]> = {
 
 // Số bình luận theo chủ đề cho từng kênh: [phiên family, phiên creative]
 const mix: Record<string, Record<string, [number, number]>> = {
-  facebook: { price: [14, 4], age: [9, 5], safety: [6, 2], play: [3, 4], benefit: [2, 3], other: [3, 2] },
-  tiktok: { price: [8, 3], age: [4, 2], safety: [2, 1], play: [10, 9], benefit: [1, 2], other: [5, 4] },
-  youtube: { price: [2, 1], age: [3, 2], safety: [4, 2], play: [7, 7], benefit: [5, 4], other: [2, 3] },
+  facebook: { price: [20, 3], age: [8, 4], safety: [4, 1], play: [2, 3], benefit: [1, 5], other: [3, 2] },
+  tiktok: { price: [10, 3], age: [3, 1], safety: [1, 0], play: [14, 16], benefit: [0, 2], other: [4, 4] },
+  youtube: { price: [1, 1], age: [2, 1], safety: [4, 1], play: [4, 6], benefit: [5, 6], other: [4, 1] },
 };
 
 function buildSamples(session: 0 | 1, offset: number): Comment[] {
