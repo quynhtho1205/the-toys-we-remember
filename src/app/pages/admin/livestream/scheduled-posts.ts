@@ -10,6 +10,18 @@ export interface ScheduledPost {
  status:'scheduled'|'simulated'|'cancelled'; processedAt?:string;
 }
 const KEY='ttwr.content.schedules.v1';
+/** 5 lịch đăng mẫu cho demo, tạo một lần khi trình duyệt chưa có lịch nào. */
+export function demoSchedules(now=Date.now()):ScheduledPost[]{
+ const at=(days:number,hourVN:number)=>{const d=new Date(now+days*86400000);d.setUTCHours(hourVN-7,0,0,0);return d.toISOString();};
+ const base={mode:'mock',cta:'',visualDirection:'',mediaNote:'',createdAt:new Date(now).toISOString(),status:'scheduled' as const};
+ const rows:[string,'comments'|'gallery',string,string,string,string,string,number,number][]=[
+  ['Facebook','comments','post','Giải thích giá và cách dùng ưu đãi livestream','Làm sao nhận và dùng mã giảm 15%?','Hướng dẫn 3 bước nhận voucher TTWR15 qua Zalo và áp dụng khi mua online hoặc tại cửa hàng. Nhắc hạn dùng và điều kiện áp dụng.','Bình luận “VOUCHER” để nhận hướng dẫn chi tiết.',1,20],
+  ['TikTok','comments','video','Hướng dẫn cùng con chơi trong 60 giây','Mở hộp xong thì bắt đầu chơi thế nào?','0–5s: mở hộp bộ lắp ráp xe. 5–40s: lắp từng bước cùng con. 40–60s: mẹo cất giữ mảnh ghép.','Lưu video và thử cùng bé cuối tuần này.',2,19],
+  ['Facebook','comments','post','Chọn đồ chơi phù hợp độ tuổi của con','Bé mấy tuổi thì chơi được món này?','Bảng gợi ý theo nhóm tuổi 3–5, 6–8, 9–12 cho lắp ghép, búp bê và board game, kèm cách đọc nhãn độ tuổi.','Để lại tuổi của bé, shop gợi ý món phù hợp.',4,11],
+  ['YouTube','comments','video','Một buổi chơi cùng con học được gì?','Ngoài niềm vui, con luyện được kỹ năng nào?','Quay một buổi chơi board game gia đình: quan sát, chờ lượt, giải quyết vấn đề. Không cam kết kết quả phát triển.','Xem thêm bộ sưu tập Trò chơi bàn.',6,20],
+  ['Instagram','gallery','post','Kỷ niệm đáng nhớ hơn giá tiền','Món đồ chơi sờn màu vẫn là báu vật của tuổi thơ.','Chia sẻ một câu chuyện ký ức đã được phép đăng, kèm Memory Card và lời mời phụ huynh kể chuyện của mình.','Tạo Memory Card của bạn tại microsite.',8,21]];
+ return rows.map(([channel,source,format,title,hook,outline,cta,days,h],i)=>({...base,id:'DEMO-SCH-'+(i+1),draftId:'demo-draft-'+(i+1),source,format,channel,title,hook,outline,cta,scheduledAt:at(days,h)}));
+}
 @Component({selector:'app-scheduled-posts',imports:[CommonModule,FormsModule],templateUrl:'./scheduled-posts.html',styleUrl:'./scheduled-posts.css'})
 export class ScheduledPosts {
  readonly active=input(false);readonly mode=input('mock');readonly viewSchedule=output<void>();
@@ -44,7 +56,7 @@ export class ScheduledPosts {
    img.onerror=()=>{URL.revokeObjectURL(url);res(undefined);};img.src=url;}catch{res(undefined);}});
  }
  constructor(){
-  try{const data=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(data))this.posts.set(data);}catch{this.error.set('Không đọc được lịch đã lưu.');}
+  try{const raw=localStorage.getItem(KEY);const data=JSON.parse(raw||'[]');if(Array.isArray(data))this.posts.set(data);if(raw===null&&typeof location!=='undefined'&&location.pathname.startsWith('/admin'))this.persist(demoSchedules());}catch{this.error.set('Không đọc được lịch đã lưu.');}
   this.reconcile();const timer=setInterval(()=>this.reconcile(),15000);inject(DestroyRef).onDestroy(()=>clearInterval(timer));
   effect(()=>{this.mode();this.page.set(0);this.selected.set(null);this.confirmed.set(false);const dialog=this.dialog()?.nativeElement;if(dialog?.open)dialog.close();});
  }
