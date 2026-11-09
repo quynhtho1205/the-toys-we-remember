@@ -97,26 +97,68 @@ export function feedback(text: string) {
     : 'other';
 }
 
-const examples = [
-  'Bé 3 tuổi chơi bộ này được chưa?',
-  'Nhựa này có an toàn không shop?',
-  'Hướng dẫn cách chơi với ạ',
-  'Bao nhiêu tiền, có voucher không?',
-  'Có giúp con phát triển tư duy không?',
-  'Bé 4 tuổi dùng được không, có chi tiết nhỏ dễ nuốt không?',
-  'Đẹp quá ❤️',
-  'Chốt đơn một bộ nhé',
-  'Cách lắp ráp có khó không?',
-  'Có mã ưu đãi livestream không?',
-];
+// Mẫu bình luận demo: mỗi chủ đề có nhiều cách hỏi khác nhau,
+// số lượng khác nhau theo từng kênh để tỷ trọng chủ đề phản ánh thực tế hơn.
+const pool: Record<string, string[]> = {
+  age: [
+    'Bé 3 tuổi chơi bộ này được chưa?',
+    'Bé 4 tuổi dùng được không shop?',
+    'Con mình 5 tuổi thì chọn bộ nào?',
+    'Bé 18 tháng tuổi chơi được không ạ?',
+    'Bé 6 tuổi chơi có bị dễ quá không?',
+  ],
+  safety: [
+    'Nhựa này có an toàn không shop?',
+    'Có chi tiết nhỏ dễ nuốt không?',
+    'Chất liệu có độc hại không ạ?',
+    'Cạnh sắc không, bé hay cầm cho vào miệng',
+  ],
+  play: [
+    'Hướng dẫn cách chơi với ạ',
+    'Cách lắp ráp có khó không?',
+    'Mua về chơi sao vậy shop?',
+    'Có video hướng dẫn lắp ráp không?',
+    'Luật chơi có dễ hiểu với bé không?',
+  ],
+  price: [
+    'Bao nhiêu tiền, có voucher không?',
+    'Có mã ưu đãi livestream không?',
+    'Giá bộ này bao nhiêu vậy shop?',
+    'Hôm nay có sale không ạ?',
+    'Áp voucher thì giảm còn bao nhiêu?',
+  ],
+  benefit: [
+    'Có giúp con phát triển tư duy không?',
+    'Chơi cái này có giúp bé tập trung hơn không?',
+    'Bộ này rèn kỹ năng gì cho bé ạ?',
+  ],
+  other: ['Đẹp quá ❤️', 'Chốt đơn một bộ nhé', 'Shop ship Hà Nội mất mấy ngày?', 'Màu xanh còn hàng không?'],
+};
 
-const samples: Comment[] = Array.from({ length: 150 }, (_, i) => ({
-  id: 'LC' + i,
-  name: ['Mẹ Bắp', 'Ba Sóc', 'Mẹ An', 'Ba Minh', 'Mẹ Gấu'][i % 5] + ' ' + (i + 1),
-  text: examples[i % examples.length],
-  source: ['facebook', 'tiktok', 'youtube'][i % 3],
-  time: `20:${String(Math.floor(i/3)).padStart(2, '0')}`,
-}));
+// Số bình luận theo chủ đề cho từng kênh: [phiên family, phiên creative]
+const mix: Record<string, Record<string, [number, number]>> = {
+  facebook: { price: [14, 4], age: [9, 5], safety: [6, 2], play: [3, 4], benefit: [2, 3], other: [3, 2] },
+  tiktok: { price: [8, 3], age: [4, 2], safety: [2, 1], play: [10, 9], benefit: [1, 2], other: [5, 4] },
+  youtube: { price: [2, 1], age: [3, 2], safety: [4, 2], play: [7, 7], benefit: [5, 4], other: [2, 3] },
+};
+
+function buildSamples(session: 0 | 1, offset: number): Comment[] {
+  const out: Comment[] = [];
+  const names = ['Mẹ Bắp', 'Ba Sóc', 'Mẹ An', 'Ba Minh', 'Mẹ Gấu'];
+  for (const [source, topics] of Object.entries(mix))
+    for (const [topic, counts] of Object.entries(topics))
+      for (let k = 0; k < counts[session]; k++) out.push({ id: '', name: '', text: pool[topic][(k + offset) % pool[topic].length], source, time: '' });
+  // Trộn xen kẽ theo thứ tự cố định để danh sách trông tự nhiên
+  const mixed = out.map((c, i) => ({ c, k: (i * 37) % out.length })).sort((a, b) => a.k - b.k).map((x) => x.c);
+  return mixed.map((c, i) => ({
+    ...c,
+    id: 'LC' + (offset + i),
+    name: names[i % 5] + ' ' + (offset + i + 1),
+    time: `20:${String(Math.floor(i / 3)).padStart(2, '0')}`,
+  }));
+}
+
+const samples: Comment[] = [...buildSamples(0, 0), ...buildSamples(1, 90)];
 
 export function channelLabel(k: string) {
   return ({ facebook: 'Facebook', tiktok: 'TikTok', youtube: 'YouTube', zalo: 'Zalo', instagram: 'Instagram', direct: 'Truy cập trực tiếp', manual: 'Nhập tay' } as Record<string, string>)[k] || k;
